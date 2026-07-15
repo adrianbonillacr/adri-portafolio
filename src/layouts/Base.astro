@@ -1,0 +1,50 @@
+---
+/**
+ * Layout base: metadatos, tipografías autoalojadas, estilos globales,
+ * marco de galería y scripts de interacción.
+ */
+import '@fontsource-variable/montserrat';
+import '@fontsource-variable/bodoni-moda';
+import '@fontsource-variable/bodoni-moda/wght-italic.css';
+import '@fontsource/space-mono/400.css';
+import '../styles/tokens.css';
+import '../styles/base.css';
+import { useTranslations } from '../i18n';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const t = useTranslations('es');
+const { title = t.meta.title, description = t.meta.description } = Astro.props;
+const ogImage = new URL('/assets/og.jpg', Astro.site);
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0e0e0e" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="canonical" href={Astro.site} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={Astro.site} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">{t.a11y.skip}</a>
+    <div class="gallery-frame" aria-hidden="true"></div>
+    <slot />
+    <script src="../scripts/reveal.js"></script>
+    <script src="../scripts/cursor.js"></script>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+---
+import { useTranslations } from '../i18n';
+
+const t = useTranslations('es');
+---
+
+<header class="site-header">
+  <a class="brand" href="/" aria-label={t.a11y.home}>
+    <img src="/assets/monogram.png" alt="" width="297" height="195" loading="eager" />
+  </a>
+</header>
+
+<style>
+  .site-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-header);
+    display: flex;
+    align-items: center;
+    padding: calc(var(--frame) + 1.1rem) calc(var(--frame) + 1.5rem);
+    animation: header-in 1.2s var(--ease-out) 0.9s both;
+  }
+
+  .brand img {
+    height: 32px;
+    width: auto;
+    opacity: 0.95;
+    transition: opacity var(--dur-fast) var(--ease-out);
+  }
+
+  .brand:hover img {
+    opacity: 1;
+  }
+
+  @keyframes header-in {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .brand img {
+      height: 26px;
+    }
+  }
+</style>

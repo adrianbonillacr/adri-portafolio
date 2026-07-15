@@ -1,0 +1,14 @@
+# dependencias
+node_modules/
+
+# build
+dist/
+.astro/
+
+# sistema
+.DS_Store
+Thumbs.db
+
+# entorno
+.env
+.env.*

@@ -1,0 +1,37 @@
+---
+/**
+ * Cierre provisional de la página mientras se desarrollan
+ * las siguientes secciones del portafolio.
+ */
+import { useTranslations } from '../i18n';
+
+const t = useTranslations('es');
+---
+
+<section class="coming container">
+  <span class="line" aria-hidden="true" data-reveal></span>
+  <p class="soon" data-reveal style="--reveal-delay: 160ms">{t.coming}</p>
+</section>
+
+<style>
+  .coming {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-lg);
+    padding-block: var(--space-xl) var(--space-section);
+  }
+
+  .line {
+    width: 1px;
+    height: 56px;
+    background: linear-gradient(to bottom, transparent, var(--color-ink-faint));
+  }
+
+  .soon {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.42em;
+    color: var(--color-ink-muted);
+  }
+</style>

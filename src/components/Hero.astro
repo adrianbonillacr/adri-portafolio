@@ -1,0 +1,177 @@
+---
+/**
+ * Hero híbrido: monograma AB como imagen de marca,
+ * nombre y tagline como texto vivo (nítido, accesible, indexable).
+ */
+import { useTranslations } from '../i18n';
+
+const t = useTranslations('es');
+---
+
+<section class="hero">
+  <div class="lockup">
+    <img
+      class="monogram"
+      src="/assets/monogram.png"
+      alt={t.a11y.monogramAlt}
+      width="297"
+      height="195"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <h1 class="name">
+      <span class="first">{t.hero.firstName}</span>
+      <span class="last">{t.hero.lastName}</span>
+    </h1>
+  </div>
+
+  <p class="tagline">{t.hero.tagline}</p>
+
+  <a class="cta" href="#manifiesto" aria-label={t.a11y.scrollHint}>
+    <span class="line" aria-hidden="true"></span>
+  </a>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: calc(var(--frame) + 4.5rem) var(--gutter) calc(var(--frame) + 5.5rem);
+  }
+
+  .lockup {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.5rem, 4vw, 2.75rem);
+    animation: rise 1.3s var(--ease-out) 0.15s both;
+  }
+
+  .monogram {
+    height: clamp(5.5rem, 7vw + 2.5rem, 9.5rem);
+    width: auto;
+  }
+
+  .name {
+    text-align: left;
+    text-transform: uppercase;
+    line-height: 1.04;
+    font-weight: 400;
+  }
+
+  .name span {
+    display: block;
+  }
+
+  .first {
+    font-size: clamp(2.05rem, 3.4vw + 0.9rem, 4rem);
+    font-weight: 800;
+    letter-spacing: 0.02em;
+  }
+
+  .last {
+    font-size: clamp(1.45rem, 2.4vw + 0.64rem, 2.84rem);
+    font-weight: 300;
+    letter-spacing: 0.06em;
+  }
+
+  .tagline {
+    margin-top: clamp(3.5rem, 10vh, 7rem);
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.38em;
+    color: var(--color-ink-muted);
+    animation: rise 1.3s var(--ease-out) 0.55s both;
+  }
+
+  .cta {
+    position: absolute;
+    bottom: calc(var(--frame) + 1.5rem);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.26em;
+    color: var(--color-ink-muted);
+    transition: color var(--dur-fast) var(--ease-out);
+    animation: rise 1.3s var(--ease-out) 0.95s both;
+  }
+
+  .cta:hover {
+    color: var(--color-ink);
+  }
+
+  .line {
+    width: 1px;
+    height: 42px;
+    background: linear-gradient(to bottom, currentColor, transparent);
+    animation: breathe 3.2s var(--ease-out) infinite;
+    transform-origin: top;
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(26px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes breathe {
+    0%,
+    100% {
+      transform: scaleY(0.55);
+      opacity: 0.5;
+    }
+    50% {
+      transform: scaleY(1);
+      opacity: 1;
+    }
+  }
+
+  /* la animación del CTA usa translateX para centrarse: darle su propio keyframe */
+  .cta {
+    animation-name: rise-centered;
+  }
+
+  @keyframes rise-centered {
+    from {
+      opacity: 0;
+      transform: translateX(-50%) translateY(26px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .lockup {
+      flex-direction: column;
+      gap: 2.2rem;
+    }
+
+    .name {
+      text-align: center;
+    }
+
+    .monogram {
+      height: clamp(5rem, 22vw, 7rem);
+    }
+
+    .tagline {
+      margin-top: 3.25rem;
+    }
+  }
+</style>

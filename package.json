@@ -1,0 +1,18 @@
+{
+  "name": "adrianbonilla-art",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Portafolio personal de Adrián D. Bonilla — art · music · love",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@fontsource-variable/bodoni-moda": "^5.2.0",
+    "@fontsource-variable/montserrat": "^5.2.0",
+    "@fontsource/space-mono": "^5.2.0",
+    "astro": "^5.0.0"
+  }
+}

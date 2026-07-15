@@ -21,7 +21,6 @@ export default {
     tagline: 'art – music – love',
   },
   statement: {
-    label: '01 — manifiesto',
     text: 'In love we trust.',
   },
   coming: 'coming soon',

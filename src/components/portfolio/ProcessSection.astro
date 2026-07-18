@@ -1,0 +1,96 @@
+---
+/**
+ * Proceso creativo por etapas numeradas. Si existe el video
+ * `videos/process.*` del proyecto, se integra al final en
+ * autoplay silencioso.
+ */
+import { useTranslations } from '../../i18n';
+import SmartVideo from './SmartVideo.astro';
+
+interface Props {
+  steps: { title: string; description: string }[];
+  processVideo?: string | null;
+}
+
+const { steps, processVideo = null } = Astro.props;
+const t = useTranslations('es');
+---
+
+<section class="process container">
+  <span class="label" data-reveal>{t.portfolio.project.process}</span>
+
+  <ol>
+    {
+      steps.map((step, index) => (
+        <li data-reveal style={`--reveal-delay: ${(index % 3) * 120}ms`}>
+          <span class="index" aria-hidden="true">
+            {String(index + 1).padStart(2, '0')}
+          </span>
+          <h3>{step.title}</h3>
+          <p>{step.description}</p>
+        </li>
+      ))
+    }
+  </ol>
+
+  {
+    processVideo && (
+      <div class="video" data-reveal>
+        <SmartVideo src={processVideo} ratio="16 / 9" mode="autoplay" title={t.portfolio.project.process} />
+      </div>
+    )
+  }
+</section>
+
+<style>
+  .process {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    padding-block: var(--space-xl);
+  }
+
+  ol {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  ol li {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--color-line-soft);
+  }
+
+  .index {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.3em;
+    color: var(--color-ink-faint);
+  }
+
+  h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 480;
+    line-height: 1.25;
+  }
+
+  p {
+    color: var(--color-ink-muted);
+    font-size: var(--text-sm);
+  }
+
+  .video {
+    margin-top: var(--space-md);
+  }
+
+  @media (max-width: 860px) {
+    ol {
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+  }
+</style>

@@ -1,0 +1,57 @@
+---
+/**
+ * Cierre de caso de estudio: navegación al siguiente proyecto.
+ */
+import { useTranslations } from '../../i18n';
+
+interface Props {
+  href: string;
+  title: string;
+}
+
+const { href, title } = Astro.props;
+const t = useTranslations('es');
+---
+
+<section class="next-project container">
+  <a href={href} data-reveal>
+    <span class="label">{t.portfolio.project.next}</span>
+    <span class="title">{title} →</span>
+  </a>
+</section>
+
+<style>
+  .next-project {
+    display: flex;
+    justify-content: center;
+    padding-block: var(--space-xl) var(--space-section);
+  }
+
+  a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    text-align: center;
+    padding: var(--space-lg) var(--space-xl);
+    border: 1px solid var(--color-line-soft);
+    width: 100%;
+    transition: border-color var(--dur-fast) var(--ease-out);
+  }
+
+  a:hover {
+    border-color: var(--color-line);
+  }
+
+  .title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 440;
+    line-height: 1.1;
+    transition: opacity var(--dur-fast) var(--ease-out);
+  }
+
+  a:hover .title {
+    opacity: 0.75;
+  }
+</style>

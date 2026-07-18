@@ -1,0 +1,46 @@
+[
+  {
+    "id": "branding",
+    "title": "[Placeholder] Servicio 01",
+    "description": "[Placeholder] Descripción del servicio: qué problema resuelve y qué incluye.",
+    "deliverables": [
+      "[Placeholder] Entregable",
+      "[Placeholder] Entregable",
+      "[Placeholder] Entregable"
+    ],
+    "order": 1
+  },
+  {
+    "id": "direccion-creativa",
+    "title": "[Placeholder] Servicio 02",
+    "description": "[Placeholder] Descripción del servicio: qué problema resuelve y qué incluye.",
+    "deliverables": [
+      "[Placeholder] Entregable",
+      "[Placeholder] Entregable",
+      "[Placeholder] Entregable"
+    ],
+    "order": 2
+  },
+  {
+    "id": "estrategia",
+    "title": "[Placeholder] Servicio 03",
+    "description": "[Placeholder] Descripción del servicio: qué problema resuelve y qué incluye.",
+    "deliverables": [
+      "[Placeholder] Entregable",
+      "[Placeholder] Entregable",
+      "[Placeholder] Entregable"
+    ],
+    "order": 3
+  },
+  {
+    "id": "comunicacion-visual",
+    "title": "[Placeholder] Servicio 04",
+    "description": "[Placeholder] Descripción del servicio: qué problema resuelve y qué incluye.",
+    "deliverables": [
+      "[Placeholder] Entregable",
+      "[Placeholder] Entregable",
+      "[Placeholder] Entregable"
+    ],
+    "order": 4
+  }
+]

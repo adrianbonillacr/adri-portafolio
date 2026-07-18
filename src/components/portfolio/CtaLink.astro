@@ -1,0 +1,56 @@
+---
+/**
+ * CTA de la sección de portafolio: enlace mono en caja fina,
+ * con variante sólida (tinta invertida) y fantasma (borde).
+ */
+interface Props {
+  href: string;
+  variant?: 'solid' | 'ghost';
+}
+
+const { href, variant = 'ghost' } = Astro.props;
+---
+
+<a class:list={['cta-link', `is-${variant}`]} href={href}>
+  <slot />
+</a>
+
+<style>
+  .cta-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.9rem 1.9rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.24em;
+    text-transform: lowercase;
+    border: 1px solid var(--color-line);
+    transition:
+      background-color var(--dur-fast) var(--ease-out),
+      border-color var(--dur-fast) var(--ease-out),
+      color var(--dur-fast) var(--ease-out);
+  }
+
+  .is-ghost {
+    color: var(--color-ink-muted);
+  }
+
+  .is-ghost:hover {
+    color: var(--color-bg);
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+  }
+
+  .is-solid {
+    color: var(--color-bg);
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+  }
+
+  .is-solid:hover {
+    background: transparent;
+    color: var(--color-ink);
+    border-color: var(--color-line);
+  }
+</style>

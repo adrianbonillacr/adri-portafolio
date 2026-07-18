@@ -1,0 +1,49 @@
+---
+/**
+ * Cabecera de sección: etiqueta mono + título display, con aparición
+ * al hacer scroll. Reutilizada por todas las secciones del portafolio.
+ */
+interface Props {
+  label: string;
+  title: string;
+  intro?: string;
+  align?: 'start' | 'center';
+}
+
+const { label, title, intro, align = 'start' } = Astro.props;
+---
+
+<div class:list={['section-header', `is-${align}`]}>
+  <span class="label" data-reveal>{label}</span>
+  <h2 data-reveal style="--reveal-delay: 120ms">{title}</h2>
+  {intro && <p class="intro" data-reveal style="--reveal-delay: 220ms">{intro}</p>}
+</div>
+
+<style>
+  .section-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-bottom: clamp(2.75rem, 2rem + 4vw, 5rem);
+    max-width: 46rem;
+  }
+
+  .is-center {
+    align-items: center;
+    text-align: center;
+    margin-inline: auto;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 460;
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+
+  .intro {
+    color: var(--color-ink-muted);
+    max-width: 38rem;
+  }
+</style>

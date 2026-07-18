@@ -2,6 +2,10 @@
 /**
  * Layout base: metadatos, tipografías autoalojadas, estilos globales,
  * marco de galería y scripts de interacción.
+ *
+ * `path` y `schema` son extensiones opcionales para las páginas internas
+ * (canónica correcta + JSON-LD); sin ellas el comportamiento es idéntico
+ * al original.
  */
 import '@fontsource-variable/montserrat';
 import '@fontsource-variable/bodoni-moda';
@@ -14,10 +18,20 @@ import { useTranslations } from '../i18n';
 interface Props {
   title?: string;
   description?: string;
+  /** Ruta canónica de la página, ej. '/portafolio'. Por defecto la raíz. */
+  path?: string;
+  /** Datos estructurados Schema.org (objeto o lista) inyectados como JSON-LD. */
+  schema?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const t = useTranslations('es');
-const { title = t.meta.title, description = t.meta.description } = Astro.props;
+const {
+  title = t.meta.title,
+  description = t.meta.description,
+  path = '/',
+  schema,
+} = Astro.props;
+const canonical = new URL(path, Astro.site);
 const ogImage = new URL('/assets/og.jpg', Astro.site);
 ---
 
@@ -31,14 +45,16 @@ const ogImage = new URL('/assets/og.jpg', Astro.site);
     <meta name="description" content={description} />
     <meta name="theme-color" content="#0e0e0e" />
     <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="canonical" href={Astro.site} />
+    <link rel="canonical" href={canonical} />
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={Astro.site} />
+    <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
+
+    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
   </head>
   <body>
     <a class="skip-link" href="#contenido">{t.a11y.skip}</a>

@@ -1,0 +1,131 @@
+---
+/**
+ * Caso de estudio anidado (Advanced, LAGE): misma arquitectura
+ * exacta que una página de proyecto, con contenido placeholder
+ * hasta la fase 2. Sus medios viven en
+ * public/portfolio/<proyecto>/<caso>/.
+ */
+import { getCollection } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import { useTranslations } from '../../../i18n';
+import PortfolioNav from '../../../components/portfolio/PortfolioNav.astro';
+import CaseStudyArticle from '../../../components/portfolio/CaseStudyArticle.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+
+  return projects
+    .filter((project) => project.data.caseStudies.length > 0)
+    .flatMap((project) =>
+      project.data.caseStudies.map((caseStudy, index) => {
+        const siblings = project.data.caseStudies;
+        const next = siblings[(index + 1) % siblings.length];
+        return {
+          params: { project: project.id, caso: caseStudy.id },
+          props: {
+            parentId: project.id,
+            parentTitle: project.data.title,
+            caseStudy,
+            next: {
+              title: `${next.title} — ${project.data.title}`,
+              href: `/portafolio/${project.id}/${next.id}`,
+            },
+          },
+        };
+      })
+    );
+}
+
+const { parentId, parentTitle, caseStudy, next } = Astro.props;
+const t = useTranslations('es');
+const path = `/portafolio/${parentId}/${caseStudy.id}`;
+
+/* Contenido estructural en espera de la fase 2 (solo placeholders). */
+const placeholders = {
+  challenge:
+    '[Placeholder] El problema de negocio o de marca que existía antes de empezar este caso.',
+  objective: '[Placeholder] Qué se buscaba lograr con este caso: objetivos concretos y medibles.',
+  role: '[Placeholder] Mi rol dentro de este caso: responsabilidades y alcance.',
+  strategy: '[Placeholder] La estrategia detrás de las decisiones de este caso.',
+  process: [
+    { title: '[Etapa 01]', description: '[Placeholder] Descripción breve de esta etapa.' },
+    { title: '[Etapa 02]', description: '[Placeholder] Descripción breve de esta etapa.' },
+    { title: '[Etapa 03]', description: '[Placeholder] Descripción breve de esta etapa.' },
+  ],
+  results: {
+    summary: '[Placeholder] Resumen de resultados de este caso.',
+    metrics: [
+      { value: '00%', label: '[Placeholder] métrica' },
+      { value: '00%', label: '[Placeholder] métrica' },
+      { value: '00', label: '[Placeholder] métrica' },
+    ],
+  },
+};
+
+const title = `${caseStudy.title} — ${parentTitle} · ${t.hero.firstName} ${t.hero.lastName}`;
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: `${caseStudy.title} — ${parentTitle}`,
+    description: caseStudy.description,
+    url: new URL(path, Astro.site).href,
+    isPartOf: {
+      '@type': 'CreativeWork',
+      name: parentTitle,
+      url: new URL(`/portafolio/${parentId}`, Astro.site).href,
+    },
+    author: {
+      '@type': 'Person',
+      name: `${t.hero.firstName} ${t.hero.lastName}`,
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: t.portfolio.meta.title,
+        item: new URL('/portafolio', Astro.site).href,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: parentTitle,
+        item: new URL(`/portafolio/${parentId}`, Astro.site).href,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: caseStudy.title,
+        item: new URL(path, Astro.site).href,
+      },
+    ],
+  },
+];
+---
+
+<Base title={title} description={caseStudy.description} path={path} schema={schema}>
+  <PortfolioNav />
+  <main id="contenido">
+    <CaseStudyArticle
+      mediaId={`${parentId}/${caseStudy.id}`}
+      title={caseStudy.title}
+      tagline={caseStudy.tagline}
+      description={caseStudy.description}
+      disciplines={[]}
+      challenge={placeholders.challenge}
+      objective={placeholders.objective}
+      role={placeholders.role}
+      strategy={placeholders.strategy}
+      process={placeholders.process}
+      results={placeholders.results}
+      next={next}
+      backHref={`/portafolio/${parentId}`}
+      backLabel={parentTitle.toLowerCase()}
+    />
+  </main>
+</Base>

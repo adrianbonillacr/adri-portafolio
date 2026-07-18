@@ -1,0 +1,57 @@
+---
+/**
+ * Navegación de casos de estudio anidados (Advanced, LAGE):
+ * reutiliza exactamente la misma tarjeta premium del portafolio.
+ */
+import { useTranslations } from '../../i18n';
+import { getProjectMedia } from '../../lib/media';
+import ProjectCard from './ProjectCard.astro';
+
+interface Props {
+  projectId: string;
+  caseStudies: { id: string; title: string; tagline: string; description: string }[];
+}
+
+const { projectId, caseStudies } = Astro.props;
+const t = useTranslations('es');
+---
+
+<section class="case-studies container">
+  <span class="label" data-reveal>{t.portfolio.project.caseStudies}</span>
+
+  <div class="grid">
+    {
+      caseStudies.map((caseStudy, index) => (
+        <ProjectCard
+          href={`/portafolio/${projectId}/${caseStudy.id}`}
+          title={caseStudy.title}
+          tagline={caseStudy.tagline}
+          disciplines={[]}
+          index={index}
+          image={getProjectMedia(`${projectId}/${caseStudy.id}`).hero}
+        />
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .case-studies {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    padding-block: var(--space-xl);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
+  @media (max-width: 860px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,228 @@
+---
+/**
+ * Experiencia profesional en formato timeline: línea vertical,
+ * marcadores y detalle por etapa (cargo, fechas, responsabilidades,
+ * logros, herramientas). Si la etapa tiene proyecto relacionado,
+ * enlaza a su caso de estudio.
+ */
+import { getCollection } from 'astro:content';
+import { useTranslations } from '../../i18n';
+import SectionHeader from './SectionHeader.astro';
+
+const t = useTranslations('es');
+const entries = (await getCollection('experience')).sort((a, b) => a.data.order - b.data.order);
+const projects = await getCollection('projects');
+const projectIds = new Set(projects.map((project) => project.id));
+---
+
+<section id="experiencia" class="experience container">
+  <SectionHeader label={t.portfolio.experience.label} title={t.portfolio.experience.title} />
+
+  <ol class="timeline">
+    {
+      entries.map((entry, index) => {
+        const { data } = entry;
+        const hasProject = data.projectId && projectIds.has(data.projectId);
+        return (
+          <li data-reveal style={`--reveal-delay: ${(index % 3) * 100}ms`}>
+            <span class="marker" aria-hidden="true" />
+            <div class="head">
+              <span class="period">{data.period}</span>
+              <h3>{data.company}</h3>
+              <p class="role">{data.role}</p>
+              <p class="summary">{data.summary}</p>
+            </div>
+
+            <div class="detail">
+              <div class="block">
+                <span class="block-label">{t.portfolio.experience.responsibilities}</span>
+                <ul>
+                  {data.responsibilities.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div class="block">
+                <span class="block-label">{t.portfolio.experience.achievements}</span>
+                <ul>
+                  {data.achievements.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div class="block">
+                <span class="block-label">{t.portfolio.experience.tools}</span>
+                <ul class="chips">
+                  {data.tools.map((tool) => (
+                    <li>{tool}</li>
+                  ))}
+                </ul>
+              </div>
+
+              {hasProject && (
+                <a class="project-link" href={`/portafolio/${data.projectId}`}>
+                  {t.portfolio.experience.viewProject} →
+                </a>
+              )}
+            </div>
+          </li>
+        );
+      })
+    }
+  </ol>
+</section>
+
+<style>
+  .experience {
+    padding-block: var(--space-section);
+  }
+
+  .timeline {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    padding-left: clamp(1.75rem, 4vw, 3rem);
+  }
+
+  /* línea vertical continua del timeline */
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 0.4rem;
+    bottom: 0.4rem;
+    left: 0;
+    width: 1px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      var(--color-line) 8%,
+      var(--color-line) 92%,
+      transparent
+    );
+  }
+
+  li {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(14rem, 1fr) 2fr;
+    gap: var(--space-lg);
+  }
+
+  .marker {
+    position: absolute;
+    top: 0.4rem;
+    left: calc(-1 * clamp(1.75rem, 4vw, 3rem));
+    translate: -50% 0;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: 1px solid var(--color-ink-muted);
+    background: var(--color-bg);
+  }
+
+  .head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+  }
+
+  .period {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.26em;
+    text-transform: lowercase;
+    color: var(--color-ink-faint);
+  }
+
+  h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 460;
+    line-height: 1.12;
+  }
+
+  .role {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  .summary {
+    color: var(--color-ink-muted);
+    font-size: var(--text-sm);
+  }
+
+  .detail {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    padding-top: 0.3rem;
+  }
+
+  .block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+  }
+
+  .block-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.26em;
+    text-transform: lowercase;
+    color: var(--color-ink-faint);
+  }
+
+  .block ul:not(.chips) li {
+    color: var(--color-ink-muted);
+    font-size: var(--text-sm);
+    padding-left: 1.1rem;
+    position: relative;
+  }
+
+  .block ul:not(.chips) li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--color-ink-faint);
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .chips li {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.14em;
+    text-transform: lowercase;
+    color: var(--color-ink-faint);
+    border: 1px solid var(--color-line-soft);
+    padding: 0.3rem 0.7rem;
+  }
+
+  .project-link {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.22em;
+    text-transform: lowercase;
+    color: var(--color-ink-muted);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  .project-link:hover {
+    color: var(--color-ink);
+  }
+
+  @media (max-width: 860px) {
+    li {
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+  }
+</style>

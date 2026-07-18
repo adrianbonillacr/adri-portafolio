@@ -1,0 +1,89 @@
+---
+/**
+ * Estructura completa y única de un caso de estudio.
+ * La usan tanto las páginas de proyecto (/portafolio/<id>) como los
+ * casos anidados de Advanced y LAGE (/portafolio/<id>/<caso>), de modo
+ * que todas comparten exactamente la misma arquitectura:
+ * hero → desafío/objetivo/rol/estrategia → proceso → resultados →
+ * galería → [casos de estudio] → próximo proyecto.
+ */
+import { getProjectMedia } from '../../lib/media';
+import ProjectHero from './ProjectHero.astro';
+import ProjectBrief from './ProjectBrief.astro';
+import ProcessSection from './ProcessSection.astro';
+import ResultsSection from './ResultsSection.astro';
+import ProjectGallery from './ProjectGallery.astro';
+import CaseStudyList from './CaseStudyList.astro';
+import NextProject from './NextProject.astro';
+
+interface Props {
+  /** Carpeta de medios bajo public/portfolio/, ej. 'distrito11' o 'advanced/proyecto-1'. */
+  mediaId: string;
+  title: string;
+  tagline: string;
+  description: string;
+  disciplines: string[];
+  challenge: string;
+  objective: string;
+  role: string;
+  strategy: string;
+  process: { title: string; description: string }[];
+  results: { summary: string; metrics: { value: string; label: string }[] };
+  galleryPlaceholders?: number;
+  /** Solo proyectos contenedores: casos anidados a listar. */
+  caseStudies?: { id: string; title: string; tagline: string; description: string }[];
+  next: { title: string; href: string };
+  backHref?: string;
+  backLabel?: string;
+}
+
+const {
+  mediaId,
+  title,
+  tagline,
+  description,
+  disciplines,
+  challenge,
+  objective,
+  role,
+  strategy,
+  process,
+  results,
+  galleryPlaceholders = 6,
+  caseStudies = [],
+  next,
+  backHref,
+  backLabel,
+} = Astro.props;
+
+const media = getProjectMedia(mediaId);
+---
+
+<article>
+  <ProjectHero
+    {title}
+    {tagline}
+    {description}
+    {disciplines}
+    hero={media.hero}
+    heroVideo={media.heroVideo}
+    {backHref}
+    {backLabel}
+  />
+
+  <ProjectBrief {challenge} {objective} {role} {strategy} />
+
+  <ProcessSection steps={process} processVideo={media.videos.process ?? null} />
+
+  <ResultsSection summary={results.summary} metrics={results.metrics} />
+
+  <ProjectGallery
+    items={media.gallery}
+    placeholders={galleryPlaceholders}
+    projectTitle={title}
+  />
+
+  {caseStudies.length > 0 && <CaseStudyList projectId={mediaId} caseStudies={caseStudies} />}
+
+  <NextProject href={next.href} title={next.title} />
+</article>

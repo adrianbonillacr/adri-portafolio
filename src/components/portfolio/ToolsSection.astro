@@ -1,0 +1,125 @@
+---
+/**
+ * Software y herramientas, agrupadas por categoría.
+ * Cada herramienta reserva su espacio de icono: si existe
+ * `public/assets/tools/<id>.svg` se muestra; si no, la inicial
+ * del nombre dentro del mismo marco.
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import { getCollection } from 'astro:content';
+import { useTranslations } from '../../i18n';
+import SectionHeader from './SectionHeader.astro';
+
+const t = useTranslations('es');
+const tools = (await getCollection('tools')).sort((a, b) => a.data.order - b.data.order);
+
+const categories = [...new Set(tools.map((tool) => tool.data.category))];
+
+function iconFor(toolId: string): string | null {
+  const iconPath = path.resolve('public', 'assets', 'tools', `${toolId}.svg`);
+  return fs.existsSync(iconPath) ? `/assets/tools/${toolId}.svg` : null;
+}
+---
+
+<section id="herramientas" class="tools container">
+  <SectionHeader label={t.portfolio.tools.label} title={t.portfolio.tools.title} />
+
+  <div class="categories">
+    {
+      categories.map((category, categoryIndex) => (
+        <div class="category" data-reveal style={`--reveal-delay: ${categoryIndex * 100}ms`}>
+          <span class="category-label">{category}</span>
+          <ul>
+            {tools
+              .filter((tool) => tool.data.category === category)
+              .map((tool) => {
+                const icon = iconFor(tool.id);
+                return (
+                  <li>
+                    <span class="icon" aria-hidden="true">
+                      {icon ? (
+                        <img src={icon} alt="" width="22" height="22" loading="lazy" />
+                      ) : (
+                        <span class="initial">{tool.data.name.replace(/[\[\]]/g, '').charAt(0)}</span>
+                      )}
+                    </span>
+                    <span class="name">{tool.data.name}</span>
+                  </li>
+                );
+              })}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .tools {
+    padding-block: var(--space-section);
+  }
+
+  .categories {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .category {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--color-line-soft);
+  }
+
+  .category-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.26em;
+    text-transform: lowercase;
+    color: var(--color-ink-faint);
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  ul li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--color-line-soft);
+    background: var(--color-bg-raised);
+    flex-shrink: 0;
+  }
+
+  .initial {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    color: var(--color-ink-faint);
+  }
+
+  .name {
+    font-size: var(--text-sm);
+    color: var(--color-ink-muted);
+  }
+
+  @media (max-width: 860px) {
+    .categories {
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+  }
+</style>

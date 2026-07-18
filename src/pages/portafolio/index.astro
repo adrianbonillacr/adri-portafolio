@@ -1,0 +1,53 @@
+---
+/**
+ * Portada del portafolio profesional:
+ * hero → sobre mí → proyectos → experiencia → servicios →
+ * herramientas → contacto. Todo el contenido proviene de
+ * /content y del diccionario i18n.
+ */
+import Base from '../../layouts/Base.astro';
+import { useTranslations } from '../../i18n';
+import PortfolioNav from '../../components/portfolio/PortfolioNav.astro';
+import PortfolioHero from '../../components/portfolio/PortfolioHero.astro';
+import AboutSection from '../../components/portfolio/AboutSection.astro';
+import ProjectsSection from '../../components/portfolio/ProjectsSection.astro';
+import ExperienceSection from '../../components/portfolio/ExperienceSection.astro';
+import ServicesSection from '../../components/portfolio/ServicesSection.astro';
+import ToolsSection from '../../components/portfolio/ToolsSection.astro';
+import ContactSection from '../../components/portfolio/ContactSection.astro';
+
+const t = useTranslations('es');
+const path = '/portafolio';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  name: t.portfolio.meta.title,
+  description: t.portfolio.meta.description,
+  url: new URL(path, Astro.site).href,
+  mainEntity: {
+    '@type': 'Person',
+    name: `${t.hero.firstName} ${t.hero.lastName}`,
+    url: new URL('/', Astro.site).href,
+    jobTitle: '[Placeholder] Diseñador estratégico · Director creativo',
+  },
+};
+---
+
+<Base
+  title={t.portfolio.meta.title}
+  description={t.portfolio.meta.description}
+  path={path}
+  schema={schema}
+>
+  <PortfolioNav />
+  <main id="contenido">
+    <PortfolioHero />
+    <AboutSection />
+    <ProjectsSection />
+    <ExperienceSection />
+    <ServicesSection />
+    <ToolsSection />
+    <ContactSection />
+  </main>
+</Base>

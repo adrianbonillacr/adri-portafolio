@@ -1,0 +1,121 @@
+---
+/**
+ * Tarjeta premium de proyecto: marco de imagen (o placeholder),
+ * índice mono, título display y disciplinas. Enlaza a la página
+ * individual del caso de estudio.
+ */
+import MediaFrame from './MediaFrame.astro';
+import { useTranslations } from '../../i18n';
+
+interface Props {
+  href: string;
+  title: string;
+  tagline: string;
+  disciplines: string[];
+  index: number;
+  image: string | null;
+}
+
+const { href, title, tagline, disciplines, index, image } = Astro.props;
+const t = useTranslations('es');
+---
+
+<a class="project-card" href={href} data-reveal style={`--reveal-delay: ${(index % 2) * 120}ms`}>
+  <div class="media">
+    <MediaFrame src={image} alt={title} ratio="4 / 3" label={t.portfolio.project.imagePlaceholder} />
+  </div>
+
+  <div class="body">
+    <span class="index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+    <h3>{title}</h3>
+    <p class="tagline">{tagline}</p>
+    <ul class="disciplines" aria-label="Disciplinas">
+      {disciplines.map((discipline) => <li>{discipline}</li>)}
+    </ul>
+    <span class="view">{t.portfolio.projects.view} →</span>
+  </div>
+</a>
+
+<style>
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    border: 1px solid var(--color-line-soft);
+    padding: var(--space-sm);
+    transition: border-color var(--dur-fast) var(--ease-out);
+  }
+
+  .project-card:hover {
+    border-color: var(--color-line);
+  }
+
+  .media {
+    overflow: hidden;
+  }
+
+  .media :global(.media-frame) {
+    transition: transform var(--dur) var(--ease-out);
+  }
+
+  .project-card:hover .media :global(.media-frame) {
+    transform: scale(1.02);
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+    padding: var(--space-2xs) var(--space-2xs) var(--space-xs);
+  }
+
+  .index {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.3em;
+    color: var(--color-ink-faint);
+  }
+
+  h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 460;
+    line-height: 1.1;
+  }
+
+  .tagline {
+    color: var(--color-ink-muted);
+    font-size: var(--text-sm);
+  }
+
+  .disciplines {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: var(--space-2xs);
+  }
+
+  .disciplines li {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.14em;
+    text-transform: lowercase;
+    color: var(--color-ink-faint);
+    border: 1px solid var(--color-line-soft);
+    padding: 0.3rem 0.7rem;
+  }
+
+  .view {
+    margin-top: var(--space-sm);
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.22em;
+    text-transform: lowercase;
+    color: var(--color-ink-muted);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  .project-card:hover .view {
+    color: var(--color-ink);
+  }
+</style>

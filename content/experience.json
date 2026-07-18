@@ -1,0 +1,96 @@
+[
+  {
+    "id": "freelance",
+    "company": "Freelance",
+    "role": "[Placeholder] Cargo",
+    "period": "[Placeholder] Fechas",
+    "summary": "[Placeholder] Resumen de una línea sobre esta etapa profesional.",
+    "responsibilities": [
+      "[Placeholder] Responsabilidad principal",
+      "[Placeholder] Responsabilidad principal",
+      "[Placeholder] Responsabilidad principal"
+    ],
+    "achievements": [
+      "[Placeholder] Logro destacado",
+      "[Placeholder] Logro destacado"
+    ],
+    "tools": ["[Herramienta]", "[Herramienta]", "[Herramienta]"],
+    "order": 1
+  },
+  {
+    "id": "lage-exp",
+    "company": "LAGE",
+    "role": "[Placeholder] Cargo",
+    "period": "[Placeholder] Fechas",
+    "summary": "[Placeholder] Resumen de una línea sobre esta etapa profesional.",
+    "responsibilities": [
+      "[Placeholder] Responsabilidad principal",
+      "[Placeholder] Responsabilidad principal",
+      "[Placeholder] Responsabilidad principal"
+    ],
+    "achievements": [
+      "[Placeholder] Logro destacado",
+      "[Placeholder] Logro destacado"
+    ],
+    "tools": ["[Herramienta]", "[Herramienta]", "[Herramienta]"],
+    "projectId": "lage",
+    "order": 2
+  },
+  {
+    "id": "advanced-exp",
+    "company": "Advanced",
+    "role": "[Placeholder] Cargo",
+    "period": "[Placeholder] Fechas",
+    "summary": "[Placeholder] Resumen de una línea sobre esta etapa profesional.",
+    "responsibilities": [
+      "[Placeholder] Responsabilidad principal",
+      "[Placeholder] Responsabilidad principal",
+      "[Placeholder] Responsabilidad principal"
+    ],
+    "achievements": [
+      "[Placeholder] Logro destacado",
+      "[Placeholder] Logro destacado"
+    ],
+    "tools": ["[Herramienta]", "[Herramienta]", "[Herramienta]"],
+    "projectId": "advanced",
+    "order": 3
+  },
+  {
+    "id": "distrito11-exp",
+    "company": "Distrito 11",
+    "role": "[Placeholder] Cargo",
+    "period": "[Placeholder] Fechas",
+    "summary": "[Placeholder] Resumen de una línea sobre esta etapa profesional.",
+    "responsibilities": [
+      "[Placeholder] Responsabilidad principal",
+      "[Placeholder] Responsabilidad principal",
+      "[Placeholder] Responsabilidad principal"
+    ],
+    "achievements": [
+      "[Placeholder] Logro destacado",
+      "[Placeholder] Logro destacado"
+    ],
+    "tools": ["[Herramienta]", "[Herramienta]", "[Herramienta]"],
+    "projectId": "distrito11",
+    "order": 4
+  },
+  {
+    "id": "mulaila-exp",
+    "company": "Mulaila Gastro Pub",
+    "role": "[Placeholder] Cargo",
+    "period": "[Placeholder] Fechas",
+    "summary": "[Placeholder] Resumen de una línea sobre esta etapa profesional.",
+    "responsibilities": [
+      "[Placeholder] Responsabilidad principal",
+      "[Placeholder] Responsabilidad principal",
+      "[Placeholder] Responsabilidad principal"
+    ],
+    "achievements": [
+      "[Placeholder] Logro destacado",
+      "[Placeholder] Logro destacado"
+    ],
+    "tools": ["[Herramienta]", "[Herramienta]", "[Herramienta]"],
+    "projectId": "mulaila",
+    "order": 5
+  }
+]

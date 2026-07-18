@@ -1,0 +1,10 @@
+[
+  { "id": "tool-01", "name": "[Herramienta 01]", "category": "[Categoría A]", "order": 1 },
+  { "id": "tool-02", "name": "[Herramienta 02]", "category": "[Categoría A]", "order": 2 },
+  { "id": "tool-03", "name": "[Herramienta 03]", "category": "[Categoría A]", "order": 3 },
+  { "id": "tool-04", "name": "[Herramienta 04]", "category": "[Categoría B]", "order": 4 },
+  { "id": "tool-05", "name": "[Herramienta 05]", "category": "[Categoría B]", "order": 5 },
+  { "id": "tool-06", "name": "[Herramienta 06]", "category": "[Categoría B]", "order": 6 },
+  { "id": "tool-07", "name": "[Herramienta 07]", "category": "[Categoría C]", "order": 7 },
+  { "id": "tool-08", "name": "[Herramienta 08]", "category": "[Categoría C]", "order": 8 }
+]

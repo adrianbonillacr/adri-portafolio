@@ -1,0 +1,89 @@
+---
+/**
+ * Resultados del proyecto: resumen + métricas destacadas
+ * en cifras display.
+ */
+import { useTranslations } from '../../i18n';
+
+interface Props {
+  summary: string;
+  metrics: { value: string; label: string }[];
+}
+
+const { summary, metrics } = Astro.props;
+const t = useTranslations('es');
+---
+
+<section class="results container">
+  <span class="label" data-reveal>{t.portfolio.project.results}</span>
+
+  <p class="summary" data-reveal style="--reveal-delay: 120ms">{summary}</p>
+
+  {
+    metrics.length > 0 && (
+      <dl>
+        {metrics.map((metric, index) => (
+          <div class="metric" data-reveal style={`--reveal-delay: ${(index % 3) * 120}ms`}>
+            <dt>{metric.label}</dt>
+            <dd>{metric.value}</dd>
+          </div>
+        ))}
+      </dl>
+    )
+  }
+</section>
+
+<style>
+  .results {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    padding-block: var(--space-xl);
+  }
+
+  .summary {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 440;
+    line-height: 1.3;
+    max-width: 34ch;
+    text-wrap: balance;
+  }
+
+  dl {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin-top: var(--space-sm);
+  }
+
+  .metric {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: var(--space-2xs);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--color-line-soft);
+  }
+
+  dd {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 420;
+    line-height: 1;
+  }
+
+  dt {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.22em;
+    text-transform: lowercase;
+    color: var(--color-ink-faint);
+  }
+
+  @media (max-width: 700px) {
+    dl {
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+  }
+</style>

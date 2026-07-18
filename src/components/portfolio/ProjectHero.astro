@@ -1,0 +1,147 @@
+---
+/**
+ * Hero de caso de estudio: imagen (o video hero si existe en
+ * /videos/hero.*), nombre del proyecto y descripción breve.
+ */
+import { useTranslations } from '../../i18n';
+import MediaFrame from './MediaFrame.astro';
+import SmartVideo from './SmartVideo.astro';
+
+interface Props {
+  title: string;
+  tagline: string;
+  description: string;
+  disciplines: string[];
+  hero: string | null;
+  heroVideo: string | null;
+  /** Destino y texto de la miga de pan (los casos anidados vuelven a su proyecto). */
+  backHref?: string;
+  backLabel?: string;
+}
+
+const t = useTranslations('es');
+const {
+  title,
+  tagline,
+  description,
+  disciplines,
+  hero,
+  heroVideo,
+  backHref = '/portafolio',
+  backLabel = t.portfolio.nav.backToPortfolio,
+} = Astro.props;
+---
+
+<section class="project-hero container">
+  <nav class="breadcrumb" aria-label="Miga de pan">
+    <a href={backHref}>← {backLabel}</a>
+  </nav>
+
+  <div class="heading">
+    <span class="label">{tagline}</span>
+    <h1>{title}</h1>
+    <p class="description">{description}</p>
+    <ul class="disciplines" aria-label="Disciplinas">
+      {disciplines.map((discipline) => <li>{discipline}</li>)}
+    </ul>
+  </div>
+
+  <div class="media">
+    {
+      heroVideo ? (
+        <SmartVideo src={heroVideo} ratio="21 / 9" mode="autoplay" title={title} />
+      ) : (
+        <MediaFrame
+          src={hero}
+          alt={title}
+          ratio="21 / 9"
+          label={t.portfolio.project.imagePlaceholder}
+          loading="eager"
+        />
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .project-hero {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    padding-top: calc(var(--frame) + 8rem);
+  }
+
+  .breadcrumb a {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.22em;
+    text-transform: lowercase;
+    color: var(--color-ink-faint);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  .breadcrumb a:hover {
+    color: var(--color-ink);
+  }
+
+  .heading {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    max-width: 52rem;
+    animation: hero-rise 1.2s var(--ease-out) 0.1s both;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-hero);
+    font-weight: 440;
+    line-height: 1.02;
+    text-wrap: balance;
+  }
+
+  .description {
+    color: var(--color-ink-muted);
+    font-size: var(--text-lg);
+    max-width: 46ch;
+    text-wrap: pretty;
+  }
+
+  .disciplines {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: var(--space-2xs);
+  }
+
+  .disciplines li {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.14em;
+    text-transform: lowercase;
+    color: var(--color-ink-faint);
+    border: 1px solid var(--color-line-soft);
+    padding: 0.3rem 0.7rem;
+  }
+
+  .media {
+    animation: hero-rise 1.2s var(--ease-out) 0.3s both;
+  }
+
+  @keyframes hero-rise {
+    from {
+      opacity: 0;
+      transform: translateY(26px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .project-hero {
+      padding-top: calc(var(--frame) + 10rem);
+    }
+  }
+</style>

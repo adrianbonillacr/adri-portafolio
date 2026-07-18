@@ -1,0 +1,86 @@
+---
+/**
+ * Página individual de caso de estudio.
+ * Generada estáticamente desde content/projects/*.json; la
+ * navegación «próximo proyecto» es cíclica según `order`.
+ */
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { useTranslations } from '../../i18n';
+import PortfolioNav from '../../components/portfolio/PortfolioNav.astro';
+import CaseStudyArticle from '../../components/portfolio/CaseStudyArticle.astro';
+
+export async function getStaticPaths() {
+  const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+
+  return projects.map((project, index) => {
+    const next = projects[(index + 1) % projects.length];
+    return {
+      params: { project: project.id },
+      props: {
+        project,
+        next: { title: next.data.title, href: `/portafolio/${next.id}` },
+      },
+    };
+  });
+}
+
+const { project, next } = Astro.props;
+const { data } = project;
+const t = useTranslations('es');
+const path = `/portafolio/${project.id}`;
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: data.title,
+    description: data.seo.description,
+    url: new URL(path, Astro.site).href,
+    author: {
+      '@type': 'Person',
+      name: `${t.hero.firstName} ${t.hero.lastName}`,
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: t.portfolio.meta.title,
+        item: new URL('/portafolio', Astro.site).href,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: data.title,
+        item: new URL(path, Astro.site).href,
+      },
+    ],
+  },
+];
+---
+
+<Base title={data.seo.title} description={data.seo.description} path={path} schema={schema}>
+  <PortfolioNav />
+  <main id="contenido">
+    <CaseStudyArticle
+      mediaId={project.id}
+      title={data.title}
+      tagline={data.tagline}
+      description={data.description}
+      disciplines={data.disciplines}
+      challenge={data.challenge}
+      objective={data.objective}
+      role={data.role}
+      strategy={data.strategy}
+      process={data.process}
+      results={data.results}
+      galleryPlaceholders={data.galleryPlaceholders}
+      caseStudies={data.caseStudies}
+      next={next}
+    />
+  </main>
+</Base>

@@ -1,0 +1,69 @@
+---
+/**
+ * Información estratégica del proyecto: desafío, objetivo, mi rol
+ * y estrategia, en una retícula editorial de dos columnas.
+ */
+import { useTranslations } from '../../i18n';
+
+interface Props {
+  challenge: string;
+  objective: string;
+  role: string;
+  strategy: string;
+}
+
+const { challenge, objective, role, strategy } = Astro.props;
+const t = useTranslations('es');
+
+const blocks = [
+  { label: t.portfolio.project.challenge, text: challenge },
+  { label: t.portfolio.project.objective, text: objective },
+  { label: t.portfolio.project.role, text: role },
+  { label: t.portfolio.project.strategy, text: strategy },
+];
+---
+
+<section class="project-brief container">
+  <dl>
+    {
+      blocks.map((block, index) => (
+        <div class="block" data-reveal style={`--reveal-delay: ${(index % 2) * 120}ms`}>
+          <dt class="label">{block.label}</dt>
+          <dd>{block.text}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</section>
+
+<style>
+  .project-brief {
+    padding-block: var(--space-xl);
+  }
+
+  dl {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg) var(--space-xl);
+  }
+
+  .block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--color-line-soft);
+  }
+
+  dd {
+    color: var(--color-ink-muted);
+    max-width: 48ch;
+  }
+
+  @media (max-width: 860px) {
+    dl {
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+  }
+</style>

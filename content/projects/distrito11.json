@@ -1,0 +1,38 @@
+{
+  "title": "Distrito 11",
+  "tagline": "[Placeholder] Subtítulo breve del proyecto",
+  "description": "[Placeholder] Descripción corta del proyecto: qué es Distrito 11 y qué se construyó, en dos o tres líneas.",
+  "order": 1,
+  "disciplines": ["[Disciplina 1]", "[Disciplina 2]"],
+  "challenge": "[Placeholder] El problema de negocio o de marca que existía antes de empezar. Contexto, tensión y por qué importaba resolverlo.",
+  "objective": "[Placeholder] Qué se buscaba lograr: objetivos concretos, medibles y alineados con el negocio.",
+  "role": "[Placeholder] Mi rol dentro del proyecto: responsabilidades, alcance y equipo con el que colaboré.",
+  "strategy": "[Placeholder] La estrategia detrás de las decisiones: cómo se tradujo el problema en una dirección creativa clara.",
+  "process": [
+    {
+      "title": "[Etapa 01]",
+      "description": "[Placeholder] Descripción breve de esta etapa del proceso."
+    },
+    {
+      "title": "[Etapa 02]",
+      "description": "[Placeholder] Descripción breve de esta etapa del proceso."
+    },
+    {
+      "title": "[Etapa 03]",
+      "description": "[Placeholder] Descripción breve de esta etapa del proceso."
+    }
+  ],
+  "results": {
+    "summary": "[Placeholder] Resumen de resultados: qué cambió para el negocio después del proyecto.",
+    "metrics": [
+      { "value": "00%", "label": "[Placeholder] métrica" },
+      { "value": "00%", "label": "[Placeholder] métrica" },
+      { "value": "00", "label": "[Placeholder] métrica" }
+    ]
+  },
+  "galleryPlaceholders": 6,
+  "seo": {
+    "title": "Distrito 11 — Caso de estudio · Adrián D. Bonilla",
+    "description": "[Placeholder] Caso de estudio de Distrito 11: branding, dirección creativa y estrategia."
+  }
+}

@@ -1,0 +1,77 @@
+---
+/**
+ * Hero de la portada del portafolio profesional:
+ * nombre, headline, propuesta de valor y CTAs.
+ * Todo el texto proviene del diccionario i18n (placeholders en fase 1).
+ */
+import { useTranslations } from '../../i18n';
+import CtaLink from './CtaLink.astro';
+
+const t = useTranslations('es');
+---
+
+<section class="portfolio-hero">
+  <span class="label" data-reveal>{t.portfolio.hero.label}</span>
+
+  <h1 data-reveal style="--reveal-delay: 120ms">
+    {t.hero.firstName} {t.hero.lastName}
+  </h1>
+
+  <p class="headline" data-reveal style="--reveal-delay: 240ms">
+    {t.portfolio.hero.headline}
+  </p>
+
+  <p class="value" data-reveal style="--reveal-delay: 360ms">
+    {t.portfolio.hero.value}
+  </p>
+
+  <div class="actions" data-reveal style="--reveal-delay: 480ms">
+    <CtaLink href="#proyectos" variant="solid">{t.portfolio.hero.ctaProjects}</CtaLink>
+    <CtaLink href="#contacto">{t.portfolio.hero.ctaContact}</CtaLink>
+  </div>
+</section>
+
+<style>
+  .portfolio-hero {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: var(--space-md);
+    padding: calc(var(--frame) + 6.5rem) var(--gutter) calc(var(--frame) + 4rem);
+  }
+
+  h1 {
+    font-size: clamp(1rem, 0.8rem + 1vw, 1.35rem);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .headline {
+    font-family: var(--font-display);
+    font-size: var(--text-hero);
+    font-weight: 440;
+    line-height: 1.08;
+    max-width: 16ch;
+    text-wrap: balance;
+  }
+
+  .value {
+    color: var(--color-ink-muted);
+    font-size: var(--text-lg);
+    line-height: 1.55;
+    max-width: 44ch;
+    text-wrap: pretty;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
+  }
+</style>

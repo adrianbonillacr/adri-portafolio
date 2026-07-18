@@ -1,0 +1,74 @@
+---
+/**
+ * Sobre mí — enfoque estratégico, no biográfico:
+ * cómo pienso, cómo trabajo, qué problemas resuelvo.
+ */
+import { useTranslations } from '../../i18n';
+import SectionHeader from './SectionHeader.astro';
+
+const t = useTranslations('es');
+---
+
+<section id="sobre-mi" class="about container">
+  <SectionHeader label={t.portfolio.about.label} title={t.portfolio.about.title} />
+
+  <div class="grid">
+    {
+      t.portfolio.about.items.map((item, index) => (
+        <article data-reveal style={`--reveal-delay: ${index * 120}ms`}>
+          <span class="index" aria-hidden="true">
+            {String(index + 1).padStart(2, '0')}
+          </span>
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .about {
+    padding-block: var(--space-section);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  article {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--color-line-soft);
+  }
+
+  .index {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.3em;
+    color: var(--color-ink-faint);
+  }
+
+  h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 480;
+    line-height: 1.25;
+  }
+
+  p {
+    color: var(--color-ink-muted);
+    font-size: var(--text-sm);
+  }
+
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+  }
+</style>

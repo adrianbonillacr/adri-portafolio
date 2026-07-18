@@ -1,0 +1,79 @@
+---
+/**
+ * Galería del proyecto, totalmente funcional desde el día uno:
+ * muestra lo que exista en `public/portfolio/<id>/gallery/`
+ * (imágenes y videos, en orden alfabético) y, mientras no haya
+ * archivos, marcos placeholder listos para recibirlos.
+ */
+import { useTranslations } from '../../i18n';
+import type { GalleryItem } from '../../lib/media';
+import MediaFrame from './MediaFrame.astro';
+import SmartVideo from './SmartVideo.astro';
+
+interface Props {
+  items: GalleryItem[];
+  /** Cantidad de marcos vacíos cuando la carpeta aún no tiene archivos. */
+  placeholders?: number;
+  projectTitle: string;
+}
+
+const { items, placeholders = 6, projectTitle } = Astro.props;
+const t = useTranslations('es');
+const isEmpty = items.length === 0;
+---
+
+<section class="gallery container">
+  <span class="label" data-reveal>{t.portfolio.project.gallery}</span>
+
+  <div class="grid">
+    {
+      isEmpty
+        ? Array.from({ length: placeholders }, (_, index) => (
+            <div data-reveal style={`--reveal-delay: ${(index % 2) * 120}ms`}>
+              <MediaFrame
+                src={null}
+                alt={`${projectTitle} — ${t.portfolio.project.imagePlaceholder} ${index + 1}`}
+                ratio="4 / 3"
+                label={`${t.portfolio.project.imagePlaceholder} — ${String(index + 1).padStart(2, '0')}`}
+              />
+            </div>
+          ))
+        : items.map((item, index) => (
+            <div data-reveal style={`--reveal-delay: ${(index % 2) * 120}ms`}>
+              {item.type === 'image' ? (
+                <MediaFrame src={item.src} alt={`${projectTitle} — ${item.name}`} ratio="4 / 3" />
+              ) : (
+                <SmartVideo
+                  src={item.src}
+                  ratio="4 / 3"
+                  mode="hover"
+                  title={`${projectTitle} — ${item.name}`}
+                />
+              )}
+            </div>
+          ))
+    }
+  </div>
+</section>
+
+<style>
+  .gallery {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    padding-block: var(--space-xl);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
+  @media (max-width: 700px) {
+    .grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-sm);
+    }
+  }
+</style>

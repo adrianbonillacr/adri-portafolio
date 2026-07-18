@@ -1,0 +1,111 @@
+---
+/**
+ * Navegación de la sección de portafolio profesional.
+ * Enlaces absolutos con ancla para funcionar igual desde la portada
+ * de la sección y desde las páginas de proyecto.
+ */
+import { useTranslations } from '../../i18n';
+
+const t = useTranslations('es');
+
+const links = [
+  { href: '/portafolio#sobre-mi', label: t.portfolio.nav.about },
+  { href: '/portafolio#proyectos', label: t.portfolio.nav.projects },
+  { href: '/portafolio#experiencia', label: t.portfolio.nav.experience },
+  { href: '/portafolio#servicios', label: t.portfolio.nav.services },
+  { href: '/portafolio#contacto', label: t.portfolio.nav.contact },
+];
+---
+
+<header class="portfolio-nav">
+  <a class="brand" href="/" aria-label={t.a11y.home}>
+    <img src="/assets/monogram.png" alt="" width="297" height="195" loading="eager" />
+  </a>
+
+  <nav aria-label="Portafolio">
+    <ul>
+      {
+        links.map((link) => (
+          <li>
+            <a href={link.href}>{link.label}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .portfolio-nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-header);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding: calc(var(--frame) + 1.1rem) calc(var(--frame) + 1.5rem);
+    animation: nav-in 1.2s var(--ease-out) 0.6s both;
+  }
+
+  .brand img {
+    height: 32px;
+    width: auto;
+    opacity: 0.95;
+    transition: opacity var(--dur-fast) var(--ease-out);
+  }
+
+  .brand:hover img {
+    opacity: 1;
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: clamp(1rem, 2.5vw, 2.2rem);
+  }
+
+  nav a {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.22em;
+    text-transform: lowercase;
+    color: var(--color-ink-muted);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  nav a:hover {
+    color: var(--color-ink);
+  }
+
+  @keyframes nav-in {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .portfolio-nav {
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .brand img {
+      height: 26px;
+    }
+
+    ul {
+      justify-content: center;
+      gap: 1rem;
+    }
+  }
+</style>

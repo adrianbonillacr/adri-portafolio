@@ -4,8 +4,10 @@
    artística conserva intacto su lenguaje en minúsculas.
    ========================================================== */
 
-/* Etiquetas con capitalización natural (anula la minúscula
-   global de `.label` definida para el teaser) */
+/* Etiquetas con capitalización natural y tracking moderado (anula
+   la minúscula y el espaciado amplio de `.label`, pensados para el
+   lenguaje en minúsculas del teaser) */
 #contenido .label {
   text-transform: none;
+  letter-spacing: 0.2em;
 }

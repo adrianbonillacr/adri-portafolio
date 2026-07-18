@@ -39,7 +39,9 @@ const t = useTranslations('es');
         {
           t.portfolio.contact.socials.map((social) => (
             <li>
-              <a href={social.url}>{social.name}</a>
+              <a href={social.url} target="_blank" rel="noopener noreferrer">
+                {social.name}
+              </a>
             </li>
           ))
         }

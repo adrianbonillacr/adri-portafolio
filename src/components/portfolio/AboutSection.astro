@@ -90,8 +90,10 @@ const pillarIcons = [
 </section>
 
 <style>
+  /* solo padding superior: el espacio entre secciones lo aporta una
+     única sección, evitando dobles bloques en blanco */
   .about {
-    padding-block: var(--space-section);
+    padding-block: var(--space-section) 0;
   }
 
   .profile {
@@ -201,7 +203,6 @@ const pillarIcons = [
     font-size: var(--text-sm);
     line-height: 1.9;
     color: var(--color-ink-muted);
-    max-width: 60ch;
   }
 
   .grid {

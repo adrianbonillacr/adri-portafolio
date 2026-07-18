@@ -277,8 +277,21 @@ const pillarIcons = [
       gap: var(--space-md);
     }
 
+    /* cifras en filas: número + etiqueta en la misma línea */
     .stats {
-      gap: var(--space-sm);
+      grid-template-columns: 1fr;
+      gap: var(--space-xs);
+    }
+
+    .stat {
+      flex-direction: row;
+      align-items: baseline;
+      gap: 0.75rem;
+    }
+
+    .stat dd {
+      font-size: var(--text-xl);
+      min-width: 3.2ch;
     }
   }
 </style>

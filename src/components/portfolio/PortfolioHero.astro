@@ -172,13 +172,26 @@ const stats = t.portfolio.about.stats.map((stat) => `${stat.value} ${stat.label}
 
   @media (max-width: 820px) {
     .portfolio-hero {
-      padding-top: calc(var(--frame) + 8.5rem);
+      padding-top: calc(var(--frame) + 9rem);
+    }
+
+    .inner {
+      gap: var(--space-md);
     }
 
     .row {
       flex-direction: column;
       align-items: flex-start;
       gap: var(--space-md);
+    }
+
+    .actions {
+      width: 100%;
+      flex-direction: column;
+    }
+
+    .actions :global(.cta-link) {
+      width: 100%;
     }
 
     .eyebrow .place {

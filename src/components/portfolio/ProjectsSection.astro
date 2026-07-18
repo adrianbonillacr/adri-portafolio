@@ -4,13 +4,16 @@
  * y renderiza una tarjeta premium por caso de estudio.
  */
 import { getCollection } from 'astro:content';
-import { useTranslations } from '../../i18n';
+import { getLangFromUrl, useTranslations } from '../../i18n';
 import { getProjectMedia } from '../../lib/media';
 import SectionHeader from './SectionHeader.astro';
 import ProjectCard from './ProjectCard.astro';
 
-const t = useTranslations('es');
-const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const projects = (await getCollection(lang === 'en' ? 'projectsEn' : 'projects')).sort(
+  (a, b) => a.data.order - b.data.order
+);
 ---
 
 <section id="proyectos" class="projects container">
@@ -24,7 +27,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
     {
       projects.map((project, index) => (
         <ProjectCard
-          href={`/portafolio/${project.id}`}
+          href={`${t.portfolio.base}/${project.id}`}
           title={project.data.title}
           tagline={project.data.tagline}
           disciplines={project.data.disciplines}

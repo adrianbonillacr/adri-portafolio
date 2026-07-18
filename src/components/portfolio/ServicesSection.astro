@@ -4,11 +4,14 @@
  * leída desde `content/services.json`.
  */
 import { getCollection } from 'astro:content';
-import { useTranslations } from '../../i18n';
+import { getLangFromUrl, useTranslations } from '../../i18n';
 import SectionHeader from './SectionHeader.astro';
 
-const t = useTranslations('es');
-const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const services = (await getCollection(lang === 'en' ? 'servicesEn' : 'services')).sort(
+  (a, b) => a.data.order - b.data.order
+);
 ---
 
 <section id="servicios" class="services container">

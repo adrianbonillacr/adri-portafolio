@@ -16,6 +16,7 @@ import ExperienceSection from '../../components/portfolio/ExperienceSection.astr
 import ServicesSection from '../../components/portfolio/ServicesSection.astro';
 import ToolsSection from '../../components/portfolio/ToolsSection.astro';
 import ContactSection from '../../components/portfolio/ContactSection.astro';
+import Preloader from '../../components/portfolio/Preloader.astro';
 
 const t = useTranslations('es');
 const path = '/portafolio';
@@ -51,4 +52,5 @@ const schema = {
     <ToolsSection />
     <ContactSection />
   </main>
+  <Preloader />
 </Base>

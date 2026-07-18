@@ -3,9 +3,10 @@
  * Contacto: cierre editorial de la sección con correo y redes.
  * Coherente con el manifiesto del sitio (display itálica centrada).
  */
-import { useTranslations } from '../../i18n';
+import { getLangFromUrl, useTranslations } from '../../i18n';
 
-const t = useTranslations('es');
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <section id="contacto" class="contact container">

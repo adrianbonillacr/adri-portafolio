@@ -7,12 +7,13 @@
  * El retrato se detecta solo: basta colocar la foto en
  * public/portfolio/sobre-mi/hero.jpg (o .png/.webp/.avif).
  */
-import { useTranslations } from '../../i18n';
+import { getLangFromUrl, useTranslations } from '../../i18n';
 import { getProjectMedia } from '../../lib/media';
 import SectionHeader from './SectionHeader.astro';
 import MediaFrame from './MediaFrame.astro';
 
-const t = useTranslations('es');
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 const portrait = getProjectMedia('sobre-mi').hero;
 
 /**
@@ -31,7 +32,12 @@ const pillarIcons = [
 
   <div class="profile">
     <div class="portrait" data-reveal>
-      <MediaFrame src={portrait} alt={t.portfolio.about.portraitAlt} ratio="4 / 5" label="retrato" />
+      <MediaFrame
+        src={portrait}
+        alt={t.portfolio.about.portraitAlt}
+        ratio="4 / 5"
+        label={lang === 'en' ? 'portrait' : 'retrato'}
+      />
     </div>
 
     <div class="resume">

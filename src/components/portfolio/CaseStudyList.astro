@@ -3,7 +3,7 @@
  * Navegación de casos de estudio anidados (Advanced, LAGE):
  * reutiliza exactamente la misma tarjeta premium del portafolio.
  */
-import { useTranslations } from '../../i18n';
+import { getLangFromUrl, useTranslations } from '../../i18n';
 import { getProjectMedia } from '../../lib/media';
 import ProjectCard from './ProjectCard.astro';
 
@@ -13,7 +13,8 @@ interface Props {
 }
 
 const { projectId, caseStudies } = Astro.props;
-const t = useTranslations('es');
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <section class="case-studies container">
@@ -23,7 +24,7 @@ const t = useTranslations('es');
     {
       caseStudies.map((caseStudy, index) => (
         <ProjectCard
-          href={`/portafolio/${projectId}/${caseStudy.id}`}
+          href={`${t.portfolio.base}/${projectId}/${caseStudy.id}`}
           title={caseStudy.title}
           tagline={caseStudy.tagline}
           disciplines={[]}

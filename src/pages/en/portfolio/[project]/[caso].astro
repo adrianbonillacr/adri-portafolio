@@ -1,20 +1,19 @@
 ---
 /**
- * Caso de estudio anidado (Advanced, LAGE): misma arquitectura
- * exacta que una página de proyecto, con contenido placeholder
- * hasta la fase 2. Sus medios viven en
- * public/portfolio/<proyecto>/<caso>/.
+ * English nested case study (Advance, Lagé, Freelance) — same exact
+ * architecture as a workspace page, with placeholder content until
+ * phase 2. Media lives in public/portfolio/<project>/<caso>/.
  */
 import { getCollection } from 'astro:content';
-import Base from '../../../layouts/Base.astro';
-import { useTranslations } from '../../../i18n';
-import '../../../styles/portfolio.css';
-import PortfolioNav from '../../../components/portfolio/PortfolioNav.astro';
-import CaseStudyArticle from '../../../components/portfolio/CaseStudyArticle.astro';
-import Preloader from '../../../components/portfolio/Preloader.astro';
+import Base from '../../../../layouts/Base.astro';
+import { useTranslations } from '../../../../i18n';
+import '../../../../styles/portfolio.css';
+import PortfolioNav from '../../../../components/portfolio/PortfolioNav.astro';
+import CaseStudyArticle from '../../../../components/portfolio/CaseStudyArticle.astro';
+import Preloader from '../../../../components/portfolio/Preloader.astro';
 
 export async function getStaticPaths() {
-  const projects = await getCollection('projects');
+  const projects = await getCollection('projectsEn');
 
   return projects
     .filter((project) => project.data.caseStudies.length > 0)
@@ -30,7 +29,7 @@ export async function getStaticPaths() {
             caseStudy,
             next: {
               title: `${next.title} — ${project.data.title}`,
-              href: `/portafolio/${project.id}/${next.id}`,
+              href: `/en/portfolio/${project.id}/${next.id}`,
             },
           },
         };
@@ -39,33 +38,29 @@ export async function getStaticPaths() {
 }
 
 const { parentId, parentTitle, caseStudy, next } = Astro.props;
-const t = useTranslations('es');
-const path = `/portafolio/${parentId}/${caseStudy.id}`;
+const t = useTranslations('en');
+const path = `/en/portfolio/${parentId}/${caseStudy.id}`;
 
-/**
- * Cada campo usa el contenido real del caso si está definido en el JSON
- * del espacio de trabajo; si no, un placeholder estructural (fase 2).
- */
+/** Real case content when defined in the workspace JSON; placeholders otherwise. */
 const content = {
   challenge:
     caseStudy.challenge ??
-    '[Placeholder] El problema de negocio o de marca que existía antes de empezar este caso.',
+    '[Placeholder] The business or brand problem that existed before this case began.',
   objective:
-    caseStudy.objective ??
-    '[Placeholder] Qué se buscaba lograr con este caso: objetivos concretos y medibles.',
-  role: caseStudy.role ?? '[Placeholder] Mi rol dentro de este caso: responsabilidades y alcance.',
-  strategy: caseStudy.strategy ?? '[Placeholder] La estrategia detrás de las decisiones de este caso.',
+    caseStudy.objective ?? '[Placeholder] What this case aimed to achieve: concrete, measurable goals.',
+  role: caseStudy.role ?? '[Placeholder] My role within this case: responsibilities and scope.',
+  strategy: caseStudy.strategy ?? '[Placeholder] The strategy behind the decisions of this case.',
   process: caseStudy.process ?? [
-    { title: '[Etapa 01]', description: '[Placeholder] Descripción breve de esta etapa.' },
-    { title: '[Etapa 02]', description: '[Placeholder] Descripción breve de esta etapa.' },
-    { title: '[Etapa 03]', description: '[Placeholder] Descripción breve de esta etapa.' },
+    { title: '[Stage 01]', description: '[Placeholder] Brief description of this stage.' },
+    { title: '[Stage 02]', description: '[Placeholder] Brief description of this stage.' },
+    { title: '[Stage 03]', description: '[Placeholder] Brief description of this stage.' },
   ],
   results: caseStudy.results ?? {
-    summary: '[Placeholder] Resumen de resultados de este caso.',
+    summary: '[Placeholder] Summary of this case’s results.',
     metrics: [
-      { value: '00%', label: '[Placeholder] métrica' },
-      { value: '00%', label: '[Placeholder] métrica' },
-      { value: '00', label: '[Placeholder] métrica' },
+      { value: '00%', label: '[Placeholder] metric' },
+      { value: '00%', label: '[Placeholder] metric' },
+      { value: '00', label: '[Placeholder] metric' },
     ],
   },
 };
@@ -79,10 +74,11 @@ const schema = [
     name: `${caseStudy.title} — ${parentTitle}`,
     description: caseStudy.description,
     url: new URL(path, Astro.site).href,
+    inLanguage: 'en',
     isPartOf: {
       '@type': 'CreativeWork',
       name: parentTitle,
-      url: new URL(`/portafolio/${parentId}`, Astro.site).href,
+      url: new URL(`/en/portfolio/${parentId}`, Astro.site).href,
     },
     author: {
       '@type': 'Person',
@@ -97,13 +93,13 @@ const schema = [
         '@type': 'ListItem',
         position: 1,
         name: t.portfolio.meta.title,
-        item: new URL('/portafolio', Astro.site).href,
+        item: new URL('/en/portfolio', Astro.site).href,
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: parentTitle,
-        item: new URL(`/portafolio/${parentId}`, Astro.site).href,
+        item: new URL(`/en/portfolio/${parentId}`, Astro.site).href,
       },
       {
         '@type': 'ListItem',
@@ -116,7 +112,7 @@ const schema = [
 ];
 ---
 
-<Base title={title} description={caseStudy.description} path={path} schema={schema}>
+<Base title={title} description={caseStudy.description} path={path} schema={schema} lang="en">
   <PortfolioNav />
   <main id="contenido">
     <CaseStudyArticle
@@ -132,7 +128,7 @@ const schema = [
       process={content.process}
       results={content.results}
       next={next}
-      backHref={`/portafolio/${parentId}`}
+      backHref={`/en/portfolio/${parentId}`}
       backLabel={parentTitle}
     />
   </main>

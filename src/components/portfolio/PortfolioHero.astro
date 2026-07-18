@@ -5,10 +5,11 @@
  * headline dominante alineado a la izquierda, propuesta de valor
  * con CTAs, y barra de meta al pie con rol y cifras clave.
  */
-import { useTranslations } from '../../i18n';
+import { getLangFromUrl, useTranslations } from '../../i18n';
 import CtaLink from './CtaLink.astro';
 
-const t = useTranslations('es');
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 const stats = t.portfolio.about.stats.map((stat) => `${stat.value} ${stat.label}`);
 ---
 

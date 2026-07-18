@@ -8,11 +8,14 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { getCollection } from 'astro:content';
-import { useTranslations } from '../../i18n';
+import { getLangFromUrl, useTranslations } from '../../i18n';
 import SectionHeader from './SectionHeader.astro';
 
-const t = useTranslations('es');
-const tools = (await getCollection('tools')).sort((a, b) => a.data.order - b.data.order);
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const tools = (await getCollection(lang === 'en' ? 'toolsEn' : 'tools')).sort(
+  (a, b) => a.data.order - b.data.order
+);
 
 const categories = [...new Set(tools.map((tool) => tool.data.category))];
 

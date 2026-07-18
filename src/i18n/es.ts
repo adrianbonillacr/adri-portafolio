@@ -27,6 +27,9 @@ export default {
 
   /* — Sección Portafolio Profesional — */
   portfolio: {
+    /** Ruta base de la sección en este idioma. */
+    base: '/portafolio',
+    otherLang: { code: 'US', url: '/en/portfolio', label: 'English' },
     meta: {
       title: 'Portafolio — Adrián D. Bonilla',
       description:

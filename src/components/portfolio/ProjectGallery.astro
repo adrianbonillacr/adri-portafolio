@@ -5,7 +5,7 @@
  * (imágenes y videos, en orden alfabético) y, mientras no haya
  * archivos, marcos placeholder listos para recibirlos.
  */
-import { useTranslations } from '../../i18n';
+import { getLangFromUrl, useTranslations } from '../../i18n';
 import type { GalleryItem } from '../../lib/media';
 import MediaFrame from './MediaFrame.astro';
 import SmartVideo from './SmartVideo.astro';
@@ -18,7 +18,8 @@ interface Props {
 }
 
 const { items, placeholders = 6, projectTitle } = Astro.props;
-const t = useTranslations('es');
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 const isEmpty = items.length === 0;
 ---
 

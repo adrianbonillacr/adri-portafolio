@@ -3,7 +3,7 @@
  * Resultados del proyecto: resumen + métricas destacadas
  * en cifras display.
  */
-import { useTranslations } from '../../i18n';
+import { getLangFromUrl, useTranslations } from '../../i18n';
 
 interface Props {
   summary: string;
@@ -11,7 +11,8 @@ interface Props {
 }
 
 const { summary, metrics } = Astro.props;
-const t = useTranslations('es');
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <section class="results container">

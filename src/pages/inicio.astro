@@ -1,0 +1,171 @@
+---
+/**
+ * Pantalla de inicio del portafolio: solo el logo, el nombre y la
+ * selección de idioma (ES / US). Cada opción entra al sitio con el
+ * preloader de marca.
+ */
+import Base from '../layouts/Base.astro';
+import Preloader from '../components/portfolio/Preloader.astro';
+import '../styles/portfolio.css';
+
+const title = 'Adrián D. Bonilla — Portafolio · Portfolio';
+const description =
+  'Portafolio profesional de Adrián D. Bonilla — diseño, branding, dirección creativa y estrategia. Disponible en español e inglés.';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: title,
+  description,
+  url: new URL('/inicio', Astro.site).href,
+};
+---
+
+<Base {title} {description} path="/inicio" schema={schema}>
+  <main id="contenido" class="gateway">
+    <img
+      class="monogram"
+      src="/assets/monogram.png"
+      alt="Monograma AB de Adrián D. Bonilla"
+      width="297"
+      height="195"
+      loading="eager"
+      fetchpriority="high"
+    />
+
+    <h1 class="name">
+      <span class="first">Adrián</span>
+      <span class="last">D. Bonilla</span>
+    </h1>
+
+    <span class="rule" aria-hidden="true"></span>
+
+    <nav class="langs" aria-label="Idioma / Language">
+      <a href="/portafolio" data-preloader>
+        <span class="code">ES</span>
+        <span class="lang-name">Español</span>
+      </a>
+      <a href="/en/portfolio" data-preloader>
+        <span class="code">US</span>
+        <span class="lang-name">English</span>
+      </a>
+    </nav>
+  </main>
+  <Preloader />
+</Base>
+
+<style>
+  .gateway {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: var(--space-md);
+    padding: calc(var(--frame) + 2rem) var(--gutter);
+  }
+
+  .monogram {
+    height: clamp(5.5rem, 7vw + 2.5rem, 9rem);
+    width: auto;
+    animation: gateway-rise 1.3s var(--ease-out) 0.1s both;
+  }
+
+  .name {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75ch;
+    text-transform: uppercase;
+    line-height: 1;
+    animation: gateway-rise 1.3s var(--ease-out) 0.35s both;
+  }
+
+  .first {
+    font-size: clamp(1.7rem, 1.2rem + 2.4vw, 2.9rem);
+    font-weight: 800;
+    letter-spacing: 0.02em;
+  }
+
+  .last {
+    font-size: clamp(1.25rem, 0.9rem + 1.7vw, 2.15rem);
+    font-weight: 300;
+    letter-spacing: 0.06em;
+  }
+
+  .rule {
+    width: 1px;
+    height: 44px;
+    background: linear-gradient(to bottom, var(--color-ink-faint), transparent);
+    animation: gateway-rise 1.3s var(--ease-out) 0.6s both;
+  }
+
+  .langs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-sm);
+    animation: gateway-rise 1.3s var(--ease-out) 0.8s both;
+  }
+
+  .langs a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    min-width: 11rem;
+    padding: 1.4rem 2rem;
+    border: 1px solid var(--color-line-soft);
+    transition:
+      border-color var(--dur-fast) var(--ease-out),
+      background-color var(--dur-fast) var(--ease-out),
+      color var(--dur-fast) var(--ease-out);
+  }
+
+  .langs a:hover {
+    border-color: var(--color-ink);
+    background: var(--color-ink);
+    color: var(--color-bg);
+  }
+
+  .code {
+    font-family: var(--font-mono);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+  }
+
+  .lang-name {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.22em;
+    color: var(--color-ink-muted);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  .langs a:hover .lang-name {
+    color: var(--color-bg);
+  }
+
+  @keyframes gateway-rise {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .langs {
+      width: 100%;
+      flex-direction: column;
+    }
+
+    .langs a {
+      width: 100%;
+    }
+  }
+</style>

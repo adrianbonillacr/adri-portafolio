@@ -13,7 +13,7 @@ import '@fontsource-variable/bodoni-moda/wght-italic.css';
 import '@fontsource/space-mono/400.css';
 import '../styles/tokens.css';
 import '../styles/base.css';
-import { useTranslations } from '../i18n';
+import { useTranslations, type Lang } from '../i18n';
 
 interface Props {
   title?: string;
@@ -22,9 +22,12 @@ interface Props {
   path?: string;
   /** Datos estructurados Schema.org (objeto o lista) inyectados como JSON-LD. */
   schema?: Record<string, unknown> | Record<string, unknown>[];
+  /** Idioma del documento ('es' por defecto). */
+  lang?: Lang;
 }
 
-const t = useTranslations('es');
+const { lang = 'es' } = Astro.props;
+const t = useTranslations(lang);
 const {
   title = t.meta.title,
   description = t.meta.description,
@@ -36,7 +39,7 @@ const ogImage = new URL('/assets/og.jpg', Astro.site);
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

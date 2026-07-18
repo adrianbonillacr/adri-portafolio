@@ -1,0 +1,64 @@
+{
+  "title": "Freelance",
+  "tagline": "Independent projects · 2018 – present",
+  "description": "Identity, advertising design and digital content on commission for SMBs, institutions and consumer brands.",
+  "order": 5,
+  "disciplines": ["Identity", "Advertising design", "Digital content"],
+  "challenge": "Solving commissions of very different natures — identity, advertising, content — for clients with diverse structures, timelines and budgets.",
+  "objective": "Deliver every project with judgment and studio-level processes, regardless of the client's scale.",
+  "role": "Independent Graphic and Advertising Designer, collaborating with development and production teams on multidisciplinary projects.",
+  "strategy": "Treat every commission as a business problem: diagnosis, proposal and execution with clear deliverables and scope.",
+  "process": [
+    {
+      "title": "Diagnosis",
+      "description": "Understanding the business, its audience and the real problem behind the commission."
+    },
+    {
+      "title": "Proposal",
+      "description": "Creative direction and scope defined before producing."
+    },
+    {
+      "title": "Execution & delivery",
+      "description": "Production, iteration with the client and delivery of organized final files."
+    }
+  ],
+  "results": {
+    "summary": "An independent practice sustained for more than seven years and a network of recurring clients.",
+    "metrics": [
+      { "value": "7+", "label": "years of independent practice" },
+      { "value": "[00]", "label": "[Placeholder] projects delivered" },
+      { "value": "[00]", "label": "[Placeholder] recurring clients" }
+    ]
+  },
+  "galleryPlaceholders": 6,
+  "caseStudies": [
+    {
+      "id": "proyecto-01",
+      "title": "[Project 01]",
+      "tagline": "[Placeholder] Type of commission",
+      "description": "[Placeholder] Independent project — which one to feature is still to be defined (URBN, Pragmático CR, Coco Estudio…)."
+    },
+    {
+      "id": "proyecto-02",
+      "title": "[Project 02]",
+      "tagline": "[Placeholder] Type of commission",
+      "description": "[Placeholder] Independent project — which one to feature is still to be defined."
+    },
+    {
+      "id": "proyecto-03",
+      "title": "[Project 03]",
+      "tagline": "[Placeholder] Type of commission",
+      "description": "[Placeholder] Independent project — which one to feature is still to be defined."
+    },
+    {
+      "id": "proyecto-04",
+      "title": "[Project 04]",
+      "tagline": "[Placeholder] Type of commission",
+      "description": "[Placeholder] Independent project — which one to feature is still to be defined."
+    }
+  ],
+  "seo": {
+    "title": "Freelance — Independent projects · Adrián D. Bonilla",
+    "description": "Identity, advertising design and digital content on commission for SMBs, institutions and consumer brands since 2018."
+  }
+}

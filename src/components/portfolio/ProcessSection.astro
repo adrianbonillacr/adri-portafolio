@@ -4,7 +4,7 @@
  * `videos/process.*` del proyecto, se integra al final en
  * autoplay silencioso.
  */
-import { useTranslations } from '../../i18n';
+import { getLangFromUrl, useTranslations } from '../../i18n';
 import SmartVideo from './SmartVideo.astro';
 
 interface Props {
@@ -13,7 +13,8 @@ interface Props {
 }
 
 const { steps, processVideo = null } = Astro.props;
-const t = useTranslations('es');
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <section class="process container">

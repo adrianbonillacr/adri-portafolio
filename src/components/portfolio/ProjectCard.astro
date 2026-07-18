@@ -5,7 +5,7 @@
  * individual del caso de estudio.
  */
 import MediaFrame from './MediaFrame.astro';
-import { useTranslations } from '../../i18n';
+import { getLangFromUrl, useTranslations } from '../../i18n';
 
 interface Props {
   href: string;
@@ -17,7 +17,8 @@ interface Props {
 }
 
 const { href, title, tagline, disciplines, index, image } = Astro.props;
-const t = useTranslations('es');
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <a class="project-card" href={href} data-reveal style={`--reveal-delay: ${(index % 2) * 120}ms`}>

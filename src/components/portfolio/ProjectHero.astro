@@ -3,7 +3,7 @@
  * Hero de caso de estudio: imagen (o video hero si existe en
  * /videos/hero.*), nombre del proyecto y descripción breve.
  */
-import { useTranslations } from '../../i18n';
+import { getLangFromUrl, useTranslations } from '../../i18n';
 import MediaFrame from './MediaFrame.astro';
 import SmartVideo from './SmartVideo.astro';
 
@@ -19,7 +19,8 @@ interface Props {
   backLabel?: string;
 }
 
-const t = useTranslations('es');
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 const {
   title,
   tagline,
@@ -27,7 +28,7 @@ const {
   disciplines,
   hero,
   heroVideo,
-  backHref = '/portafolio',
+  backHref = t.portfolio.base,
   backLabel = t.portfolio.nav.backToPortfolio,
 } = Astro.props;
 ---

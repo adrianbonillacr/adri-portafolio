@@ -1,19 +1,18 @@
 ---
 /**
- * Página individual de caso de estudio.
- * Generada estáticamente desde content/projects/*.json; la
- * navegación «próximo proyecto» es cíclica según `order`.
+ * English workspace / case-study page — mirrors /portafolio/[project]
+ * using the English content collection.
  */
 import { getCollection } from 'astro:content';
-import Base from '../../layouts/Base.astro';
-import { useTranslations } from '../../i18n';
-import '../../styles/portfolio.css';
-import PortfolioNav from '../../components/portfolio/PortfolioNav.astro';
-import CaseStudyArticle from '../../components/portfolio/CaseStudyArticle.astro';
-import Preloader from '../../components/portfolio/Preloader.astro';
+import Base from '../../../layouts/Base.astro';
+import { useTranslations } from '../../../i18n';
+import '../../../styles/portfolio.css';
+import PortfolioNav from '../../../components/portfolio/PortfolioNav.astro';
+import CaseStudyArticle from '../../../components/portfolio/CaseStudyArticle.astro';
+import Preloader from '../../../components/portfolio/Preloader.astro';
 
 export async function getStaticPaths() {
-  const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+  const projects = (await getCollection('projectsEn')).sort((a, b) => a.data.order - b.data.order);
 
   return projects.map((project, index) => {
     const next = projects[(index + 1) % projects.length];
@@ -21,7 +20,7 @@ export async function getStaticPaths() {
       params: { project: project.id },
       props: {
         project,
-        next: { title: next.data.title, href: `/portafolio/${next.id}` },
+        next: { title: next.data.title, href: `/en/portfolio/${next.id}` },
       },
     };
   });
@@ -29,8 +28,8 @@ export async function getStaticPaths() {
 
 const { project, next } = Astro.props;
 const { data } = project;
-const t = useTranslations('es');
-const path = `/portafolio/${project.id}`;
+const t = useTranslations('en');
+const path = `/en/portfolio/${project.id}`;
 
 const schema = [
   {
@@ -39,6 +38,7 @@ const schema = [
     name: data.title,
     description: data.seo.description,
     url: new URL(path, Astro.site).href,
+    inLanguage: 'en',
     author: {
       '@type': 'Person',
       name: `${t.hero.firstName} ${t.hero.lastName}`,
@@ -52,7 +52,7 @@ const schema = [
         '@type': 'ListItem',
         position: 1,
         name: t.portfolio.meta.title,
-        item: new URL('/portafolio', Astro.site).href,
+        item: new URL('/en/portfolio', Astro.site).href,
       },
       {
         '@type': 'ListItem',
@@ -65,7 +65,7 @@ const schema = [
 ];
 ---
 
-<Base title={data.seo.title} description={data.seo.description} path={path} schema={schema}>
+<Base title={data.seo.title} description={data.seo.description} path={path} schema={schema} lang="en">
   <PortfolioNav />
   <main id="contenido">
     <CaseStudyArticle

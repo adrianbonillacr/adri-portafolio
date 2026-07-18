@@ -1,0 +1,64 @@
+{
+  "title": "Advance",
+  "tagline": "Ian Kupfer's agency · November 2025 – July 2026",
+  "description": "A digital agency focused on SMBs, where I integrated advertising design, audiovisual content, organic strategy and paid media for more than 50 commercial accounts.",
+  "order": 1,
+  "disciplines": ["Advertising design", "Media buying", "Account management"],
+  "challenge": "Serving more than 50 SMB accounts with very different design, content and media needs, while keeping quality and delivery times consistent in a remote work environment.",
+  "objective": "Integrate advertising design, audiovisual content, organic strategy and paid media into a single workflow, aligning every deliverable with each account's commercial goals.",
+  "role": "Advertising Designer, Media Buyer and Account Manager: I coordinated the creative flow of a seven-person team — from brief to creation, review and approval of deliverables — and advised clients directly.",
+  "strategy": "Build repeatable processes for content production, quality control and deliverable organization, and plan campaigns on Meta Ads, Google Ads and TikTok Ads with segmentation and KPI analysis.",
+  "process": [
+    {
+      "title": "Brief & diagnosis",
+      "description": "Per-account briefs: commercial goals, audience, and content and media needs."
+    },
+    {
+      "title": "Production & quality control",
+      "description": "Creative team coordination with repeatable processes for creation, review and approval of deliverables."
+    },
+    {
+      "title": "Paid media & optimization",
+      "description": "Campaign management on Meta, Google and TikTok Ads, with KPI tracking and segmentation adjustments."
+    }
+  ],
+  "results": {
+    "summary": "A work system capable of sustaining the creative and commercial operation of dozens of active accounts at once, with clear production, approval and media processes.",
+    "metrics": [
+      { "value": "50+", "label": "accounts managed" },
+      { "value": "7", "label": "professionals coordinated" },
+      { "value": "3", "label": "ad platforms" }
+    ]
+  },
+  "galleryPlaceholders": 6,
+  "caseStudies": [
+    {
+      "id": "cuenta-01",
+      "title": "[Business 01]",
+      "tagline": "[Placeholder] Business sector",
+      "description": "[Placeholder] Business served within Advance — which accounts to feature is still to be defined."
+    },
+    {
+      "id": "cuenta-02",
+      "title": "[Business 02]",
+      "tagline": "[Placeholder] Business sector",
+      "description": "[Placeholder] Business served within Advance — which accounts to feature is still to be defined."
+    },
+    {
+      "id": "cuenta-03",
+      "title": "[Business 03]",
+      "tagline": "[Placeholder] Business sector",
+      "description": "[Placeholder] Business served within Advance — which accounts to feature is still to be defined."
+    },
+    {
+      "id": "cuenta-04",
+      "title": "[Business 04]",
+      "tagline": "[Placeholder] Business sector",
+      "description": "[Placeholder] Business served within Advance — which accounts to feature is still to be defined."
+    }
+  ],
+  "seo": {
+    "title": "Advance — Workspace · Adrián D. Bonilla",
+    "description": "Advertising design, media buying and management of 50+ SMB accounts at Advance, Ian Kupfer's agency."
+  }
+}

@@ -1,17 +1,21 @@
 ---
 /**
- * Experiencia profesional en formato timeline: línea vertical,
- * marcadores y detalle por etapa (cargo, fechas, responsabilidades,
- * logros, herramientas). Si la etapa tiene proyecto relacionado,
- * enlaza a su caso de estudio.
+ * Experiencia profesional en formato timeline: línea vertical con
+ * marcadores y, por etapa, cabecera (empresa/cargo/fechas), resumen
+ * y bloques a todo lo ancho de la pantalla (responsabilidades,
+ * logros, herramientas). Si la etapa tiene espacio relacionado,
+ * enlaza a su página del portafolio.
  */
 import { getCollection } from 'astro:content';
-import { useTranslations } from '../../i18n';
+import { getLangFromUrl, useTranslations } from '../../i18n';
 import SectionHeader from './SectionHeader.astro';
 
-const t = useTranslations('es');
-const entries = (await getCollection('experience')).sort((a, b) => a.data.order - b.data.order);
-const projects = await getCollection('projects');
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const entries = (await getCollection(lang === 'en' ? 'experienceEn' : 'experience')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+const projects = await getCollection(lang === 'en' ? 'projectsEn' : 'projects');
 const projectIds = new Set(projects.map((project) => project.id));
 ---
 
@@ -26,47 +30,49 @@ const projectIds = new Set(projects.map((project) => project.id));
         return (
           <li data-reveal style={`--reveal-delay: ${(index % 3) * 100}ms`}>
             <span class="marker" aria-hidden="true" />
-            <div class="head">
+
+            <header class="head">
+              <div class="who">
+                <h3>{data.company}</h3>
+                <p class="role">{data.role}</p>
+              </div>
               <span class="period">{data.period}</span>
-              <h3>{data.company}</h3>
-              <p class="role">{data.role}</p>
-              <p class="summary">{data.summary}</p>
+            </header>
+
+            <p class="summary">{data.summary}</p>
+
+            <div class="block">
+              <span class="block-label">{t.portfolio.experience.responsibilities}</span>
+              <ul>
+                {data.responsibilities.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
             </div>
 
-            <div class="detail">
-              <div class="block">
-                <span class="block-label">{t.portfolio.experience.responsibilities}</span>
-                <ul>
-                  {data.responsibilities.map((item) => (
-                    <li>{item}</li>
-                  ))}
-                </ul>
-              </div>
-
-              <div class="block">
-                <span class="block-label">{t.portfolio.experience.achievements}</span>
-                <ul>
-                  {data.achievements.map((item) => (
-                    <li>{item}</li>
-                  ))}
-                </ul>
-              </div>
-
-              <div class="block">
-                <span class="block-label">{t.portfolio.experience.tools}</span>
-                <ul class="chips">
-                  {data.tools.map((tool) => (
-                    <li>{tool}</li>
-                  ))}
-                </ul>
-              </div>
-
-              {hasProject && (
-                <a class="project-link" href={`/portafolio/${data.projectId}`}>
-                  {t.portfolio.experience.viewProject} →
-                </a>
-              )}
+            <div class="block">
+              <span class="block-label">{t.portfolio.experience.achievements}</span>
+              <ul>
+                {data.achievements.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
             </div>
+
+            <div class="block">
+              <span class="block-label">{t.portfolio.experience.tools}</span>
+              <ul class="chips">
+                {data.tools.map((tool) => (
+                  <li>{tool}</li>
+                ))}
+              </ul>
+            </div>
+
+            {hasProject && (
+              <a class="project-link" href={`${t.portfolio.base}/${data.projectId}`}>
+                {t.portfolio.experience.viewProject} →
+              </a>
+            )}
           </li>
         );
       })
@@ -104,16 +110,17 @@ const projectIds = new Set(projects.map((project) => project.id));
     );
   }
 
+  /* cada etapa fluye a lo ancho completo de la pantalla */
   li {
     position: relative;
-    display: grid;
-    grid-template-columns: minmax(14rem, 1fr) 2fr;
-    gap: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
   }
 
   .marker {
     position: absolute;
-    top: 0.4rem;
+    top: 0.5rem;
     left: calc(-1 * clamp(1.75rem, 4vw, 3rem));
     translate: -50% 0;
     width: 9px;
@@ -125,15 +132,16 @@ const projectIds = new Set(projects.map((project) => project.id));
 
   .head {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-2xs);
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-2xs) var(--space-md);
   }
 
-  .period {
-    font-family: var(--font-mono);
-    font-size: var(--text-label);
-    letter-spacing: 0.26em;
-    color: var(--color-ink-faint);
+  .who {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
   }
 
   h3 {
@@ -149,28 +157,29 @@ const projectIds = new Set(projects.map((project) => project.id));
     letter-spacing: 0.04em;
   }
 
+  .period {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.18em;
+    color: var(--color-ink-faint);
+  }
+
   .summary {
     color: var(--color-ink-muted);
     font-size: var(--text-sm);
-  }
-
-  .detail {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
-    padding-top: 0.3rem;
   }
 
   .block {
     display: flex;
     flex-direction: column;
     gap: var(--space-2xs);
+    margin-top: var(--space-2xs);
   }
 
   .block-label {
     font-family: var(--font-mono);
     font-size: var(--text-label);
-    letter-spacing: 0.26em;
+    letter-spacing: 0.18em;
     color: var(--color-ink-faint);
   }
 
@@ -206,19 +215,13 @@ const projectIds = new Set(projects.map((project) => project.id));
   .project-link {
     font-family: var(--font-mono);
     font-size: var(--text-label);
-    letter-spacing: 0.22em;
+    letter-spacing: 0.18em;
     color: var(--color-ink-muted);
+    margin-top: var(--space-2xs);
     transition: color var(--dur-fast) var(--ease-out);
   }
 
   .project-link:hover {
     color: var(--color-ink);
-  }
-
-  @media (max-width: 860px) {
-    li {
-      grid-template-columns: 1fr;
-      gap: var(--space-md);
-    }
   }
 </style>

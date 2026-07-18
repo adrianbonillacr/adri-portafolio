@@ -2,7 +2,7 @@
 /**
  * Cierre de caso de estudio: navegación al siguiente proyecto.
  */
-import { useTranslations } from '../../i18n';
+import { getLangFromUrl, useTranslations } from '../../i18n';
 
 interface Props {
   href: string;
@@ -10,7 +10,8 @@ interface Props {
 }
 
 const { href, title } = Astro.props;
-const t = useTranslations('es');
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <section class="next-project container">

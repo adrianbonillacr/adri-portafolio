@@ -1,24 +1,27 @@
 ---
 /**
  * Navegación de la sección de portafolio profesional.
- * Enlaces absolutos con ancla para funcionar igual desde la portada
- * de la sección y desde las páginas de proyecto.
+ * Enlaces absolutos con ancla (funcionan igual desde la portada y
+ * desde las páginas de proyecto), selector de idioma y monograma
+ * hacia la pantalla de inicio (con preloader de marca).
  */
-import { useTranslations } from '../../i18n';
+import { getLangFromUrl, useTranslations } from '../../i18n';
 
-const t = useTranslations('es');
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const base = t.portfolio.base;
 
 const links = [
-  { href: '/portafolio#sobre-mi', label: t.portfolio.nav.about },
-  { href: '/portafolio#proyectos', label: t.portfolio.nav.projects },
-  { href: '/portafolio#experiencia', label: t.portfolio.nav.experience },
-  { href: '/portafolio#servicios', label: t.portfolio.nav.services },
-  { href: '/portafolio#contacto', label: t.portfolio.nav.contact },
+  { href: `${base}#sobre-mi`, label: t.portfolio.nav.about },
+  { href: `${base}#proyectos`, label: t.portfolio.nav.projects },
+  { href: `${base}#experiencia`, label: t.portfolio.nav.experience },
+  { href: `${base}#servicios`, label: t.portfolio.nav.services },
+  { href: `${base}#contacto`, label: t.portfolio.nav.contact },
 ];
 ---
 
 <header class="portfolio-nav">
-  <a class="brand" href="/" aria-label={t.a11y.home}>
+  <a class="brand" href="/inicio" data-preloader aria-label={t.a11y.home}>
     <img src="/assets/monogram.png" alt="" width="297" height="195" loading="eager" />
   </a>
 
@@ -31,6 +34,15 @@ const links = [
           </li>
         ))
       }
+      <li class="lang">
+        <a
+          href={t.portfolio.otherLang.url}
+          data-preloader
+          aria-label={t.portfolio.otherLang.label}
+        >
+          {t.portfolio.otherLang.code}
+        </a>
+      </li>
     </ul>
   </nav>
 </header>
@@ -64,6 +76,7 @@ const links = [
   ul {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     justify-content: flex-end;
     gap: clamp(1rem, 2.5vw, 2.2rem);
   }
@@ -78,6 +91,19 @@ const links = [
 
   nav a:hover {
     color: var(--color-ink);
+  }
+
+  .lang a {
+    border: 1px solid var(--color-line-soft);
+    padding: 0.35rem 0.7rem;
+    letter-spacing: 0.14em;
+    transition:
+      color var(--dur-fast) var(--ease-out),
+      border-color var(--dur-fast) var(--ease-out);
+  }
+
+  .lang a:hover {
+    border-color: var(--color-line);
   }
 
   @keyframes nav-in {

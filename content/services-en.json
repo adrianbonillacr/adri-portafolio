@@ -1,0 +1,37 @@
+[
+  {
+    "id": "branding",
+    "title": "Branding & visual identity",
+    "description": "Art direction, branding and identity: visual systems with clear rules that make a brand recognizable at every touchpoint.",
+    "deliverables": ["Visual identity", "Graphic systems", "Logo animation", "Art direction"],
+    "order": 1
+  },
+  {
+    "id": "direccion-creativa",
+    "title": "Creative direction",
+    "description": "Coordination of teams and creative workflows: from brief to approval, with repeatable production and quality-control processes.",
+    "deliverables": ["Briefs & concepts", "Team coordination", "Quality control"],
+    "order": 2
+  },
+  {
+    "id": "diseno-publicitario",
+    "title": "Advertising design & digital content",
+    "description": "Results-driven campaigns and content for social media, commercial communication, editorial pieces and point of sale.",
+    "deliverables": ["Campaigns", "Social media content", "Editorial pieces", "Point of sale"],
+    "order": 3
+  },
+  {
+    "id": "motion-video",
+    "title": "Motion graphics & video",
+    "description": "Animation, motion graphics and video post-production designed for each platform's format and rhythm.",
+    "deliverables": ["Motion graphics", "Digital animation", "Editing & post-production"],
+    "order": 4
+  },
+  {
+    "id": "paid-media",
+    "title": "Paid media & content strategy",
+    "description": "Planning and management of Meta, Google and TikTok Ads campaigns, aligning commercial goals, content and segmentation with KPI analysis.",
+    "deliverables": ["Media planning", "Segmentation", "KPI analysis", "Reporting"],
+    "order": 5
+  }
+]

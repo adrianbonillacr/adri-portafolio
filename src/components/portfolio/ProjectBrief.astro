@@ -3,7 +3,7 @@
  * Información estratégica del proyecto: desafío, objetivo, mi rol
  * y estrategia, en una retícula editorial de dos columnas.
  */
-import { useTranslations } from '../../i18n';
+import { getLangFromUrl, useTranslations } from '../../i18n';
 
 interface Props {
   challenge: string;
@@ -13,7 +13,8 @@ interface Props {
 }
 
 const { challenge, objective, role, strategy } = Astro.props;
-const t = useTranslations('es');
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 const blocks = [
   { label: t.portfolio.project.challenge, text: challenge },

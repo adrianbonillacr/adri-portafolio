@@ -1,0 +1,38 @@
+{
+  "title": "Distrito 11",
+  "tagline": "Advertising design & brand strategy · 2020 – 2022",
+  "description": "Promotional campaigns and digital content for the brand's positioning, events and commercial communication.",
+  "order": 4,
+  "disciplines": ["Advertising design", "Brand strategy", "Digital content"],
+  "challenge": "Adapting the brand's visual language to multiple formats and contexts — positioning, events, commercial communication — without losing hierarchy, recognition or coherence.",
+  "objective": "Position the brand through consistent promotional campaigns and digital content across all its channels.",
+  "role": "Advertising Designer and Brand Strategy: design of promotional campaigns and digital content for positioning, events and commercial communication.",
+  "strategy": "A visual language with clear hierarchy and recognition rules, applied with judgment across every format and touchpoint.",
+  "process": [
+    {
+      "title": "Visual language",
+      "description": "Defining the hierarchy, color and composition rules of the brand's communication."
+    },
+    {
+      "title": "Promotional campaigns",
+      "description": "Design of campaigns and digital content for positioning, events and promotions."
+    },
+    {
+      "title": "Multi-format adaptation",
+      "description": "Translating the system to each format while keeping recognition and coherence."
+    }
+  ],
+  "results": {
+    "summary": "Two years of commercial communication with a brand that stayed recognizable and coherent across every format.",
+    "metrics": [
+      { "value": "2", "label": "years of collaboration" },
+      { "value": "[00]", "label": "[Placeholder] campaigns delivered" },
+      { "value": "[00]", "label": "[Placeholder] events communicated" }
+    ]
+  },
+  "galleryPlaceholders": 6,
+  "seo": {
+    "title": "Distrito 11 — Case study · Adrián D. Bonilla",
+    "description": "Advertising design and brand strategy for Distrito 11: promotional campaigns and digital content (2020–2022)."
+  }
+}

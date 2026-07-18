@@ -1,0 +1,38 @@
+{
+  "title": "Mulailah Gastropub",
+  "tagline": "Graphic design & creative direction · 2021 – 2024",
+  "description": "Three years in charge of the brand's visual direction: campaigns, events and promotional content sustained by a consistent graphic system.",
+  "order": 3,
+  "disciplines": ["Creative direction", "Graphic design", "Brand communication"],
+  "challenge": "Keeping a gastronomy brand alive and recognizable through three years of constant campaigns, events and promotions, without diluting its identity.",
+  "objective": "Build a graphic system applicable to social media, commercial communication and point-of-sale pieces, capable of sustaining the business's continuous promotional operation.",
+  "role": "Graphic Designer and Creative Direction: I developed the visual direction of the brand's campaigns, events and promotional content.",
+  "strategy": "Ensure consistency between identity, photography, promotional messages and brand experience at every customer touchpoint.",
+  "process": [
+    {
+      "title": "Graphic system",
+      "description": "Design of a system applied to social media, commercial communication and point of sale."
+    },
+    {
+      "title": "Campaigns & events",
+      "description": "Visual direction of the brand's promotional campaigns and events throughout the year."
+    },
+    {
+      "title": "Brand consistency",
+      "description": "Care for coherence between identity, photography, messages and brand experience."
+    }
+  ],
+  "results": {
+    "summary": "An identity that remained coherent and recognizable through years of constant promotional activity.",
+    "metrics": [
+      { "value": "3", "label": "years of visual direction" },
+      { "value": "[00]", "label": "[Placeholder] campaigns delivered" },
+      { "value": "[00]", "label": "[Placeholder] events supported" }
+    ]
+  },
+  "galleryPlaceholders": 6,
+  "seo": {
+    "title": "Mulailah Gastropub — Case study · Adrián D. Bonilla",
+    "description": "Creative direction and graphic design for Mulailah Gastropub: graphic system, campaigns, events and brand communication (2021–2024)."
+  }
+}

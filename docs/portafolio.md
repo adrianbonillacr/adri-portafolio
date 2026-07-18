@@ -8,6 +8,8 @@ archivos en `public/portfolio/`.
 
 | Ruta                                 | Contenido                                          |
 | ------------------------------------ | -------------------------------------------------- |
+| `/inicio`                            | Pantalla de entrada: logo + nombre + idioma (ES/US) con preloader |
+| `/en/portfolio` (+ subrutas)         | Versión en inglés completa (espejo de /portafolio) |
 | `/portafolio`                        | Hero, sobre mí, espacios de trabajo, experiencia, servicios, herramientas, contacto |
 | `/portafolio/advance`                | Advance + negocios atendidos (4 casos anidados)    |
 | `/portafolio/advance/cuenta-01…04`   | Negocios dentro de Advance                         |
@@ -34,6 +36,12 @@ campo no existe, la página muestra un placeholder.
 - **Herramientas** → `content/tools.json` (agrupadas por `category`).
 - **Hero, sobre mí, contacto y etiquetas de interfaz** →
   `src/i18n/es.ts`, bloque `portfolio`.
+
+**Inglés**: cada archivo tiene su par en inglés — `src/i18n/en.ts`,
+`content/projects-en/*.json`, `content/experience-en.json`,
+`content/services-en.json`, `content/tools-en.json`. Editar un idioma
+no afecta al otro. Los medios (imágenes/videos) se comparten entre
+idiomas: una sola carpeta por proyecto.
 
 Todos los JSON se validan con Zod (`src/content.config.ts`): si falta un campo,
 `npm run dev` lo indica con un error claro.

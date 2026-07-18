@@ -1,0 +1,94 @@
+[
+  {
+    "id": "advance-exp",
+    "company": "Advance — Ian Kupfer's agency",
+    "role": "Advertising Designer · Media Buyer · Account Manager",
+    "period": "November 2025 – July 2026",
+    "summary": "Advertising design, content and paid media for SMBs at a remote agency, leading the team's creative flow.",
+    "responsibilities": [
+      "Advertising design, audiovisual content and organic strategy for SMB accounts",
+      "Coordination of the team's creative flow: briefs, review and approval of deliverables",
+      "Planning and management of Meta Ads, Google Ads and TikTok Ads campaigns with KPI analysis",
+      "Direct client advisory and quality control of deliverables"
+    ],
+    "achievements": [
+      "More than 50 SMB accounts managed simultaneously",
+      "Seven-person creative team coordinated throughout the operation",
+      "Repeatable production and approval processes adopted by the team"
+    ],
+    "tools": ["Adobe Creative Suite", "Meta Ads", "Google Ads", "TikTok Ads", "Monday.com", "Notion"],
+    "projectId": "advance",
+    "order": 1
+  },
+  {
+    "id": "lage-exp",
+    "company": "Lagé Estrategia — Oscar Molina's agency",
+    "role": "Social Media Strategist · Digital Animator",
+    "period": "2024 – April 2026",
+    "summary": "Communication strategies, motion graphics and audiovisual pieces for commercial and corporate accounts.",
+    "responsibilities": [
+      "Communication and content strategies for accounts such as Eddie Bauer Costa Rica and Quarzo Tecnología",
+      "Digital campaign concepts and production of motion graphics and audiovisual pieces",
+      "Logo animation for the agency's portfolio",
+      "Reports and recommendations connecting visual execution with performance"
+    ],
+    "achievements": [
+      "Eddie Bauer Costa Rica launch (February 2026): 564,083 people reached, 1,131,832 impressions and 34,523 visits"
+    ],
+    "tools": ["After Effects", "Premiere Pro", "Illustrator", "Photoshop", "Meta Ads", "CapCut"],
+    "projectId": "lage",
+    "order": 2
+  },
+  {
+    "id": "mulailah-exp",
+    "company": "Mulailah Gastropub",
+    "role": "Graphic Designer · Creative Direction",
+    "period": "2021 – 2024",
+    "summary": "Visual direction of the brand for three years: campaigns, events and promotional content.",
+    "responsibilities": [
+      "Visual direction of campaigns, events and promotional content",
+      "Design of graphic systems for social media, commercial communication and point of sale",
+      "Care for consistency between identity, photography, messages and brand experience"
+    ],
+    "achievements": [
+      "A coherent, recognizable identity through three years of continuous promotional activity"
+    ],
+    "tools": ["Illustrator", "Photoshop", "InDesign", "Lightroom"],
+    "projectId": "mulailah",
+    "order": 3
+  },
+  {
+    "id": "distrito11-exp",
+    "company": "Distrito 11",
+    "role": "Advertising Designer · Brand Strategy",
+    "period": "2020 – 2022",
+    "summary": "Promotional campaigns and digital content for positioning, events and commercial communication.",
+    "responsibilities": [
+      "Design of promotional campaigns and digital content for positioning and events",
+      "Adaptation of the brand's visual language to multiple formats"
+    ],
+    "achievements": [
+      "A visual language with hierarchy, recognition and coherence across every format"
+    ],
+    "tools": ["Illustrator", "Photoshop", "InDesign"],
+    "projectId": "distrito11",
+    "order": 4
+  },
+  {
+    "id": "freelance-exp",
+    "company": "Freelance",
+    "role": "Graphic & Advertising Designer",
+    "period": "2018 – present",
+    "summary": "Independent identity, advertising design and digital content projects on commission.",
+    "responsibilities": [
+      "Identity, advertising design and digital content projects for SMBs, institutions and consumer brands",
+      "Collaboration with development and production teams on multidisciplinary projects"
+    ],
+    "achievements": [
+      "A network of recurring clients built over more than seven years of independent practice"
+    ],
+    "tools": ["Adobe Creative Suite", "Figma", "CapCut"],
+    "projectId": "freelance",
+    "order": 5
+  }
+]

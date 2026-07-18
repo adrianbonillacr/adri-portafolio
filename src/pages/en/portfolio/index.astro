@@ -1,0 +1,56 @@
+---
+/**
+ * English portfolio home — mirrors /portafolio using the `en`
+ * dictionary and the English content collections.
+ */
+import Base from '../../../layouts/Base.astro';
+import { useTranslations } from '../../../i18n';
+import '../../../styles/portfolio.css';
+import PortfolioNav from '../../../components/portfolio/PortfolioNav.astro';
+import PortfolioHero from '../../../components/portfolio/PortfolioHero.astro';
+import AboutSection from '../../../components/portfolio/AboutSection.astro';
+import ProjectsSection from '../../../components/portfolio/ProjectsSection.astro';
+import ExperienceSection from '../../../components/portfolio/ExperienceSection.astro';
+import ServicesSection from '../../../components/portfolio/ServicesSection.astro';
+import ToolsSection from '../../../components/portfolio/ToolsSection.astro';
+import ContactSection from '../../../components/portfolio/ContactSection.astro';
+import Preloader from '../../../components/portfolio/Preloader.astro';
+
+const t = useTranslations('en');
+const path = '/en/portfolio';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  name: t.portfolio.meta.title,
+  description: t.portfolio.meta.description,
+  url: new URL(path, Astro.site).href,
+  inLanguage: 'en',
+  mainEntity: {
+    '@type': 'Person',
+    name: `${t.hero.firstName} ${t.hero.lastName}`,
+    url: new URL('/', Astro.site).href,
+    jobTitle: 'Graphic & Advertising Designer',
+  },
+};
+---
+
+<Base
+  title={t.portfolio.meta.title}
+  description={t.portfolio.meta.description}
+  path={path}
+  schema={schema}
+  lang="en"
+>
+  <PortfolioNav />
+  <main id="contenido">
+    <PortfolioHero />
+    <AboutSection />
+    <ProjectsSection />
+    <ExperienceSection />
+    <ServicesSection />
+    <ToolsSection />
+    <ContactSection />
+  </main>
+  <Preloader />
+</Base>

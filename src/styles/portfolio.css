@@ -1,0 +1,11 @@
+/* ==========================================================
+   adrianbonilla.art — Sobrescrituras de la sección portafolio
+   Solo la importan las páginas de /portafolio: la portada
+   artística conserva intacto su lenguaje en minúsculas.
+   ========================================================== */
+
+/* Etiquetas con capitalización natural (anula la minúscula
+   global de `.label` definida para el teaser) */
+#contenido .label {
+  text-transform: none;
+}

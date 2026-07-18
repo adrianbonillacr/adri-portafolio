@@ -104,6 +104,8 @@ const tools = defineCollection({
     id: z.string(),
     name: z.string(),
     category: z.string(),
+    /** Sello tipográfico del icono (ej. "Ai"); un SVG en /assets/tools/<id>.svg lo sustituye. */
+    abbr: z.string().optional(),
     order: z.number(),
   }),
 });

@@ -14,6 +14,16 @@ import MediaFrame from './MediaFrame.astro';
 
 const t = useTranslations('es');
 const portrait = getProjectMedia('sobre-mi').hero;
+
+/**
+ * Iconos monolínea de los pilares (trazo 1.5, currentColor):
+ * brújula → cómo pienso · capas → cómo trabajo · diana → qué resuelvo.
+ */
+const pillarIcons = [
+  `<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><circle cx="14" cy="14" r="10.5"/><path d="M18.2 9.8 15.6 15.6 9.8 18.2l2.6-5.8z"/></svg>`,
+  `<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="m14 4.5 9.5 5L14 14.5l-9.5-5z"/><path d="m4.5 14.5 9.5 5 9.5-5"/><path d="m4.5 19 9.5 5 9.5-5"/></svg>`,
+  `<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="14" cy="14" r="10.5"/><circle cx="14" cy="14" r="5.75"/><circle cx="14" cy="14" r="1.4" fill="currentColor" stroke="none"/></svg>`,
+];
 ---
 
 <section id="sobre-mi" class="about container">
@@ -65,9 +75,12 @@ const portrait = getProjectMedia('sobre-mi').hero;
     {
       t.portfolio.about.items.map((item, index) => (
         <article data-reveal style={`--reveal-delay: ${index * 120}ms`}>
-          <span class="index" aria-hidden="true">
-            {String(index + 1).padStart(2, '0')}
-          </span>
+          <div class="pillar-head">
+            <span class="pillar-icon" set:html={pillarIcons[index] ?? pillarIcons[0]} />
+            <span class="index" aria-hidden="true">
+              {String(index + 1).padStart(2, '0')}
+            </span>
+          </div>
           <h3>{item.title}</h3>
           <p>{item.text}</p>
         </article>
@@ -138,7 +151,6 @@ const portrait = getProjectMedia('sobre-mi').hero;
     font-family: var(--font-mono);
     font-size: var(--text-label);
     letter-spacing: 0.18em;
-    text-transform: lowercase;
     color: var(--color-ink-faint);
   }
 
@@ -152,7 +164,6 @@ const portrait = getProjectMedia('sobre-mi').hero;
     font-family: var(--font-mono);
     font-size: var(--text-label);
     letter-spacing: 0.26em;
-    text-transform: lowercase;
     color: var(--color-ink-faint);
   }
 
@@ -166,7 +177,6 @@ const portrait = getProjectMedia('sobre-mi').hero;
     font-family: var(--font-mono);
     font-size: var(--text-label);
     letter-spacing: 0.14em;
-    text-transform: lowercase;
     color: var(--color-ink-muted);
     border: 1px solid var(--color-line-soft);
     padding: 0.3rem 0.7rem;
@@ -206,6 +216,23 @@ const portrait = getProjectMedia('sobre-mi').hero;
     gap: var(--space-xs);
     padding-top: var(--space-sm);
     border-top: 1px solid var(--color-line-soft);
+  }
+
+  .pillar-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-xs);
+  }
+
+  .pillar-icon {
+    display: inline-flex;
+    color: var(--color-ink-muted);
+  }
+
+  .pillar-icon :global(svg) {
+    width: 28px;
+    height: 28px;
   }
 
   .index {

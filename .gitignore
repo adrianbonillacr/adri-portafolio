@@ -12,3 +12,6 @@ Thumbs.db
 # entorno
 .env
 .env.*
+
+# documentos personales (no publicar)
+cv/

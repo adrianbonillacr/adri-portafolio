@@ -1,96 +1,93 @@
 [
   {
-    "id": "freelance",
-    "company": "Freelance",
-    "role": "[Placeholder] Cargo",
-    "period": "[Placeholder] Fechas",
-    "summary": "[Placeholder] Resumen de una línea sobre esta etapa profesional.",
+    "id": "advance-exp",
+    "company": "Advance — Agencia de Ian Kupfer",
+    "role": "Diseñador Publicitario · Media Buyer · Account Manager",
+    "period": "noviembre 2025 – julio 2026",
+    "summary": "Diseño, contenido y pauta digital para más de 50 cuentas de pymes, coordinando un equipo creativo de siete profesionales.",
     "responsibilities": [
-      "[Placeholder] Responsabilidad principal",
-      "[Placeholder] Responsabilidad principal",
-      "[Placeholder] Responsabilidad principal"
+      "Gestión de más de 50 cuentas de pymes: diseño publicitario, contenido audiovisual, estrategia orgánica y pauta digital",
+      "Coordinación del flujo creativo del equipo, del brief a la revisión y aprobación de entregables",
+      "Planificación y gestión de campañas en Meta Ads, Google Ads y TikTok Ads con análisis de KPIs",
+      "Asesoría directa a clientes y estructuración de procesos replicables de producción y control de calidad"
     ],
     "achievements": [
-      "[Placeholder] Logro destacado",
-      "[Placeholder] Logro destacado"
+      "Operación creativa y comercial sostenida de más de 50 cuentas activas en simultáneo",
+      "Procesos replicables de producción, aprobación y organización de entregables adoptados por el equipo"
     ],
-    "tools": ["[Herramienta]", "[Herramienta]", "[Herramienta]"],
+    "tools": ["Adobe Creative Suite", "Meta Ads", "Google Ads", "TikTok Ads", "Monday.com", "Notion"],
+    "projectId": "advance",
     "order": 1
   },
   {
     "id": "lage-exp",
-    "company": "LAGE",
-    "role": "[Placeholder] Cargo",
-    "period": "[Placeholder] Fechas",
-    "summary": "[Placeholder] Resumen de una línea sobre esta etapa profesional.",
+    "company": "Lagé Estrategia — Agencia de Oscar Molina",
+    "role": "Estratega de Redes Sociales · Animador Digital",
+    "period": "2024 – abril 2026",
+    "summary": "Estrategias de comunicación, motion graphics y piezas audiovisuales para cuentas comerciales y corporativas.",
     "responsibilities": [
-      "[Placeholder] Responsabilidad principal",
-      "[Placeholder] Responsabilidad principal",
-      "[Placeholder] Responsabilidad principal"
+      "Estrategias de comunicación y contenido para cuentas como Eddie Bauer Costa Rica y Quarzo Tecnología",
+      "Conceptualización de campañas digitales y producción de motion graphics y piezas audiovisuales",
+      "Animación de logotipos de clientes para el portafolio de la agencia",
+      "Propuestas, reportes y recomendaciones que conectan la ejecución visual con el desempeño"
     ],
     "achievements": [
-      "[Placeholder] Logro destacado",
-      "[Placeholder] Logro destacado"
+      "Campaña de lanzamiento de Eddie Bauer Costa Rica (feb 2026): 564.083 personas alcanzadas, 1.131.832 impresiones y 34.523 visitas"
     ],
-    "tools": ["[Herramienta]", "[Herramienta]", "[Herramienta]"],
+    "tools": ["After Effects", "Premiere Pro", "Illustrator", "Photoshop", "Meta Ads", "CapCut"],
     "projectId": "lage",
     "order": 2
   },
   {
-    "id": "advanced-exp",
-    "company": "Advanced",
-    "role": "[Placeholder] Cargo",
-    "period": "[Placeholder] Fechas",
-    "summary": "[Placeholder] Resumen de una línea sobre esta etapa profesional.",
+    "id": "mulailah-exp",
+    "company": "Mulailah Gastropub",
+    "role": "Diseñador Gráfico · Dirección Creativa",
+    "period": "2021 – 2024",
+    "summary": "Dirección visual de campañas, eventos y contenidos promocionales de la marca durante tres años.",
     "responsibilities": [
-      "[Placeholder] Responsabilidad principal",
-      "[Placeholder] Responsabilidad principal",
-      "[Placeholder] Responsabilidad principal"
+      "Dirección visual de campañas, eventos y contenidos promocionales",
+      "Diseño de sistemas gráficos para redes sociales, comunicación comercial y punto de venta",
+      "Consistencia entre identidad, fotografía, mensajes promocionales y experiencia de marca"
     ],
     "achievements": [
-      "[Placeholder] Logro destacado",
-      "[Placeholder] Logro destacado"
+      "Identidad coherente y reconocible sostenida durante tres años de actividad promocional continua"
     ],
-    "tools": ["[Herramienta]", "[Herramienta]", "[Herramienta]"],
-    "projectId": "advanced",
+    "tools": ["Illustrator", "Photoshop", "InDesign", "Lightroom"],
+    "projectId": "mulailah",
     "order": 3
   },
   {
     "id": "distrito11-exp",
     "company": "Distrito 11",
-    "role": "[Placeholder] Cargo",
-    "period": "[Placeholder] Fechas",
-    "summary": "[Placeholder] Resumen de una línea sobre esta etapa profesional.",
+    "role": "Diseñador Publicitario · Estrategia de Marca",
+    "period": "2020 – 2022",
+    "summary": "Campañas promocionales y contenido digital para posicionamiento, eventos y comunicación comercial.",
     "responsibilities": [
-      "[Placeholder] Responsabilidad principal",
-      "[Placeholder] Responsabilidad principal",
-      "[Placeholder] Responsabilidad principal"
+      "Diseño de campañas promocionales y contenido digital para posicionamiento y eventos",
+      "Adaptación del lenguaje visual de la marca a múltiples formatos con jerarquía y coherencia"
     ],
     "achievements": [
-      "[Placeholder] Logro destacado",
-      "[Placeholder] Logro destacado"
+      "Lenguaje visual reconocible y coherente en todos los formatos de comunicación comercial"
     ],
-    "tools": ["[Herramienta]", "[Herramienta]", "[Herramienta]"],
+    "tools": ["Illustrator", "Photoshop", "InDesign"],
     "projectId": "distrito11",
     "order": 4
   },
   {
-    "id": "mulaila-exp",
-    "company": "Mulaila Gastro Pub",
-    "role": "[Placeholder] Cargo",
-    "period": "[Placeholder] Fechas",
-    "summary": "[Placeholder] Resumen de una línea sobre esta etapa profesional.",
+    "id": "freelance-exp",
+    "company": "Freelance",
+    "role": "Diseñador Gráfico y Publicitario",
+    "period": "2018 – actualidad",
+    "summary": "Proyectos independientes de identidad, diseño publicitario y contenido digital por encargo.",
     "responsibilities": [
-      "[Placeholder] Responsabilidad principal",
-      "[Placeholder] Responsabilidad principal",
-      "[Placeholder] Responsabilidad principal"
+      "Proyectos de identidad, diseño publicitario y contenido digital para pymes, instituciones y marcas de consumo",
+      "Colaboración con equipos de desarrollo y producción en proyectos multidisciplinarios"
     ],
     "achievements": [
-      "[Placeholder] Logro destacado",
-      "[Placeholder] Logro destacado"
+      "Más de siete años de práctica independiente con clientes recurrentes"
     ],
-    "tools": ["[Herramienta]", "[Herramienta]", "[Herramienta]"],
-    "projectId": "mulaila",
+    "tools": ["Adobe Creative Suite", "Figma", "CapCut"],
+    "projectId": "freelance",
     "order": 5
   }
 ]

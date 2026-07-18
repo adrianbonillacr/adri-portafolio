@@ -1,38 +1,38 @@
 {
   "title": "Distrito 11",
-  "tagline": "[Placeholder] Subtítulo breve del proyecto",
-  "description": "[Placeholder] Descripción corta del proyecto: qué es Distrito 11 y qué se construyó, en dos o tres líneas.",
-  "order": 1,
-  "disciplines": ["[Disciplina 1]", "[Disciplina 2]"],
-  "challenge": "[Placeholder] El problema de negocio o de marca que existía antes de empezar. Contexto, tensión y por qué importaba resolverlo.",
-  "objective": "[Placeholder] Qué se buscaba lograr: objetivos concretos, medibles y alineados con el negocio.",
-  "role": "[Placeholder] Mi rol dentro del proyecto: responsabilidades, alcance y equipo con el que colaboré.",
-  "strategy": "[Placeholder] La estrategia detrás de las decisiones: cómo se tradujo el problema en una dirección creativa clara.",
+  "tagline": "Diseño publicitario y estrategia de marca · 2020 – 2022",
+  "description": "Campañas promocionales y contenido digital para el posicionamiento, los eventos y la comunicación comercial de la marca.",
+  "order": 4,
+  "disciplines": ["Diseño publicitario", "Estrategia de marca", "Contenido digital"],
+  "challenge": "Adaptar el lenguaje visual de la marca a múltiples formatos y contextos — posicionamiento, eventos, comunicación comercial — sin perder jerarquía, reconocimiento ni coherencia.",
+  "objective": "Posicionar la marca mediante campañas promocionales y contenido digital consistentes en todos sus canales.",
+  "role": "Diseñador Publicitario y Estrategia de Marca: diseño de campañas promocionales y contenido digital para posicionamiento, eventos y comunicación comercial.",
+  "strategy": "Un lenguaje visual con reglas claras de jerarquía y reconocimiento, aplicado con criterio en cada formato y punto de contacto.",
   "process": [
     {
-      "title": "[Etapa 01]",
-      "description": "[Placeholder] Descripción breve de esta etapa del proceso."
+      "title": "Lenguaje visual",
+      "description": "Definición de las reglas de jerarquía, color y composición de la comunicación de la marca."
     },
     {
-      "title": "[Etapa 02]",
-      "description": "[Placeholder] Descripción breve de esta etapa del proceso."
+      "title": "Campañas promocionales",
+      "description": "Diseño de campañas y contenido digital para posicionamiento, eventos y promociones."
     },
     {
-      "title": "[Etapa 03]",
-      "description": "[Placeholder] Descripción breve de esta etapa del proceso."
+      "title": "Adaptación multiformato",
+      "description": "Traducción del sistema a cada formato manteniendo reconocimiento y coherencia."
     }
   ],
   "results": {
-    "summary": "[Placeholder] Resumen de resultados: qué cambió para el negocio después del proyecto.",
+    "summary": "Dos años de comunicación comercial con una marca reconocible y coherente en todos sus formatos.",
     "metrics": [
-      { "value": "00%", "label": "[Placeholder] métrica" },
-      { "value": "00%", "label": "[Placeholder] métrica" },
-      { "value": "00", "label": "[Placeholder] métrica" }
+      { "value": "2", "label": "años de colaboración" },
+      { "value": "[00]", "label": "[Placeholder] campañas realizadas" },
+      { "value": "[00]", "label": "[Placeholder] eventos comunicados" }
     ]
   },
   "galleryPlaceholders": 6,
   "seo": {
     "title": "Distrito 11 — Caso de estudio · Adrián D. Bonilla",
-    "description": "[Placeholder] Caso de estudio de Distrito 11: branding, dirección creativa y estrategia."
+    "description": "Diseño publicitario y estrategia de marca para Distrito 11: campañas promocionales y contenido digital (2020–2022)."
   }
 }

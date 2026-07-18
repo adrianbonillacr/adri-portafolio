@@ -1,46 +1,37 @@
 [
   {
     "id": "branding",
-    "title": "[Placeholder] Servicio 01",
-    "description": "[Placeholder] Descripción del servicio: qué problema resuelve y qué incluye.",
-    "deliverables": [
-      "[Placeholder] Entregable",
-      "[Placeholder] Entregable",
-      "[Placeholder] Entregable"
-    ],
+    "title": "Branding e identidad visual",
+    "description": "Dirección de arte, branding e identidad: sistemas visuales con reglas claras que hacen a una marca reconocible en cada punto de contacto.",
+    "deliverables": ["Identidad visual", "Sistemas gráficos", "Animación de logotipos", "Dirección de arte"],
     "order": 1
   },
   {
     "id": "direccion-creativa",
-    "title": "[Placeholder] Servicio 02",
-    "description": "[Placeholder] Descripción del servicio: qué problema resuelve y qué incluye.",
-    "deliverables": [
-      "[Placeholder] Entregable",
-      "[Placeholder] Entregable",
-      "[Placeholder] Entregable"
-    ],
+    "title": "Dirección creativa",
+    "description": "Coordinación de equipos y flujos creativos: del brief a la aprobación, con procesos replicables de producción y control de calidad.",
+    "deliverables": ["Briefs y conceptos", "Coordinación de equipos", "Control de calidad"],
     "order": 2
   },
   {
-    "id": "estrategia",
-    "title": "[Placeholder] Servicio 03",
-    "description": "[Placeholder] Descripción del servicio: qué problema resuelve y qué incluye.",
-    "deliverables": [
-      "[Placeholder] Entregable",
-      "[Placeholder] Entregable",
-      "[Placeholder] Entregable"
-    ],
+    "id": "diseno-publicitario",
+    "title": "Diseño publicitario y contenido digital",
+    "description": "Campañas y contenido para redes sociales, comunicación comercial, piezas editoriales y punto de venta, orientados a resultados.",
+    "deliverables": ["Campañas", "Contenido para redes", "Piezas editoriales", "Punto de venta"],
     "order": 3
   },
   {
-    "id": "comunicacion-visual",
-    "title": "[Placeholder] Servicio 04",
-    "description": "[Placeholder] Descripción del servicio: qué problema resuelve y qué incluye.",
-    "deliverables": [
-      "[Placeholder] Entregable",
-      "[Placeholder] Entregable",
-      "[Placeholder] Entregable"
-    ],
+    "id": "motion-video",
+    "title": "Motion graphics y video",
+    "description": "Animación, motion graphics y posproducción de video pensados para el formato y el ritmo de cada plataforma.",
+    "deliverables": ["Motion graphics", "Animación digital", "Edición y posproducción"],
     "order": 4
+  },
+  {
+    "id": "paid-media",
+    "title": "Paid media y estrategia de contenido",
+    "description": "Planificación y gestión de pauta en Meta, Google y TikTok Ads, alineando objetivos comerciales, contenido y segmentación con análisis de KPIs.",
+    "deliverables": ["Planificación de pauta", "Segmentación", "Análisis de KPIs", "Reportes"],
+    "order": 5
   }
 ]

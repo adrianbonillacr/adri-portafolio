@@ -6,15 +6,23 @@ archivos en `public/portfolio/`.
 
 ## Rutas
 
-| Ruta                                | Contenido                                         |
-| ----------------------------------- | ------------------------------------------------- |
-| `/portafolio`                       | Hero, sobre mí, proyectos, experiencia, servicios, herramientas, contacto |
-| `/portafolio/distrito11`            | Caso de estudio Distrito 11                       |
-| `/portafolio/mulaila`               | Caso de estudio Mulaila Gastro Pub                |
-| `/portafolio/advanced`              | Advanced + navegación a 4 casos anidados          |
-| `/portafolio/advanced/proyecto-1…4` | Casos anidados de Advanced                        |
-| `/portafolio/lage`                  | LAGE + navegación a 4 casos anidados              |
-| `/portafolio/lage/proyecto-1…4`     | Casos anidados de LAGE                            |
+| Ruta                                 | Contenido                                          |
+| ------------------------------------ | -------------------------------------------------- |
+| `/portafolio`                        | Hero, sobre mí, espacios de trabajo, experiencia, servicios, herramientas, contacto |
+| `/portafolio/advance`                | Advance + negocios atendidos (4 casos anidados)    |
+| `/portafolio/advance/cuenta-01…04`   | Negocios dentro de Advance                         |
+| `/portafolio/lage`                   | Lagé Estrategia + negocios (Eddie Bauer CR, Quarzo) |
+| `/portafolio/lage/eddie-bauer`       | Caso Eddie Bauer Costa Rica (contenido real)       |
+| `/portafolio/mulailah`               | Caso de estudio Mulailah Gastropub                 |
+| `/portafolio/distrito11`             | Caso de estudio Distrito 11                        |
+| `/portafolio/freelance`              | Freelance + proyectos independientes (4 casos)     |
+
+Los casos anidados admiten contenido completo opcional en el JSON del
+espacio (challenge, objective, role, strategy, process, results): si un
+campo no existe, la página muestra un placeholder.
+
+**Retrato de "Sobre mí"**: colocar la foto en
+`public/portfolio/sobre-mi/hero.jpg` (o `.png/.webp/.avif`) y recargar.
 
 ## Textos
 

@@ -29,9 +29,13 @@ se resuelve con jerarquía, escala o espacio.
 
 | Rol | Fuente | Uso |
 |---|---|---|
-| Display | **Bodoni Moda** (variable) | titulares y momentos editoriales — eco del monograma serif |
-| Sans | **Montserrat** (variable) | nombre, cuerpo, UI — eco del lockup «ADRIÁN D. BONILLA» |
+| **Principal** | **Montserrat** (variable) | titulares, nombre, cuerpo y UI — eco del lockup «ADRIÁN D. BONILLA» |
+| Acento editorial | **Bodoni Moda** (variable) | secundaria: manifiesto, cifras destacadas y momentos editoriales — eco del monograma serif |
 | Mono | **Space Mono** | etiquetas, numeración, tagline — eco de «art – music – love» |
+
+Nota (2026-07-18): el libro de marca define Montserrat como tipografía
+principal; Bodoni Moda queda como acento. La sección de portafolio ya
+aplica esta jerarquía (titulares en Montserrat 700/800).
 
 Convenciones:
 - Etiquetas de sección en mono minúscula con numeración: `01 — manifiesto`.

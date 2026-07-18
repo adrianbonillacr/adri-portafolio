@@ -40,19 +40,25 @@ const { parentId, parentTitle, caseStudy, next } = Astro.props;
 const t = useTranslations('es');
 const path = `/portafolio/${parentId}/${caseStudy.id}`;
 
-/* Contenido estructural en espera de la fase 2 (solo placeholders). */
-const placeholders = {
+/**
+ * Cada campo usa el contenido real del caso si está definido en el JSON
+ * del espacio de trabajo; si no, un placeholder estructural (fase 2).
+ */
+const content = {
   challenge:
+    caseStudy.challenge ??
     '[Placeholder] El problema de negocio o de marca que existía antes de empezar este caso.',
-  objective: '[Placeholder] Qué se buscaba lograr con este caso: objetivos concretos y medibles.',
-  role: '[Placeholder] Mi rol dentro de este caso: responsabilidades y alcance.',
-  strategy: '[Placeholder] La estrategia detrás de las decisiones de este caso.',
-  process: [
+  objective:
+    caseStudy.objective ??
+    '[Placeholder] Qué se buscaba lograr con este caso: objetivos concretos y medibles.',
+  role: caseStudy.role ?? '[Placeholder] Mi rol dentro de este caso: responsabilidades y alcance.',
+  strategy: caseStudy.strategy ?? '[Placeholder] La estrategia detrás de las decisiones de este caso.',
+  process: caseStudy.process ?? [
     { title: '[Etapa 01]', description: '[Placeholder] Descripción breve de esta etapa.' },
     { title: '[Etapa 02]', description: '[Placeholder] Descripción breve de esta etapa.' },
     { title: '[Etapa 03]', description: '[Placeholder] Descripción breve de esta etapa.' },
   ],
-  results: {
+  results: caseStudy.results ?? {
     summary: '[Placeholder] Resumen de resultados de este caso.',
     metrics: [
       { value: '00%', label: '[Placeholder] métrica' },
@@ -117,12 +123,12 @@ const schema = [
       tagline={caseStudy.tagline}
       description={caseStudy.description}
       disciplines={[]}
-      challenge={placeholders.challenge}
-      objective={placeholders.objective}
-      role={placeholders.role}
-      strategy={placeholders.strategy}
-      process={placeholders.process}
-      results={placeholders.results}
+      challenge={content.challenge}
+      objective={content.objective}
+      role={content.role}
+      strategy={content.strategy}
+      process={content.process}
+      results={content.results}
       next={next}
       backHref={`/portafolio/${parentId}`}
       backLabel={parentTitle.toLowerCase()}

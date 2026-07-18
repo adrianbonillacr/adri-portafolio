@@ -1,16 +1,65 @@
 ---
 /**
- * Sobre mí — enfoque estratégico, no biográfico:
- * cómo pienso, cómo trabajo, qué problemas resuelvo.
+ * Sobre mí — resumen sólido del CV para quien no viene del currículum:
+ * retrato, historia breve, cifras, roles desempeñados, formación y
+ * marcas; cierra con los tres pilares (pienso / trabajo / resuelvo).
+ *
+ * El retrato se detecta solo: basta colocar la foto en
+ * public/portfolio/sobre-mi/hero.jpg (o .png/.webp/.avif).
  */
 import { useTranslations } from '../../i18n';
+import { getProjectMedia } from '../../lib/media';
 import SectionHeader from './SectionHeader.astro';
+import MediaFrame from './MediaFrame.astro';
 
 const t = useTranslations('es');
+const portrait = getProjectMedia('sobre-mi').hero;
 ---
 
 <section id="sobre-mi" class="about container">
   <SectionHeader label={t.portfolio.about.label} title={t.portfolio.about.title} />
+
+  <div class="profile">
+    <div class="portrait" data-reveal>
+      <MediaFrame src={portrait} alt={t.portfolio.about.portraitAlt} ratio="4 / 5" label="retrato" />
+    </div>
+
+    <div class="resume">
+      <div class="bio" data-reveal style="--reveal-delay: 120ms">
+        {t.portfolio.about.bio.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+
+      <dl class="stats" data-reveal style="--reveal-delay: 220ms">
+        {
+          t.portfolio.about.stats.map((stat) => (
+            <div class="stat">
+              <dd>{stat.value}</dd>
+              <dt>{stat.label}</dt>
+            </div>
+          ))
+        }
+      </dl>
+
+      <div class="block" data-reveal style="--reveal-delay: 300ms">
+        <span class="block-label">{t.portfolio.about.rolesLabel}</span>
+        <ul class="chips">
+          {t.portfolio.about.roles.map((role) => <li>{role}</li>)}
+        </ul>
+      </div>
+
+      <div class="block" data-reveal style="--reveal-delay: 380ms">
+        <span class="block-label">{t.portfolio.about.educationLabel}</span>
+        <ul class="plain">
+          {t.portfolio.about.education.map((entry) => <li>{entry}</li>)}
+        </ul>
+      </div>
+
+      <div class="block" data-reveal style="--reveal-delay: 460ms">
+        <span class="block-label">{t.portfolio.about.clientsLabel}</span>
+        <p class="clients">{t.portfolio.about.clients.join(' · ')}</p>
+      </div>
+    </div>
+  </div>
 
   <div class="grid">
     {
@@ -30,6 +79,119 @@ const t = useTranslations('es');
 <style>
   .about {
     padding-block: var(--space-section);
+  }
+
+  .profile {
+    display: grid;
+    grid-template-columns: minmax(16rem, 2fr) 3fr;
+    gap: var(--space-xl);
+    align-items: start;
+    margin-bottom: var(--space-xl);
+  }
+
+  .portrait {
+    position: sticky;
+    top: calc(var(--frame) + var(--space-lg));
+  }
+
+  .resume {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .bio {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .bio p {
+    color: var(--color-ink-muted);
+    max-width: 58ch;
+    text-wrap: pretty;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    padding-block: var(--space-sm);
+    border-block: 1px solid var(--color-line-soft);
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  /* cifras en Bodoni: acento editorial secundario de la marca */
+  .stat dd {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 420;
+    line-height: 1;
+  }
+
+  .stat dt {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.18em;
+    text-transform: lowercase;
+    color: var(--color-ink-faint);
+  }
+
+  .block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .block-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.26em;
+    text-transform: lowercase;
+    color: var(--color-ink-faint);
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .chips li {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.14em;
+    text-transform: lowercase;
+    color: var(--color-ink-muted);
+    border: 1px solid var(--color-line-soft);
+    padding: 0.3rem 0.7rem;
+  }
+
+  .plain li {
+    color: var(--color-ink-muted);
+    font-size: var(--text-sm);
+    padding-left: 1.1rem;
+    position: relative;
+  }
+
+  .plain li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--color-ink-faint);
+  }
+
+  .clients {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    line-height: 1.9;
+    color: var(--color-ink-muted);
+    max-width: 60ch;
   }
 
   .grid {
@@ -54,21 +216,35 @@ const t = useTranslations('es');
   }
 
   h3 {
-    font-family: var(--font-display);
     font-size: var(--text-lg);
-    font-weight: 480;
+    font-weight: 700;
     line-height: 1.25;
+    letter-spacing: -0.01em;
   }
 
-  p {
+  article p {
     color: var(--color-ink-muted);
     font-size: var(--text-sm);
   }
 
   @media (max-width: 900px) {
+    .profile {
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+
+    .portrait {
+      position: static;
+      max-width: 24rem;
+    }
+
     .grid {
       grid-template-columns: 1fr;
       gap: var(--space-md);
+    }
+
+    .stats {
+      gap: var(--space-sm);
     }
   }
 </style>

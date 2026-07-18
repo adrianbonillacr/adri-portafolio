@@ -12,11 +12,29 @@ const metricSchema = z.object({
   label: z.string(),
 });
 
+/**
+ * Caso anidado dentro de un espacio de trabajo (agencia o práctica
+ * independiente). Los campos de contenido son opcionales: mientras
+ * no existan, la página del caso muestra placeholders.
+ */
 const caseStudySchema = z.object({
   id: z.string(),
   title: z.string(),
   tagline: z.string(),
   description: z.string(),
+  challenge: z.string().optional(),
+  objective: z.string().optional(),
+  role: z.string().optional(),
+  strategy: z.string().optional(),
+  process: z
+    .array(z.object({ title: z.string(), description: z.string() }))
+    .optional(),
+  results: z
+    .object({
+      summary: z.string(),
+      metrics: z.array(metricSchema).default([]),
+    })
+    .optional(),
 });
 
 const projects = defineCollection({

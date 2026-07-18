@@ -22,6 +22,18 @@ const t = useTranslations('es');
     </div>
 
     <div class="channel">
+      <span class="channel-label">{t.portfolio.contact.phoneLabel}</span>
+      <a class="email" href={`tel:${t.portfolio.contact.phone.replaceAll(' ', '')}`}>
+        {t.portfolio.contact.phone}
+      </a>
+    </div>
+
+    <div class="channel">
+      <span class="channel-label">{t.portfolio.contact.locationLabel}</span>
+      <span class="plain-value">{t.portfolio.contact.location}</span>
+    </div>
+
+    <div class="channel">
       <span class="channel-label">{t.portfolio.contact.socialLabel}</span>
       <ul>
         {
@@ -87,6 +99,12 @@ const t = useTranslations('es');
     font-family: var(--font-display);
     font-size: var(--text-lg);
     transition: opacity var(--dur-fast) var(--ease-out);
+  }
+
+  .plain-value {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    color: var(--color-ink-muted);
   }
 
   .email:hover {

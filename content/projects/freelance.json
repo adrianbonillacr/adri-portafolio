@@ -1,0 +1,64 @@
+{
+  "title": "Freelance",
+  "tagline": "Proyectos independientes · 2018 – actualidad",
+  "description": "Identidad, diseño publicitario y contenido digital por encargo para pymes, instituciones y marcas de consumo.",
+  "order": 5,
+  "disciplines": ["Identidad", "Diseño publicitario", "Contenido digital"],
+  "challenge": "Resolver encargos de naturaleza muy distinta — identidad, publicidad, contenido — para clientes con estructuras, tiempos y presupuestos diversos.",
+  "objective": "Entregar cada proyecto con criterio y procesos de estudio, sin importar la escala del cliente.",
+  "role": "Diseñador Gráfico y Publicitario independiente, en colaboración con equipos de desarrollo y producción en proyectos multidisciplinarios.",
+  "strategy": "Tratar cada encargo como un problema de negocio: diagnóstico, propuesta y ejecución con entregables y alcances claros.",
+  "process": [
+    {
+      "title": "Diagnóstico",
+      "description": "Comprensión del negocio, su audiencia y el problema real detrás del encargo."
+    },
+    {
+      "title": "Propuesta",
+      "description": "Dirección creativa y alcances definidos antes de producir."
+    },
+    {
+      "title": "Ejecución y entrega",
+      "description": "Producción, iteración con el cliente y entrega de archivos finales organizados."
+    }
+  ],
+  "results": {
+    "summary": "Una práctica independiente sostenida por más de siete años y una red de clientes recurrentes.",
+    "metrics": [
+      { "value": "7+", "label": "años de práctica independiente" },
+      { "value": "[00]", "label": "[Placeholder] proyectos entregados" },
+      { "value": "[00]", "label": "[Placeholder] clientes recurrentes" }
+    ]
+  },
+  "galleryPlaceholders": 6,
+  "caseStudies": [
+    {
+      "id": "proyecto-01",
+      "title": "[Proyecto 01]",
+      "tagline": "[Placeholder] Tipo de encargo",
+      "description": "[Placeholder] Proyecto independiente — por definir cuál destacar (URBN, Pragmático CR, Coco Estudio…)."
+    },
+    {
+      "id": "proyecto-02",
+      "title": "[Proyecto 02]",
+      "tagline": "[Placeholder] Tipo de encargo",
+      "description": "[Placeholder] Proyecto independiente — por definir cuál destacar."
+    },
+    {
+      "id": "proyecto-03",
+      "title": "[Proyecto 03]",
+      "tagline": "[Placeholder] Tipo de encargo",
+      "description": "[Placeholder] Proyecto independiente — por definir cuál destacar."
+    },
+    {
+      "id": "proyecto-04",
+      "title": "[Proyecto 04]",
+      "tagline": "[Placeholder] Tipo de encargo",
+      "description": "[Placeholder] Proyecto independiente — por definir cuál destacar."
+    }
+  ],
+  "seo": {
+    "title": "Freelance — Proyectos independientes · Adrián D. Bonilla",
+    "description": "Identidad, diseño publicitario y contenido digital por encargo para pymes, instituciones y marcas de consumo desde 2018."
+  }
+}

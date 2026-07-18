@@ -1,64 +1,78 @@
 {
-  "title": "LAGE",
-  "tagline": "[Placeholder] Subtítulo breve del proyecto",
-  "description": "[Placeholder] Descripción corta del proyecto: qué es LAGE y qué se construyó, en dos o tres líneas.",
-  "order": 4,
-  "disciplines": ["[Disciplina 1]", "[Disciplina 2]"],
-  "challenge": "[Placeholder] El problema de negocio o de marca que existía antes de empezar. Contexto, tensión y por qué importaba resolverlo.",
-  "objective": "[Placeholder] Qué se buscaba lograr: objetivos concretos, medibles y alineados con el negocio.",
-  "role": "[Placeholder] Mi rol dentro del proyecto: responsabilidades, alcance y equipo con el que colaboré.",
-  "strategy": "[Placeholder] La estrategia detrás de las decisiones: cómo se tradujo el problema en una dirección creativa clara.",
+  "title": "Lagé Estrategia",
+  "tagline": "Agencia de Oscar Molina · 2024 – abril 2026",
+  "description": "Estrategia de redes sociales y animación digital para cuentas comerciales y corporativas, entre ellas Eddie Bauer Costa Rica y Quarzo Tecnología.",
+  "order": 2,
+  "disciplines": ["Estrategia de redes", "Motion graphics", "Animación digital"],
+  "challenge": "Conectar la ejecución visual con el desempeño real del contenido y la pauta, en cuentas comerciales y corporativas con audiencias y objetivos muy distintos.",
+  "objective": "Desarrollar estrategias de comunicación y contenido que posicionen a cada marca, sostenidas en piezas audiovisuales y animación de alta factura para redes sociales.",
+  "role": "Estratega de Redes Sociales y Animador Digital: conceptualicé campañas digitales, produje motion graphics y piezas audiovisuales, y animé logotipos de clientes para el portafolio de la agencia.",
+  "strategy": "Elaborar propuestas, reportes y recomendaciones que traducen los datos de desempeño en decisiones creativas, cerrando el ciclo entre estrategia, producción y resultados.",
   "process": [
     {
-      "title": "[Etapa 01]",
-      "description": "[Placeholder] Descripción breve de esta etapa del proceso."
+      "title": "Estrategia y concepto",
+      "description": "Desarrollo de estrategias de comunicación y conceptualización de campañas digitales por cuenta."
     },
     {
-      "title": "[Etapa 02]",
-      "description": "[Placeholder] Descripción breve de esta etapa del proceso."
+      "title": "Producción y animación",
+      "description": "Motion graphics, animaciones y piezas audiovisuales para redes sociales y portafolio de la agencia."
     },
     {
-      "title": "[Etapa 03]",
-      "description": "[Placeholder] Descripción breve de esta etapa del proceso."
+      "title": "Reporte y optimización",
+      "description": "Propuestas, reportes y recomendaciones que conectan la ejecución visual con el desempeño de contenido y pauta."
     }
   ],
   "results": {
-    "summary": "[Placeholder] Resumen de resultados: qué cambió para el negocio después del proyecto.",
+    "summary": "Campañas que combinan concepto, animación y análisis: el lanzamiento de Eddie Bauer Costa Rica alcanzó a más de medio millón de personas en un mes.",
     "metrics": [
-      { "value": "00%", "label": "[Placeholder] métrica" },
-      { "value": "00%", "label": "[Placeholder] métrica" },
-      { "value": "00", "label": "[Placeholder] métrica" }
+      { "value": "564.083", "label": "personas alcanzadas — Eddie Bauer CR" },
+      { "value": "1.131.832", "label": "impresiones" },
+      { "value": "34.523", "label": "visitas" }
     ]
   },
   "galleryPlaceholders": 6,
   "caseStudies": [
     {
-      "id": "proyecto-1",
-      "title": "Proyecto 1",
-      "tagline": "[Placeholder] Subtítulo del caso",
-      "description": "[Placeholder] Descripción breve de este caso de estudio dentro de LAGE."
+      "id": "eddie-bauer",
+      "title": "Eddie Bauer Costa Rica",
+      "tagline": "Campaña de lanzamiento · febrero 2026",
+      "description": "Estrategia de comunicación y contenido para el lanzamiento de la marca outdoor en Costa Rica.",
+      "challenge": "Presentar una marca internacional de outdoor ante el público costarricense y generar tracción medible desde el primer mes.",
+      "objective": "Lanzar la marca en el mercado local con una campaña digital que maximizara alcance, recordación y visitas.",
+      "role": "Estrategia de redes sociales, conceptualización de la campaña y producción de piezas de contenido y animación.",
+      "strategy": "Campaña de lanzamiento coordinada entre contenido orgánico y pauta, con piezas audiovisuales pensadas para el formato y el ritmo de cada red.",
+      "process": [
+        {
+          "title": "Concepto de lanzamiento",
+          "description": "Definición del enfoque de comunicación para presentar la marca al mercado costarricense."
+        },
+        {
+          "title": "Producción de piezas",
+          "description": "Contenido y animaciones adaptadas a los formatos de cada red social."
+        },
+        {
+          "title": "Medición",
+          "description": "Seguimiento del desempeño de la campaña y reporte de resultados."
+        }
+      ],
+      "results": {
+        "summary": "El lanzamiento superó el medio millón de personas alcanzadas en febrero de 2026.",
+        "metrics": [
+          { "value": "564.083", "label": "personas alcanzadas" },
+          { "value": "1.131.832", "label": "impresiones" },
+          { "value": "34.523", "label": "visitas" }
+        ]
+      }
     },
     {
-      "id": "proyecto-2",
-      "title": "Proyecto 2",
-      "tagline": "[Placeholder] Subtítulo del caso",
-      "description": "[Placeholder] Descripción breve de este caso de estudio dentro de LAGE."
-    },
-    {
-      "id": "proyecto-3",
-      "title": "Proyecto 3",
-      "tagline": "[Placeholder] Subtítulo del caso",
-      "description": "[Placeholder] Descripción breve de este caso de estudio dentro de LAGE."
-    },
-    {
-      "id": "proyecto-4",
-      "title": "Proyecto 4",
-      "tagline": "[Placeholder] Subtítulo del caso",
-      "description": "[Placeholder] Descripción breve de este caso de estudio dentro de LAGE."
+      "id": "quarzo",
+      "title": "Quarzo Tecnología",
+      "tagline": "Comunicación y contenido corporativo",
+      "description": "Estrategia de comunicación y contenido para la marca tecnológica."
     }
   ],
   "seo": {
-    "title": "LAGE — Caso de estudio · Adrián D. Bonilla",
-    "description": "[Placeholder] Caso de estudio de LAGE: branding, dirección creativa y estrategia."
+    "title": "Lagé Estrategia — Espacio de trabajo · Adrián D. Bonilla",
+    "description": "Estrategia de redes sociales, motion graphics y animación digital en Lagé Estrategia: Eddie Bauer Costa Rica, Quarzo Tecnología y más."
   }
 }

@@ -3,11 +3,23 @@
  * Solo se activa con puntero fino (mouse) y sin `prefers-reduced-motion`,
  * de modo que dispositivos táctiles y usuarios con movilidad reducida
  * conservan el cursor y el comportamiento nativos.
+ *
+ * La estela nace del punto suavizado (no del mouse crudo) y se dibuja
+ * como una curva continua con desvanecimiento y afinado progresivos.
+ * Sus parámetros viven como tokens en `tokens.css` (--cursor-*).
  */
 
-const TRAIL_LIFE = 500; // vida de cada punto de la estela, en ms
-const TRAIL_ALPHA = 0.28; // opacidad máxima de la estela
-const DOT_EASE = 0.13; // suavizado del punto principal (0–1): menor = más suave
+const rootStyles = getComputedStyle(document.documentElement);
+
+function token(name, fallback) {
+  const value = parseFloat(rootStyles.getPropertyValue(name));
+  return Number.isFinite(value) ? value : fallback;
+}
+
+const DOT_EASE = token('--cursor-ease', 0.1); // suavizado del punto (0–1): menor = más suave
+const TRAIL_LIFE = token('--cursor-trail-life', 900); // vida de cada punto de la estela, en ms
+const TRAIL_ALPHA = token('--cursor-trail-alpha', 0.22); // opacidad máxima del trazo
+const TRAIL_WIDTH = token('--cursor-trail-width', 2.4); // grosor máximo del trazo, en px
 
 const finePointer = window.matchMedia('(pointer: fine)');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -63,11 +75,6 @@ function initCursor() {
       dot.classList.add('is-visible');
     }
 
-    const last = points[points.length - 1];
-    if (!last || Math.hypot(mouseX - last.x, mouseY - last.y) > 2) {
-      points.push({ x: mouseX, y: mouseY, t: performance.now() });
-    }
-
     wake();
   });
 
@@ -110,23 +117,39 @@ function initCursor() {
     dotY += (mouseY - dotY) * DOT_EASE;
     dot.style.transform = `translate3d(${dotX}px, ${dotY}px, 0)`;
 
-    // — estela —
+    // — la estela sigue al punto suavizado: trazo fluido, sin quiebres —
+    if (dotSeen) {
+      const last = points[points.length - 1];
+      if (!last || Math.hypot(dotX - last.x, dotY - last.y) > 1.5) {
+        points.push({ x: dotX, y: dotY, t: now });
+      }
+    }
+
     points = points.filter((p) => now - p.t < TRAIL_LIFE);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    if (points.length > 1) {
+    if (points.length > 2) {
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
-      for (let i = 1; i < points.length; i++) {
-        const a = points[i - 1];
-        const b = points[i];
-        const age = (now - b.t) / TRAIL_LIFE; // 0 = reciente, 1 = por desvanecerse
-        const strength = 1 - age;
+
+      // curva por puntos medios: cada tramo pasa suavemente por el punto
+      for (let i = 1; i < points.length - 1; i++) {
+        const prev = points[i - 1];
+        const curr = points[i];
+        const next = points[i + 1];
+        const age = (now - curr.t) / TRAIL_LIFE; // 0 = reciente, 1 = por desvanecerse
+        const strength = (1 - age) ** 1.4; // desvanecimiento con caída suave
+
         ctx.strokeStyle = `rgba(244, 243, 240, ${(strength * TRAIL_ALPHA).toFixed(3)})`;
-        ctx.lineWidth = (0.4 + strength * 1.4) * dpr;
+        ctx.lineWidth = Math.max(0.3, strength * TRAIL_WIDTH) * dpr;
         ctx.beginPath();
-        ctx.moveTo(a.x * dpr, a.y * dpr);
-        ctx.lineTo(b.x * dpr, b.y * dpr);
+        ctx.moveTo(((prev.x + curr.x) / 2) * dpr, ((prev.y + curr.y) / 2) * dpr);
+        ctx.quadraticCurveTo(
+          curr.x * dpr,
+          curr.y * dpr,
+          ((curr.x + next.x) / 2) * dpr,
+          ((curr.y + next.y) / 2) * dpr
+        );
         ctx.stroke();
       }
     }

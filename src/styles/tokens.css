@@ -51,6 +51,16 @@
   --dur: 700ms;
   --dur-slow: 1100ms;
 
+  /* — Cursor · punto y estela —
+     ease   : arrastre del punto (0–1, menor = más suave)
+     life   : vida de la estela en ms
+     alpha  : opacidad máxima del trazo
+     width  : grosor máximo del trazo en px               */
+  --cursor-ease: 0.1;
+  --cursor-trail-life: 900;
+  --cursor-trail-alpha: 0.22;
+  --cursor-trail-width: 2.4;
+
   /* — Capas — */
   --z-header: 50;
   --z-frame: 60;

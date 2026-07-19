@@ -154,6 +154,7 @@ export default {
         'Selva Viva',
         'Spora',
         'Superior Quick Parts',
+        'Supernova',
         'Swell',
         'Taller Billy',
         'Toque Celestial',

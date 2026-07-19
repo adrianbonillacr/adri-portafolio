@@ -131,4 +131,11 @@ const t = useTranslations(lang);
   .channel ul a:hover {
     color: var(--color-ink);
   }
+
+  @media (max-width: 640px) {
+    .channels {
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+  }
 </style>

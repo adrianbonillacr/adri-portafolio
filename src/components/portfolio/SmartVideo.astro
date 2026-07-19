@@ -26,6 +26,18 @@ const {
   label = 'video',
   title = label,
 } = Astro.props;
+
+/**
+ * Tamaño de exportación recomendado según la proporción:
+ * panorámicos (≥2:1) 2400px de ancho, horizontales 1920px (Full HD),
+ * verticales 1080px; la altura se deriva del ratio.
+ */
+const [ratioW = 16, ratioH = 9] = ratio.split('/').map((part) => parseFloat(part.trim()));
+const aspect = ratioW / ratioH;
+const exportWidth = aspect >= 2 ? 2400 : aspect >= 1 ? 1920 : 1080;
+const exportHeight = Math.round(exportWidth / aspect);
+const ratioLabel = `${ratioW}:${ratioH}`;
+const sizeLabel = `${exportWidth}px × ${exportHeight}px`;
 ---
 
 <figure class="smart-video" style={`--ratio: ${ratio}`}>
@@ -47,6 +59,8 @@ const {
       <span class="placeholder" role="img" aria-label={title}>
         <span class="play" aria-hidden="true" />
         <span class="tag">{label}</span>
+        <span class="spec">{ratioLabel}</span>
+        <span class="spec">{sizeLabel}</span>
       </span>
     )
   }
@@ -82,7 +96,18 @@ const {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: var(--space-sm);
+    gap: 0.5rem;
+  }
+
+  .placeholder .play {
+    margin-bottom: 0.5rem;
+  }
+
+  .spec {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.12em;
+    color: var(--color-ink-muted);
   }
 
   /* triángulo de reproducción trazado, en espera del archivo */

@@ -11,6 +11,10 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const base = t.portfolio.base;
 
+/* la pantalla /inicio está deshabilitada en producción (se trabaja en
+   localhost): allí el monograma vuelve a la portada del sitio */
+const homeHref = import.meta.env.DEV ? '/inicio' : '/';
+
 const links = [
   { href: `${base}#sobre-mi`, label: t.portfolio.nav.about },
   { href: `${base}#proyectos`, label: t.portfolio.nav.projects },
@@ -21,7 +25,7 @@ const links = [
 ---
 
 <header class="portfolio-nav">
-  <a class="brand" href="/inicio" data-preloader aria-label={t.a11y.home}>
+  <a class="brand" href={homeHref} data-preloader aria-label={t.a11y.home}>
     <img src="/assets/monogram.png" alt="" width="297" height="195" loading="eager" />
   </a>
 

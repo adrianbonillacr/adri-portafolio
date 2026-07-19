@@ -2,7 +2,8 @@
 /**
  * Marco de imagen consciente de placeholders: si `src` existe renderiza
  * la imagen (lazy por defecto); si no, un marco vacío de galería con
- * etiqueta mono. Así las páginas quedan listas antes de tener medios.
+ * la especificación del archivo esperado — etiqueta, proporción y
+ * tamaño recomendado en píxeles — para producir los assets a mano.
  */
 interface Props {
   src: string | null;
@@ -15,6 +16,18 @@ interface Props {
 }
 
 const { src, alt, ratio = '4 / 3', label = 'imagen', loading = 'lazy' } = Astro.props;
+
+/**
+ * Tamaño de exportación recomendado según la proporción:
+ * panorámicos (≥2:1) 2400px de ancho, horizontales 1600px,
+ * verticales 1200px; la altura se deriva del ratio.
+ */
+const [ratioW = 4, ratioH = 3] = ratio.split('/').map((part) => parseFloat(part.trim()));
+const aspect = ratioW / ratioH;
+const exportWidth = aspect >= 2 ? 2400 : aspect >= 1 ? 1600 : 1200;
+const exportHeight = Math.round(exportWidth / aspect);
+const ratioLabel = `${ratioW}:${ratioH}`;
+const sizeLabel = `${exportWidth}px × ${exportHeight}px`;
 ---
 
 <figure class="media-frame" style={`--ratio: ${ratio}`}>
@@ -29,7 +42,11 @@ const { src, alt, ratio = '4 / 3', label = 'imagen', loading = 'lazy' } = Astro.
       />
     ) : (
       <span class="placeholder" role="img" aria-label={alt}>
-        <span class="tag">{label}</span>
+        <span class="specs">
+          <span class="tag">{label}</span>
+          <span class="spec">{ratioLabel}</span>
+          <span class="spec">{sizeLabel}</span>
+        </span>
       </span>
     )
   }
@@ -78,13 +95,27 @@ const { src, alt, ratio = '4 / 3', label = 'imagen', loading = 'lazy' } = Astro.
       );
   }
 
-  .tag {
+  .specs {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--color-bg-raised);
+    padding: 0.7rem 1.1rem;
+  }
+
+  .tag {
     font-family: var(--font-mono);
     font-size: var(--text-label);
     letter-spacing: 0.3em;
     color: var(--color-ink-faint);
-    background: var(--color-bg-raised);
-    padding: 0.5rem 1rem;
+  }
+
+  .spec {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.12em;
+    color: var(--color-ink-muted);
   }
 </style>

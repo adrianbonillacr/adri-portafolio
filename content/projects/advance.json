@@ -65,10 +65,28 @@
       }
     },
     {
-      "id": "cuenta-02",
-      "title": "[Negocio 02]",
-      "tagline": "[Placeholder] Rubro del negocio",
-      "description": "[Placeholder] Negocio atendido dentro de Advance — por definir cuál de las cuentas destacar."
+      "id": "la-porketa",
+      "title": "La Porketa",
+      "tagline": "Restaurante · identidad apetitosa y menú visual",
+      "description": "Gestión creativa de la cuenta dentro de Advance: fotografía de menú, historias destacadas y contenido de marca para el restaurante de cerdo y parrilla.",
+      "challenge": "Traducir una carta amplia — platillos, hamburguesas, cócteles y bebidas — a un sistema visual apetitoso y consistente que funcione en redes y en el punto de venta.",
+      "objective": "Presentar cada platillo con un lenguaje fotográfico y gráfico coherente que despierte antojo y refuerce la personalidad cálida de la marca.",
+      "role": "Diseñador Publicitario y Account Manager: dirección visual del menú, fotografía de producto, historias destacadas y contenido para redes.",
+      "strategy": "Un sistema de piezas replicable — menú, destacadas y contenido — anclado en la paleta roja y crema y el logotipo del cerdito, para que toda la comunicación se reconozca al instante.",
+      "process": [
+        {
+          "title": "Sistema visual",
+          "description": "Definición de la retícula, tipografía y tratamiento fotográfico del menú a partir de la identidad de la marca."
+        },
+        {
+          "title": "Producción del menú",
+          "description": "Fotografía y diseño de cada platillo, hamburguesa, cóctel y bebida bajo el mismo lenguaje."
+        },
+        {
+          "title": "Contenido y destacadas",
+          "description": "Historias destacadas de Instagram y contenido para redes que ordenan la información del negocio."
+        }
+      ]
     },
     {
       "id": "cuenta-03",

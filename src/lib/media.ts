@@ -113,8 +113,12 @@ export function getProjectMedia(mediaId: string): ProjectMedia {
 
   const gallery = readGalleryItems(`${mediaId}/gallery`, [...segments, 'gallery']);
 
+  // Un prefijo numérico opcional en el nombre de la subcarpeta ("1 - Platillos")
+  // controla el orden sin aparecer en la etiqueta visible.
+  const stripOrderPrefix = (folder: string) => folder.replace(/^\d+\s*[-.)]\s*/, '');
+
   const galleryCategories: GalleryCategory[] = listSubdirs(`${mediaId}/gallery`).map((folder) => ({
-    name: folder,
+    name: stripOrderPrefix(folder),
     items: readGalleryItems(`${mediaId}/gallery/${folder}`, [...segments, 'gallery', folder]),
   }));
 

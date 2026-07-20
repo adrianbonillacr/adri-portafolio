@@ -65,10 +65,28 @@
       }
     },
     {
-      "id": "cuenta-02",
-      "title": "[Business 02]",
-      "tagline": "[Placeholder] Business sector",
-      "description": "[Placeholder] Business served within Advance — which accounts to feature is still to be defined."
+      "id": "la-porketa",
+      "title": "La Porketa",
+      "tagline": "Restaurant · appetizing identity & visual menu",
+      "description": "Creative management of the account within Advance: menu photography, story highlights and brand content for the pork and grill restaurant.",
+      "challenge": "Translating a broad menu — dishes, burgers, cocktails and drinks — into an appetizing, consistent visual system that works on social media and at the point of sale.",
+      "objective": "Presenting every dish with a coherent photographic and graphic language that sparks cravings and reinforces the brand's warm personality.",
+      "role": "Advertising Designer and Account Manager: menu visual direction, product photography, story highlights and social content.",
+      "strategy": "A repeatable system of pieces — menu, highlights and content — anchored in the red and cream palette and the little pig logo, so all communication is recognized instantly.",
+      "process": [
+        {
+          "title": "Visual system",
+          "description": "Defining the grid, typography and photographic treatment of the menu from the brand identity."
+        },
+        {
+          "title": "Menu production",
+          "description": "Photography and design of each dish, burger, cocktail and drink under the same language."
+        },
+        {
+          "title": "Content & highlights",
+          "description": "Instagram story highlights and social content that organize the business's information."
+        }
+      ]
     },
     {
       "id": "cuenta-03",

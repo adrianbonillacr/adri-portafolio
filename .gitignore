@@ -15,3 +15,6 @@ Thumbs.db
 
 # documentos personales (no publicar)
 cv/
+
+# archivos fuente locales (originales sin optimizar; el sitio usa public/)
+Assets - Portafolio/

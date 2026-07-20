@@ -22,8 +22,15 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const isEmpty = items.length === 0;
 
-/** Los archivos con sufijo `-wide` ocupan las dos columnas, en 16:9. */
+/**
+ * Convención de tamaños por sufijo de archivo:
+ *  - `-wide` → ancho completo, 16:9 (reels horizontales, banners)
+ *  - `-tall` → un tercio de ancho, 9:16 (historias, piezas verticales)
+ *  - sin sufijo → media retícula, 4:3
+ */
 const isWide = (name: string) => name.endsWith('-wide');
+const isTall = (name: string) => name.endsWith('-tall');
+const ratioFor = (name: string) => (isWide(name) ? '16 / 9' : isTall(name) ? '9 / 16' : '4 / 3');
 ---
 
 <section class="gallery container">
@@ -44,20 +51,20 @@ const isWide = (name: string) => name.endsWith('-wide');
           ))
         : items.map((item, index) => (
             <div
-              class:list={[{ 'is-wide': isWide(item.name) }]}
+              class:list={[{ 'is-wide': isWide(item.name), 'is-tall': isTall(item.name) }]}
               data-reveal
-              style={`--reveal-delay: ${(index % 2) * 120}ms`}
+              style={`--reveal-delay: ${(index % 3) * 100}ms`}
             >
               {item.type === 'image' ? (
                 <MediaFrame
                   src={item.src}
                   alt={`${projectTitle} — ${item.name}`}
-                  ratio={isWide(item.name) ? '16 / 9' : '4 / 3'}
+                  ratio={ratioFor(item.name)}
                 />
               ) : (
                 <SmartVideo
                   src={item.src}
-                  ratio={isWide(item.name) ? '16 / 9' : '4 / 3'}
+                  ratio={ratioFor(item.name)}
                   mode="hover"
                   title={`${projectTitle} — ${item.name}`}
                 />
@@ -76,20 +83,37 @@ const isWide = (name: string) => name.endsWith('-wide');
     padding-block: var(--space-xl);
   }
 
+  /* retícula de 6 pistas: normal = 3 (½), wide = 6 (todo), tall = 2 (⅓) */
   .grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: var(--space-md);
+  }
+
+  .grid > div {
+    grid-column: span 3;
   }
 
   .grid .is-wide {
     grid-column: 1 / -1;
   }
 
+  .grid .is-tall {
+    grid-column: span 2;
+  }
+
   @media (max-width: 700px) {
     .grid {
-      grid-template-columns: 1fr;
       gap: var(--space-sm);
+    }
+
+    /* móvil: piezas normales a lo ancho; verticales de a dos por fila */
+    .grid > div {
+      grid-column: 1 / -1;
+    }
+
+    .grid .is-tall {
+      grid-column: span 3;
     }
   }
 </style>

@@ -61,6 +61,11 @@ public/portfolio/<id>/gallery/01.jpg    → galería (orden alfabético)
 También se aceptan GIF animados en la galería, aunque un MP4 equivalente
 pesa ~10× menos.
 
+**Piezas anchas**: un archivo de galería con sufijo `-wide` (por ejemplo
+`01-wide.gif` o `04-wide.mp4`) ocupa las dos columnas en 16:9
+(1920×1080). El orden sigue siendo alfabético: numera los archivos según
+la posición deseada.
+
 Para los casos anidados: `public/portfolio/advanced/proyecto-1/hero.jpg`, etc.
 Mientras no exista un archivo, se muestra un marco placeholder.
 

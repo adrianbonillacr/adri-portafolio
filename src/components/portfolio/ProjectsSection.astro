@@ -25,16 +25,19 @@ const projects = (await getCollection(lang === 'en' ? 'projectsEn' : 'projects')
 
   <div class="grid">
     {
-      projects.map((project, index) => (
-        <ProjectCard
-          href={`${t.portfolio.base}/${project.id}`}
-          title={project.data.title}
-          tagline={project.data.tagline}
-          disciplines={project.data.disciplines}
-          index={index}
-          image={getProjectMedia(project.id).hero}
-        />
-      ))
+      projects.map((project, index) => {
+        const media = getProjectMedia(project.id);
+        return (
+          <ProjectCard
+            href={`${t.portfolio.base}/${project.id}`}
+            title={project.data.title}
+            tagline={project.data.tagline}
+            disciplines={project.data.disciplines}
+            index={index}
+            image={media.card ?? media.hero}
+          />
+        );
+      })
     }
   </div>
 </section>

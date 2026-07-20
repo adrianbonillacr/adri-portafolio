@@ -33,10 +33,36 @@
   "galleryPlaceholders": 6,
   "caseStudies": [
     {
-      "id": "cuenta-01",
-      "title": "[Business 01]",
-      "tagline": "[Placeholder] Business sector",
-      "description": "[Placeholder] Business served within Advance — which accounts to feature is still to be defined."
+      "id": "eddie-bauer",
+      "title": "Eddie Bauer Costa Rica",
+      "tagline": "Outdoor retail account · design, content & paid media",
+      "description": "Creative management of the account within Advance: campaign pieces, stories, photography and video ads for the brand's promotions.",
+      "challenge": "Sustaining the digital communication of an international outdoor brand in the Costa Rican market, with a constant flow of promotions, stories and seasonal campaigns.",
+      "objective": "Producing content and paid media that convert: promotions, launches and commercial communication aligned with the store's sales goals.",
+      "role": "Advertising Designer, Media Buyer and Account Manager: piece design, social content and management of the account's paid campaigns.",
+      "strategy": "A system of repeatable pieces — feed, stories and video ads — that keeps the brand identity intact while pushing every promotion.",
+      "process": [
+        {
+          "title": "Brief & calendar",
+          "description": "Planning promotions and seasonal content together with the client."
+        },
+        {
+          "title": "Piece production",
+          "description": "Design of artwork, stories, photography and video ads under the brand's visual system."
+        },
+        {
+          "title": "Paid media & optimization",
+          "description": "Meta Ads campaigns with performance tracking and segmentation adjustments."
+        }
+      ],
+      "results": {
+        "summary": "An account with constant, recognizable communication — from feed to paid media.",
+        "metrics": [
+          { "value": "[00]", "label": "[Placeholder] pieces produced" },
+          { "value": "[00]", "label": "[Placeholder] paid campaigns" },
+          { "value": "[00]", "label": "[Placeholder] featured metric" }
+        ]
+      }
     },
     {
       "id": "cuenta-02",

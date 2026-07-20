@@ -45,6 +45,8 @@ const path = `/portafolio/${parentId}/${caseStudy.id}`;
 /**
  * Cada campo usa el contenido real del caso si está definido en el JSON
  * del espacio de trabajo; si no, un placeholder estructural (fase 2).
+ * `results` no tiene fallback: sin datos reales, la sección se omite
+ * en vez de mostrar métricas inventadas (ver CaseStudyArticle).
  */
 const content = {
   challenge:
@@ -60,14 +62,7 @@ const content = {
     { title: '[Etapa 02]', description: '[Placeholder] Descripción breve de esta etapa.' },
     { title: '[Etapa 03]', description: '[Placeholder] Descripción breve de esta etapa.' },
   ],
-  results: caseStudy.results ?? {
-    summary: '[Placeholder] Resumen de resultados de este caso.',
-    metrics: [
-      { value: '00%', label: '[Placeholder] métrica' },
-      { value: '00%', label: '[Placeholder] métrica' },
-      { value: '00', label: '[Placeholder] métrica' },
-    ],
-  },
+  results: caseStudy.results,
 };
 
 const title = `${caseStudy.title} — ${parentTitle} · ${t.hero.firstName} ${t.hero.lastName}`;

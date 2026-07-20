@@ -4,77 +4,178 @@
  * muestra lo que exista en `public/portfolio/<id>/gallery/`
  * (imágenes y videos, en orden alfabético) y, mientras no haya
  * archivos, marcos placeholder listos para recibirlos.
+ *
+ * Las subcarpetas de `gallery/` (ej. `Fotos/`, `Historias/`) se
+ * mantienen como categorías propias, cada una con su encabezado —
+ * se respeta la división en carpetas del usuario en vez de
+ * aplanarlo todo en una sola lista.
  */
 import { getLangFromUrl, useTranslations } from '../../i18n';
-import type { GalleryItem } from '../../lib/media';
+import type { GalleryCategory, GalleryItem } from '../../lib/media';
 import MediaFrame from './MediaFrame.astro';
 import SmartVideo from './SmartVideo.astro';
 
 interface Props {
   items: GalleryItem[];
+  categories?: GalleryCategory[];
   /** Cantidad de marcos vacíos cuando la carpeta aún no tiene archivos. */
   placeholders?: number;
   projectTitle: string;
 }
 
-const { items, placeholders = 6, projectTitle } = Astro.props;
+const { items, categories = [], placeholders = 6, projectTitle } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const isEmpty = items.length === 0;
+const isEmpty = items.length === 0 && categories.length === 0;
+
+/**
+ * Convención de tamaños por sufijo de archivo:
+ *  - `-wide` → ancho completo, 16:9 (reels horizontales, banners)
+ *  - `-tall` → un tercio de ancho, 9:16 (historias, piezas verticales)
+ *  - sin sufijo → media retícula, 4:3
+ */
+const isWide = (name: string) => name.endsWith('-wide');
+const isTall = (name: string) => name.endsWith('-tall');
+const ratioFor = (name: string) => (isWide(name) ? '16 / 9' : isTall(name) ? '9 / 16' : '4 / 3');
 ---
 
-<section class="gallery container">
-  <span class="label" data-reveal>{t.portfolio.project.gallery}</span>
+{
+  isEmpty ? (
+    <section class="gallery container">
+      <span class="label" data-reveal>
+        {t.portfolio.project.gallery}
+      </span>
+      <div class="grid">
+        {Array.from({ length: placeholders }, (_, index) => (
+          <div data-reveal style={`--reveal-delay: ${(index % 2) * 120}ms`}>
+            <MediaFrame
+              src={null}
+              alt={`${projectTitle} — ${t.portfolio.project.imagePlaceholder} ${index + 1}`}
+              ratio="4 / 3"
+              label={`${t.portfolio.project.imagePlaceholder} — ${String(index + 1).padStart(2, '0')}`}
+            />
+          </div>
+        ))}
+      </div>
+    </section>
+  ) : (
+    <section class="gallery container">
+      <span class="label" data-reveal>
+        {t.portfolio.project.gallery}
+      </span>
 
-  <div class="grid">
-    {
-      isEmpty
-        ? Array.from({ length: placeholders }, (_, index) => (
-            <div data-reveal style={`--reveal-delay: ${(index % 2) * 120}ms`}>
-              <MediaFrame
-                src={null}
-                alt={`${projectTitle} — ${t.portfolio.project.imagePlaceholder} ${index + 1}`}
-                ratio="4 / 3"
-                label={`${t.portfolio.project.imagePlaceholder} — ${String(index + 1).padStart(2, '0')}`}
-              />
-            </div>
-          ))
-        : items.map((item, index) => (
-            <div data-reveal style={`--reveal-delay: ${(index % 2) * 120}ms`}>
+      {items.length > 0 && (
+        <div class="grid">
+          {items.map((item, index) => (
+            <div
+              class:list={[{ 'is-wide': isWide(item.name), 'is-tall': isTall(item.name) }]}
+              data-reveal
+              style={`--reveal-delay: ${(index % 3) * 100}ms`}
+            >
               {item.type === 'image' ? (
-                <MediaFrame src={item.src} alt={`${projectTitle} — ${item.name}`} ratio="4 / 3" />
+                <MediaFrame src={item.src} alt={`${projectTitle} — ${item.name}`} ratio={ratioFor(item.name)} />
               ) : (
                 <SmartVideo
                   src={item.src}
-                  ratio="4 / 3"
+                  ratio={ratioFor(item.name)}
                   mode="hover"
                   title={`${projectTitle} — ${item.name}`}
                 />
               )}
             </div>
-          ))
-    }
-  </div>
-</section>
+          ))}
+        </div>
+      )}
+
+      {categories.map((category) => (
+        <div class="category">
+          <span class="category-label" data-reveal>
+            {category.name}
+          </span>
+          <div class="grid">
+            {category.items.map((item, index) => (
+              <div
+                class:list={[{ 'is-wide': isWide(item.name), 'is-tall': isTall(item.name) }]}
+                data-reveal
+                style={`--reveal-delay: ${(index % 3) * 100}ms`}
+              >
+                {item.type === 'image' ? (
+                  <MediaFrame
+                    src={item.src}
+                    alt={`${projectTitle} — ${category.name} — ${item.name}`}
+                    ratio={ratioFor(item.name)}
+                  />
+                ) : (
+                  <SmartVideo
+                    src={item.src}
+                    ratio={ratioFor(item.name)}
+                    mode="hover"
+                    title={`${projectTitle} — ${category.name} — ${item.name}`}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </section>
+  )
+}
 
 <style>
   .gallery {
     display: flex;
     flex-direction: column;
-    gap: var(--space-md);
+    gap: var(--space-lg);
     padding-block: var(--space-xl);
   }
 
+  .category {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .category-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.2em;
+    color: var(--color-ink-faint);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--color-line-soft);
+  }
+
+  /* retícula de 6 pistas: normal = 3 (½), wide = 6 (todo), tall = 2 (⅓) */
   .grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: var(--space-md);
+  }
+
+  .grid > div {
+    grid-column: span 3;
+  }
+
+  .grid .is-wide {
+    grid-column: 1 / -1;
+  }
+
+  .grid .is-tall {
+    grid-column: span 2;
   }
 
   @media (max-width: 700px) {
     .grid {
-      grid-template-columns: 1fr;
       gap: var(--space-sm);
+    }
+
+    /* móvil: piezas normales a lo ancho; verticales de a dos por fila */
+    .grid > div {
+      grid-column: 1 / -1;
+    }
+
+    .grid .is-tall {
+      grid-column: span 3;
     }
   }
 </style>

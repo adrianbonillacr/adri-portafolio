@@ -33,10 +33,36 @@
   "galleryPlaceholders": 6,
   "caseStudies": [
     {
-      "id": "cuenta-01",
-      "title": "[Negocio 01]",
-      "tagline": "[Placeholder] Rubro del negocio",
-      "description": "[Placeholder] Negocio atendido dentro de Advance — por definir cuál de las cuentas destacar."
+      "id": "eddie-bauer",
+      "title": "Eddie Bauer Costa Rica",
+      "tagline": "Cuenta retail outdoor · diseño, contenido y pauta",
+      "description": "Gestión creativa de la cuenta dentro de Advance: piezas de campaña, historias, fotografía y video ads para las promociones de la marca.",
+      "challenge": "Sostener la comunicación digital de una marca internacional de outdoor en el mercado costarricense, con un flujo constante de promociones, historias y campañas de temporada.",
+      "objective": "Producir contenido y pauta que convierten: promociones, lanzamientos y comunicación comercial alineados con los objetivos de venta de la tienda.",
+      "role": "Diseñador Publicitario, Media Buyer y Account Manager: diseño de piezas, contenido para redes y gestión de las campañas de pauta de la cuenta.",
+      "strategy": "Un sistema de piezas replicables — feed, historias y video ads — que mantiene la identidad de la marca mientras empuja cada promoción.",
+      "process": [
+        {
+          "title": "Brief y calendario",
+          "description": "Planificación de promociones y contenido de temporada junto al cliente."
+        },
+        {
+          "title": "Producción de piezas",
+          "description": "Diseño de artes, historias, fotografía y video ads bajo el sistema visual de la marca."
+        },
+        {
+          "title": "Pauta y optimización",
+          "description": "Campañas en Meta Ads con seguimiento de resultados y ajustes de segmentación."
+        }
+      ],
+      "results": {
+        "summary": "Una cuenta con comunicación constante y reconocible, del feed a la pauta.",
+        "metrics": [
+          { "value": "[00]", "label": "[Placeholder] piezas producidas" },
+          { "value": "[00]", "label": "[Placeholder] campañas de pauta" },
+          { "value": "[00]", "label": "[Placeholder] métrica destacada" }
+        ]
+      }
     },
     {
       "id": "cuenta-02",

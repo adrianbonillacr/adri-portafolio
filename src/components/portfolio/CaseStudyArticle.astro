@@ -28,7 +28,8 @@ interface Props {
   role: string;
   strategy: string;
   process: { title: string; description: string }[];
-  results: { summary: string; metrics: { value: string; label: string }[] };
+  /** Si no hay resultados reales todavía, se omite la sección por completo. */
+  results?: { summary: string; metrics: { value: string; label: string }[] };
   galleryPlaceholders?: number;
   /** Solo proyectos contenedores: casos anidados a listar. */
   caseStudies?: { id: string; title: string; tagline: string; description: string }[];
@@ -75,10 +76,11 @@ const media = getProjectMedia(mediaId);
 
   <ProcessSection steps={process} processVideo={media.videos.process ?? null} />
 
-  <ResultsSection summary={results.summary} metrics={results.metrics} />
+  {results && <ResultsSection summary={results.summary} metrics={results.metrics} />}
 
   <ProjectGallery
     items={media.gallery}
+    categories={media.galleryCategories}
     placeholders={galleryPlaceholders}
     projectTitle={title}
   />

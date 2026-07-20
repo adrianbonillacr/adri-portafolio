@@ -41,7 +41,11 @@ const { parentId, parentTitle, caseStudy, next } = Astro.props;
 const t = useTranslations('en');
 const path = `/en/portfolio/${parentId}/${caseStudy.id}`;
 
-/** Real case content when defined in the workspace JSON; placeholders otherwise. */
+/**
+ * Real case content when defined in the workspace JSON; placeholders
+ * otherwise. `results` has no fallback: without real data the section
+ * is omitted instead of showing invented metrics.
+ */
 const content = {
   challenge:
     caseStudy.challenge ??
@@ -55,14 +59,7 @@ const content = {
     { title: '[Stage 02]', description: '[Placeholder] Brief description of this stage.' },
     { title: '[Stage 03]', description: '[Placeholder] Brief description of this stage.' },
   ],
-  results: caseStudy.results ?? {
-    summary: '[Placeholder] Summary of this case’s results.',
-    metrics: [
-      { value: '00%', label: '[Placeholder] metric' },
-      { value: '00%', label: '[Placeholder] metric' },
-      { value: '00', label: '[Placeholder] metric' },
-    ],
-  },
+  results: caseStudy.results,
 };
 
 const title = `${caseStudy.title} — ${parentTitle} · ${t.hero.firstName} ${t.hero.lastName}`;

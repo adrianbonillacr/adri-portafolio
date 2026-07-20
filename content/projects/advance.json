@@ -89,10 +89,28 @@
       ]
     },
     {
-      "id": "cuenta-03",
-      "title": "[Negocio 03]",
-      "tagline": "[Placeholder] Rubro del negocio",
-      "description": "[Placeholder] Negocio atendido dentro de Advance — por definir cuál de las cuentas destacar."
+      "id": "7fishing",
+      "title": "7Fishing",
+      "tagline": "Tienda de pesca y outdoor · diseño publicitario",
+      "description": "Diseño publicitario para la tienda de equipo de pesca y aventura: una línea de piezas promocionales de producto, con precio y llamado a la acción, para vender en redes y en línea.",
+      "challenge": "Convertir un catálogo de equipo outdoor — lentes, dry bags, coolers — en una línea de anuncios reconocible que venda producto por producto sin perder la unidad de marca.",
+      "objective": "Producir piezas publicitarias por producto, con precio y llamado a la acción, que impulsen la venta en redes sociales y dirijan al sitio web y a los envíos a todo el país.",
+      "role": "Diseñador Publicitario y Account Manager: dirección de arte y diseño de la línea de anuncios de producto y de las piezas de comunicación de la tienda.",
+      "strategy": "Un sistema publicitario anclado en el azul de marca y el lema «one more cast»: composición consistente de logo, producto recortado, titular, precio y CTA, replicable en toda la línea de productos.",
+      "process": [
+        {
+          "title": "Sistema publicitario",
+          "description": "Definición de la retícula, tipografía y composición del anuncio a partir de la identidad de 7Fishing."
+        },
+        {
+          "title": "Anuncios de producto",
+          "description": "Diseño de las piezas por producto — lentes por destino, dry bags, coolers — con precio y CTA."
+        },
+        {
+          "title": "Comunicación de tienda",
+          "description": "Piezas de sitio web, envíos y contacto que completan el recorrido de compra."
+        }
+      ]
     },
     {
       "id": "cuenta-04",

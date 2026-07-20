@@ -89,10 +89,28 @@
       ]
     },
     {
-      "id": "cuenta-03",
-      "title": "[Business 03]",
-      "tagline": "[Placeholder] Business sector",
-      "description": "[Placeholder] Business served within Advance — which accounts to feature is still to be defined."
+      "id": "7fishing",
+      "title": "7Fishing",
+      "tagline": "Fishing & outdoor store · advertising design",
+      "description": "Advertising design for the fishing and adventure gear store: a line of promotional product pieces, with price and call to action, built to sell on social media and online.",
+      "challenge": "Turning a catalog of outdoor gear — sunglasses, dry bags, coolers — into a recognizable line of ads that sells product by product without losing brand unity.",
+      "objective": "Producing per-product advertising pieces, with price and call to action, that drive sales on social media and lead to the website and nationwide shipping.",
+      "role": "Advertising Designer and Account Manager: art direction and design of the product ad line and the store's communication pieces.",
+      "strategy": "An advertising system anchored in the brand's blue and the «one more cast» tagline: consistent composition of logo, cut-out product, headline, price and CTA, repeatable across the whole product line.",
+      "process": [
+        {
+          "title": "Advertising system",
+          "description": "Defining the grid, typography and ad composition from 7Fishing's identity."
+        },
+        {
+          "title": "Product ads",
+          "description": "Design of per-product pieces — sunglasses by destination, dry bags, coolers — with price and CTA."
+        },
+        {
+          "title": "Store communication",
+          "description": "Website, shipping and contact pieces that complete the purchase journey."
+        }
+      ]
     },
     {
       "id": "cuenta-04",

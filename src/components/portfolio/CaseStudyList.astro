@@ -22,16 +22,19 @@ const t = useTranslations(lang);
 
   <div class="grid">
     {
-      caseStudies.map((caseStudy, index) => (
-        <ProjectCard
-          href={`${t.portfolio.base}/${projectId}/${caseStudy.id}`}
-          title={caseStudy.title}
-          tagline={caseStudy.tagline}
-          disciplines={[]}
-          index={index}
-          image={getProjectMedia(`${projectId}/${caseStudy.id}`).hero}
-        />
-      ))
+      caseStudies.map((caseStudy, index) => {
+        const media = getProjectMedia(`${projectId}/${caseStudy.id}`);
+        return (
+          <ProjectCard
+            href={`${t.portfolio.base}/${projectId}/${caseStudy.id}`}
+            title={caseStudy.title}
+            tagline={caseStudy.tagline}
+            disciplines={[]}
+            index={index}
+            image={media.card ?? media.hero}
+          />
+        );
+      })
     }
   </div>
 </section>

@@ -17,7 +17,7 @@ import path from 'node:path';
 const PUBLIC_ROOT = path.resolve('public');
 const PORTFOLIO_ROOT = 'portfolio';
 
-const IMAGE_EXTENSIONS = ['.avif', '.webp', '.jpg', '.jpeg', '.png'];
+const IMAGE_EXTENSIONS = ['.avif', '.webp', '.jpg', '.jpeg', '.png', '.gif'];
 const VIDEO_EXTENSIONS = ['.webm', '.mp4'];
 
 export type GalleryItem =
@@ -27,6 +27,11 @@ export type GalleryItem =
 export interface ProjectMedia {
   /** URL pública de la imagen hero, o null si aún no existe. */
   hero: string | null;
+  /**
+   * Imagen opcional para la tarjeta del grid (`card.*`, 4:3).
+   * Si no existe, la tarjeta usa el hero con recorte centrado.
+   */
+  card: string | null;
   /** URL pública del video hero (`videos/hero.*`), o null si aún no existe. */
   heroVideo: string | null;
   /** Elementos de `gallery/` (imágenes y videos) en orden alfabético. */
@@ -70,6 +75,7 @@ export function getProjectMedia(mediaId: string): ProjectMedia {
   const segments = mediaId.split('/').filter(Boolean);
 
   const hero = findByBaseName(mediaId, 'hero', IMAGE_EXTENSIONS);
+  const card = findByBaseName(mediaId, 'card', IMAGE_EXTENSIONS);
   const heroVideo = findByBaseName(`${mediaId}/videos`, 'hero', VIDEO_EXTENSIONS);
 
   const gallery: GalleryItem[] = listDir(`${mediaId}/gallery`).flatMap((file) => {
@@ -88,5 +94,5 @@ export function getProjectMedia(mediaId: string): ProjectMedia {
     videos[path.basename(file, ext)] = toPublicUrl(...segments, 'videos', file);
   }
 
-  return { hero, heroVideo, gallery, videos };
+  return { hero, card, heroVideo, gallery, videos };
 }

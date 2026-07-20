@@ -52,9 +52,14 @@ Colocar los archivos y recargar; el sitio los detecta solo
 (`src/lib/media.ts`). Formatos: `.avif`, `.webp`, `.jpg`, `.jpeg`, `.png`.
 
 ```text
-public/portfolio/<id>/hero.jpg          → imagen principal del caso
+public/portfolio/<id>/hero.jpg          → imagen principal del caso (21:9)
+public/portfolio/<id>/card.jpg          → opcional: imagen propia para la tarjeta
+                                          del grid (4:3); sin ella se usa el hero
 public/portfolio/<id>/gallery/01.jpg    → galería (orden alfabético)
 ```
+
+También se aceptan GIF animados en la galería, aunque un MP4 equivalente
+pesa ~10× menos.
 
 Para los casos anidados: `public/portfolio/advanced/proyecto-1/hero.jpg`, etc.
 Mientras no exista un archivo, se muestra un marco placeholder.

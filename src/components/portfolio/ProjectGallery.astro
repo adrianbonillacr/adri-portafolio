@@ -18,6 +18,7 @@ import type { GalleryCategory, GalleryItem } from '../../lib/media';
 import MediaFrame from './MediaFrame.astro';
 import SmartVideo from './SmartVideo.astro';
 import Lightbox from './Lightbox.astro';
+import ProgressTag from './ProgressTag.astro';
 
 interface Props {
   items: GalleryItem[];
@@ -26,10 +27,19 @@ interface Props {
   placeholders?: number;
   /** Series de video anunciadas como «en producción». */
   pendingSeries?: { name: string; count: number }[];
+  /** Series ya publicadas que siguen ampliándose. */
+  progressSeries?: string[];
   projectTitle: string;
 }
 
-const { items, categories = [], placeholders = 6, pendingSeries = [], projectTitle } = Astro.props;
+const {
+  items,
+  categories = [],
+  placeholders = 6,
+  pendingSeries = [],
+  progressSeries = [],
+  projectTitle,
+} = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const lb = t.portfolio.project.lightbox;
@@ -150,7 +160,12 @@ function splitByRatio(list: GalleryItem[]) {
           {splitByRatio(category.items).map((row, rowIndex) => (
             <div class="cat-row">
               <div class="cat-head">
-                <span class="category-label">{rowIndex === 0 ? category.name : ''}</span>
+                <span class="cat-title">
+                  <span class="category-label">{rowIndex === 0 ? category.name : ''}</span>
+                  {rowIndex === 0 && progressSeries.includes(category.name) && (
+                    <ProgressTag label={t.portfolio.project.seriesInProgress} />
+                  )}
+                </span>
                 <div class="cat-nav">
                   <button class="arrow-btn" type="button" data-car-prev aria-label={lb.prev}>
                     <span class="arrow" aria-hidden="true" />
@@ -439,6 +454,13 @@ function splitByRatio(list: GalleryItem[]) {
   .cat-row + .cat-row .cat-head {
     padding-top: 0;
     border-top: 0;
+  }
+
+  .cat-title {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
   }
 
   .category-label {

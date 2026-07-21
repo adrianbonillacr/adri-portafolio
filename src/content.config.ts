@@ -25,6 +25,8 @@ const caseStudySchema = z.object({
   title: z.string(),
   tagline: z.string(),
   description: z.string(),
+  /** Marca el caso como trabajo en curso (muestra la etiqueta animada). */
+  inProgress: z.boolean().optional(),
   challenge: z.string().optional(),
   objective: z.string().optional(),
   role: z.string().optional(),
@@ -73,6 +75,8 @@ const projectSchema = z.object({
   pendingSeries: z
     .array(z.object({ name: z.string(), count: z.number().default(4) }))
     .default([]),
+  /** Nombres de series de la galería que siguen ampliándose. */
+  progressSeries: z.array(z.string()).default([]),
   /** Solo para espacios contenedores: casos de estudio anidados. */
   caseStudies: z.array(caseStudySchema).default([]),
   seo: z.object({

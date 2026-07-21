@@ -3,7 +3,11 @@
   "tagline": "Independent projects · 2018 – present",
   "description": "Identity, advertising design and digital content on commission for SMBs, institutions and consumer brands.",
   "order": 5,
-  "disciplines": ["Identity", "Advertising design", "Digital content"],
+  "disciplines": [
+    "Identity",
+    "Advertising design",
+    "Digital content"
+  ],
   "challenge": "Solving commissions of very different natures — identity, advertising, content — for clients with diverse structures, timelines and budgets.",
   "objective": "Deliver every project with judgment and studio-level processes, regardless of the client's scale.",
   "role": "Independent Graphic and Advertising Designer, collaborating with development and production teams on multidisciplinary projects.",
@@ -24,37 +28,109 @@
   ],
   "results": {
     "summary": "An independent practice sustained for more than seven years and a network of recurring clients.",
-    "metrics": [
-      { "value": "7+", "label": "years of independent practice" },
-      { "value": "[00]", "label": "[Placeholder] projects delivered" },
-      { "value": "[00]", "label": "[Placeholder] recurring clients" }
-    ]
+    "metrics": []
   },
   "galleryPlaceholders": 6,
   "caseStudies": [
     {
-      "id": "proyecto-01",
-      "title": "[Project 01]",
-      "tagline": "[Placeholder] Type of commission",
-      "description": "[Placeholder] Independent project — which one to feature is still to be defined (URBN, Pragmático CR, Coco Estudio…)."
+      "id": "urbn",
+      "title": "URBN",
+      "tagline": "Identity & advertising design",
+      "description": "Visual identity and advertising pieces for the brand, built on a system that holds up in every application.",
+      "inProgress": true,
+      "challenge": "Giving the brand its own visual system, with clear hierarchy and application rules, working equally well on social media and in print.",
+      "objective": "Deliver an identity usable from day one: not a loose logo, but a system the business can run without depending on the designer.",
+      "role": "Identity design, art direction and production of the advertising pieces.",
+      "strategy": "Define the rules first —typography, colour, grid, tone— and only then produce; that way every new piece solves itself and the brand compounds instead of scattering.",
+      "process": [
+        {
+          "title": "Diagnosis",
+          "description": "Understanding the business, its audience and the real problem behind the commission."
+        },
+        {
+          "title": "Visual system",
+          "description": "Defining the identity's principles and application rules."
+        },
+        {
+          "title": "Production",
+          "description": "Design of the advertising pieces under the system, with organised final files."
+        }
+      ]
     },
     {
-      "id": "proyecto-02",
-      "title": "[Project 02]",
-      "tagline": "[Placeholder] Type of commission",
-      "description": "[Placeholder] Independent project — which one to feature is still to be defined."
+      "id": "pragmatico-cr",
+      "title": "Pragmático CR",
+      "tagline": "Digital content & brand communication",
+      "description": "Digital content and communication pieces for social media, with a visual language that stays consistent over time.",
+      "inProgress": true,
+      "challenge": "Sustaining a constant digital presence without every post looking like a different brand.",
+      "objective": "Produce recognisable, repeatable content the business could keep up at its own pace.",
+      "role": "Art direction and design of the digital content and communication pieces.",
+      "strategy": "Templates and composition criteria that allow fast production without losing identity, leaving room for each campaign's message.",
+      "process": [
+        {
+          "title": "Diagnosis",
+          "description": "Review of the existing communication and the formats the business actually uses."
+        },
+        {
+          "title": "Content system",
+          "description": "Repeatable templates and composition rules for day-to-day work."
+        },
+        {
+          "title": "Production",
+          "description": "Design of the pieces and organised delivery for publishing."
+        }
+      ]
     },
     {
-      "id": "proyecto-03",
-      "title": "[Project 03]",
-      "tagline": "[Placeholder] Type of commission",
-      "description": "[Placeholder] Independent project — which one to feature is still to be defined."
+      "id": "coco-estudio",
+      "title": "Coco Estudio",
+      "tagline": "Visual identity",
+      "description": "Building the studio's visual identity: from the concept to the applications that give it body.",
+      "inProgress": true,
+      "challenge": "Translating the studio's personality into a visual system that felt its own and not generic.",
+      "objective": "An identity with judgment: memorable, applicable and coherent across every touchpoint.",
+      "role": "Visual identity design and art direction of its applications.",
+      "strategy": "Start from the concept, not the form: define what the brand had to communicate before deciding how it looked.",
+      "process": [
+        {
+          "title": "Concept",
+          "description": "Defining the idea behind the identity and its visual territory."
+        },
+        {
+          "title": "Identity",
+          "description": "Designing the system: mark, typography, colour and usage rules."
+        },
+        {
+          "title": "Applications",
+          "description": "Bringing the system down to the pieces where the brand lives."
+        }
+      ]
     },
     {
-      "id": "proyecto-04",
-      "title": "[Project 04]",
-      "tagline": "[Placeholder] Type of commission",
-      "description": "[Placeholder] Independent project — which one to feature is still to be defined."
+      "id": "municipalidad-pococi",
+      "title": "Municipalidad de Pococí",
+      "tagline": "Institutional communication",
+      "description": "Institutional communication pieces designed to inform a broad, diverse audience with clarity.",
+      "inProgress": true,
+      "challenge": "Communicating institutional information to a very broad audience, where clarity matters more than graphic flourish.",
+      "objective": "Legible, ordered pieces that convey the information without noise and uphold the institution's seriousness.",
+      "role": "Design of the institutional communication pieces and their application system.",
+      "strategy": "Hierarchy before decoration: clear typographic structure, sufficient contrast and a system any new piece can follow.",
+      "process": [
+        {
+          "title": "Ordering",
+          "description": "Prioritising the information each piece has to communicate."
+        },
+        {
+          "title": "System",
+          "description": "Typographic and composition structure applicable across the communication."
+        },
+        {
+          "title": "Production",
+          "description": "Design and delivery of the pieces for their different channels."
+        }
+      ]
     }
   ],
   "seo": {

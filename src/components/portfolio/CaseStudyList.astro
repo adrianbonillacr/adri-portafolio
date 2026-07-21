@@ -9,7 +9,13 @@ import ProjectCard from './ProjectCard.astro';
 
 interface Props {
   projectId: string;
-  caseStudies: { id: string; title: string; tagline: string; description: string }[];
+  caseStudies: {
+    id: string;
+    title: string;
+    tagline: string;
+    description: string;
+    inProgress?: boolean;
+  }[];
 }
 
 const { projectId, caseStudies } = Astro.props;
@@ -33,6 +39,7 @@ const t = useTranslations(lang);
             index={index}
             image={media.card ?? media.hero}
             video={media.heroVideo}
+            inProgress={caseStudy.inProgress ?? false}
           />
         );
       })

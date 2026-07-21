@@ -50,6 +50,35 @@ const isTall = (name: string) => name.endsWith('-tall');
 const ratioFor = (item: GalleryItem) =>
   item.ratio ??
   (isWide(item.name) ? '16 / 9' : isTall(item.name) ? '9 / 16' : item.type === 'video' ? '16 / 9' : '4 / 3');
+
+/**
+ * Cada serie se parte en filas por proporción: las 9:16 en una línea,
+ * las cuadradas en otra, las 16:9 en otra. Así una carpeta con formatos
+ * mezclados no deja el borde inferior irregular, porque dentro de cada
+ * línea todas las piezas tienen la misma altura.
+ *
+ * Agrupa con una tolerancia relativa del 4%: junta lo que es el mismo
+ * formato aunque venga con medidas ligeramente distintas (0.5625 y
+ * 0.5628, o dos banners de 2.63 y 2.67) y separa formatos de verdad
+ * distintos (1:1 de 4:5). El orden respeta la primera aparición.
+ */
+const RATIO_TOLERANCE = 0.04;
+
+function ratioValue(item: GalleryItem): number {
+  const [w = 1, h = 1] = ratioFor(item).split('/').map((n) => parseFloat(n.trim()));
+  return w / h;
+}
+
+function splitByRatio(list: GalleryItem[]) {
+  const rows: { value: number; items: GalleryItem[] }[] = [];
+  for (const item of list) {
+    const value = ratioValue(item);
+    const row = rows.find((r) => Math.abs(r.value - value) / r.value < RATIO_TOLERANCE);
+    if (row) row.items.push(item);
+    else rows.push({ value, items: [item] });
+  }
+  return rows;
+}
 ---
 
 {
@@ -118,55 +147,59 @@ const ratioFor = (item: GalleryItem) =>
 
       {categories.map((category) => (
         <div class="category" data-reveal>
-          <div class="cat-head">
-            <span class="category-label">{category.name}</span>
-            <div class="cat-nav">
-              <button class="arrow-btn" type="button" data-car-prev aria-label={lb.prev}>
-                <span class="arrow" aria-hidden="true" />
-              </button>
-              <button class="arrow-btn" type="button" data-car-next aria-label={lb.next}>
-                <span class="arrow" aria-hidden="true" />
-              </button>
-            </div>
-          </div>
+          {splitByRatio(category.items).map((row, rowIndex) => (
+            <div class="cat-row">
+              <div class="cat-head">
+                <span class="category-label">{rowIndex === 0 ? category.name : ''}</span>
+                <div class="cat-nav">
+                  <button class="arrow-btn" type="button" data-car-prev aria-label={lb.prev}>
+                    <span class="arrow" aria-hidden="true" />
+                  </button>
+                  <button class="arrow-btn" type="button" data-car-next aria-label={lb.next}>
+                    <span class="arrow" aria-hidden="true" />
+                  </button>
+                </div>
+              </div>
 
-          <div class="carousel" data-carousel>
-            <div class="track" data-track>
-              {category.items.map((item) => (
-                <button
-                  class:list={[
-                    'piece',
-                    'slide',
-                    { 'is-wide': isWide(item.name), 'is-tall': isTall(item.name) },
-                  ]}
-                  type="button"
-                  style={`--slide-ratio: ${ratioFor(item)}`}
-                  data-lightbox
-                  data-src={item.src}
-                  data-type={item.type}
-                  data-caption={`${projectTitle} — ${category.name} — ${item.name}`}
-                  aria-label={`${lb.open}: ${projectTitle} — ${category.name} — ${item.name}`}
-                >
-                  {item.type === 'image' ? (
-                    <MediaFrame
-                      src={item.src}
-                      alt={`${projectTitle} — ${category.name} — ${item.name}`}
-                      ratio={ratioFor(item)}
-                    />
-                  ) : (
-                    <SmartVideo
-                      src={item.src}
-                      ratio={ratioFor(item)}
-                      mode="autoplay"
-                      title={`${projectTitle} — ${category.name} — ${item.name}`}
-                    />
-                  )}
-                  <span class="frame" aria-hidden="true" />
-                  <span class="plus" aria-hidden="true" />
-                </button>
-              ))}
+              <div class="carousel" data-carousel>
+                <div class="track" data-track>
+                  {row.items.map((item) => (
+                    <button
+                      class:list={[
+                        'piece',
+                        'slide',
+                        { 'is-wide': isWide(item.name), 'is-tall': isTall(item.name) },
+                      ]}
+                      type="button"
+                      style={`--slide-ratio: ${ratioFor(item)}`}
+                      data-lightbox
+                      data-src={item.src}
+                      data-type={item.type}
+                      data-caption={`${projectTitle} — ${category.name} — ${item.name}`}
+                      aria-label={`${lb.open}: ${projectTitle} — ${category.name} — ${item.name}`}
+                    >
+                      {item.type === 'image' ? (
+                        <MediaFrame
+                          src={item.src}
+                          alt={`${projectTitle} — ${category.name} — ${item.name}`}
+                          ratio={ratioFor(item)}
+                        />
+                      ) : (
+                        <SmartVideo
+                          src={item.src}
+                          ratio={ratioFor(item)}
+                          mode="autoplay"
+                          title={`${projectTitle} — ${category.name} — ${item.name}`}
+                        />
+                      )}
+                      <span class="frame" aria-hidden="true" />
+                      <span class="plus" aria-hidden="true" />
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       ))}
 
@@ -198,30 +231,35 @@ const ratioFor = (item: GalleryItem) =>
 }
 
 <script>
-  // — Carrusel de categorías: flechas, arrastre y estado de los extremos —
+  // — Carrusel: cada fila navega en ciclo (de la última vuelve a la primera) —
   document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((carousel) => {
     const track = carousel.querySelector<HTMLElement>('[data-track]');
     if (!track) return;
 
-    const category = carousel.closest('.category');
-    const prev = category?.querySelector<HTMLButtonElement>('[data-car-prev]');
-    const next = category?.querySelector<HTMLButtonElement>('[data-car-next]');
+    const row = carousel.closest('.cat-row');
+    const prev = row?.querySelector<HTMLButtonElement>('[data-car-prev]');
+    const next = row?.querySelector<HTMLButtonElement>('[data-car-next]');
 
     const amount = () => Math.max(track.clientWidth * 0.8, 240);
+    const maxScroll = () => track.scrollWidth - track.clientWidth;
 
     function syncEnds() {
-      const max = track.scrollWidth - track.clientWidth - 1;
-      const atStart = track.scrollLeft <= 0;
-      const atEnd = track.scrollLeft >= max;
-      prev?.toggleAttribute('disabled', atStart);
-      next?.toggleAttribute('disabled', atEnd);
       // sin desbordamiento no hace falta navegar
-      category?.classList.toggle('no-overflow', track.scrollWidth <= track.clientWidth + 2);
+      row?.classList.toggle('no-overflow', track.scrollWidth <= track.clientWidth + 2);
     }
 
-    prev?.addEventListener('click', () => track.scrollBy({ left: -amount(), behavior: 'smooth' }));
-    next?.addEventListener('click', () => track.scrollBy({ left: amount(), behavior: 'smooth' }));
-    track.addEventListener('scroll', syncEnds, { passive: true });
+    prev?.addEventListener('click', () => {
+      // en el inicio, saltar al final
+      const left = track.scrollLeft <= 1 ? maxScroll() : Math.max(0, track.scrollLeft - amount());
+      track.scrollTo({ left, behavior: 'smooth' });
+    });
+
+    next?.addEventListener('click', () => {
+      // al llegar al final, volver al principio
+      const left = track.scrollLeft >= maxScroll() - 1 ? 0 : Math.min(maxScroll(), track.scrollLeft + amount());
+      track.scrollTo({ left, behavior: 'smooth' });
+    });
+
     window.addEventListener('resize', syncEnds);
     syncEnds();
 
@@ -374,8 +412,14 @@ const ratioFor = (item: GalleryItem) =>
     grid-column: span 2;
   }
 
-  /* — Categorías en carrusel de una sola línea — */
+  /* — Categorías en carrusel: una fila por orientación — */
   .category {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .cat-row {
     display: flex;
     flex-direction: column;
     gap: var(--space-sm);
@@ -390,6 +434,13 @@ const ratioFor = (item: GalleryItem) =>
     border-top: 1px solid var(--color-line-soft);
   }
 
+  /* las filas siguientes de una misma serie no repiten el título:
+     su barra queda solo con las flechas y sin línea superior */
+  .cat-row + .cat-row .cat-head {
+    padding-top: 0;
+    border-top: 0;
+  }
+
   .category-label {
     font-family: var(--font-mono);
     font-size: var(--text-label);
@@ -402,7 +453,7 @@ const ratioFor = (item: GalleryItem) =>
     gap: var(--space-2xs);
   }
 
-  .category.no-overflow .cat-nav {
+  .cat-row.no-overflow .cat-nav {
     display: none;
   }
 
@@ -421,14 +472,9 @@ const ratioFor = (item: GalleryItem) =>
       opacity var(--dur-fast) var(--ease-out);
   }
 
-  .arrow-btn:hover:not([disabled]) {
+  .arrow-btn:hover {
     color: var(--color-ink);
     border-color: var(--color-line);
-  }
-
-  .arrow-btn[disabled] {
-    opacity: 0.28;
-    cursor: default;
   }
 
   .arrow {

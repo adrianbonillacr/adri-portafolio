@@ -198,6 +198,8 @@ export default {
       viewCase: 'View case',
       imagePlaceholder: 'Image',
       videoPlaceholder: 'Video',
+      mediaPending: 'In preparation',
+      galleryPending: 'Gallery in preparation',
       videoPending: 'Video in production',
       inProgress: 'Case study in preparation',
       seriesInProgress: 'Series in preparation',

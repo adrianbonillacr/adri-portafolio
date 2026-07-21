@@ -1,10 +1,15 @@
 ---
 /**
  * Marco de imagen consciente de placeholders: si `src` existe renderiza
- * la imagen (lazy por defecto); si no, un marco vacío de galería con
- * la especificación del archivo esperado — etiqueta, proporción y
- * tamaño recomendado en píxeles — para producir los assets a mano.
+ * la imagen (lazy por defecto); si no, un marco vacío de galería.
+ *
+ * En local ese marco muestra la especificación del archivo esperado
+ * (etiqueta, proporción y tamaño en píxeles) para producir los assets;
+ * en el sitio publicado muestra la marca «en preparación».
  */
+import ProgressTag from './ProgressTag.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n';
+
 interface Props {
   src: string | null;
   alt: string;
@@ -16,6 +21,14 @@ interface Props {
 }
 
 const { src, alt, ratio = '4 / 3', label = 'imagen', loading = 'lazy' } = Astro.props;
+
+/**
+ * Las medidas de exportación son una ayuda de producción: se muestran solo
+ * en local. En el sitio publicado, un marco vacío se presenta como pieza
+ * «en preparación», sin datos técnicos a la vista del visitante.
+ */
+const showSpecs = import.meta.env.DEV;
+const t = useTranslations(getLangFromUrl(Astro.url));
 
 /**
  * Tamaño de exportación recomendado según la proporción:
@@ -43,9 +56,17 @@ const sizeLabel = `${exportWidth}px × ${exportHeight}px`;
     ) : (
       <span class="placeholder" role="img" aria-label={alt}>
         <span class="specs">
-          <span class="tag">{label}</span>
-          <span class="spec">{ratioLabel}</span>
-          <span class="spec">{sizeLabel}</span>
+          {
+            showSpecs ? (
+              <>
+                <span class="tag">{label}</span>
+                <span class="spec">{ratioLabel}</span>
+                <span class="spec">{sizeLabel}</span>
+              </>
+            ) : (
+              <ProgressTag label={t.portfolio.project.mediaPending} />
+            )
+          }
         </span>
       </span>
     )

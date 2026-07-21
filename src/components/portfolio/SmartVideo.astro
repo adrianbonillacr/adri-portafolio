@@ -12,6 +12,9 @@
  * Con `prefers-reduced-motion` el autoplay se desactiva (queda el primer
  * cuadro). Si `src` es null se muestra un marco vacío listo para el archivo.
  */
+import ProgressTag from './ProgressTag.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n';
+
 interface Props {
   src: string | null;
   ratio?: string;
@@ -37,6 +40,9 @@ const {
  * panorámicos (≥2:1) 2400px de ancho, horizontales 1920px (Full HD),
  * verticales 1080px; la altura se deriva del ratio.
  */
+const showSpecs = import.meta.env.DEV;
+const t = useTranslations(getLangFromUrl(Astro.url));
+
 const [ratioW = 16, ratioH = 9] = ratio.split('/').map((part) => parseFloat(part.trim()));
 const aspect = ratioW / ratioH;
 const exportWidth = aspect >= 2 ? 2400 : aspect >= 1 ? 1920 : 1080;
@@ -63,9 +69,17 @@ const sizeLabel = `${exportWidth}px × ${exportHeight}px`;
     ) : (
       <span class="placeholder" role="img" aria-label={title}>
         <span class="play" aria-hidden="true" />
-        <span class="tag">{label}</span>
-        <span class="spec">{ratioLabel}</span>
-        <span class="spec">{sizeLabel}</span>
+        {
+          showSpecs ? (
+            <>
+              <span class="tag">{label}</span>
+              <span class="spec">{ratioLabel}</span>
+              <span class="spec">{sizeLabel}</span>
+            </>
+          ) : (
+            <ProgressTag label={t.portfolio.project.mediaPending} />
+          )
+        }
       </span>
     )
   }

@@ -1,7 +1,7 @@
 {
   "title": "Lagé Estrategia",
   "tagline": "Agencia de Oscar Molina · 2024 – abril 2026",
-  "description": "Estrategia de redes sociales y animación digital para cuentas comerciales y corporativas, entre ellas Eddie Bauer Costa Rica y Quarzo Tecnología.",
+  "description": "Animación digital y estrategia de redes para cuentas comerciales y corporativas: motion graphics, animación de logotipos y sistemas de contenido para marcas como Quarzo Tecnología.",
   "order": 2,
   "disciplines": ["Estrategia de redes", "Motion graphics", "Animación digital"],
   "challenge": "Conectar la ejecución visual con el desempeño real del contenido y la pauta, en cuentas comerciales y corporativas con audiencias y objetivos muy distintos.",
@@ -22,14 +22,6 @@
       "description": "Propuestas, reportes y recomendaciones que conectan la ejecución visual con el desempeño de contenido y pauta."
     }
   ],
-  "results": {
-    "summary": "Campañas que combinan concepto, animación y análisis: el lanzamiento de Eddie Bauer Costa Rica alcanzó a más de medio millón de personas en un mes.",
-    "metrics": [
-      { "value": "564.083", "label": "personas alcanzadas — Eddie Bauer CR" },
-      { "value": "1.131.832", "label": "impresiones" },
-      { "value": "34.523", "label": "visitas" }
-    ]
-  },
   "galleryPlaceholders": 6,
   "caseStudies": [
     {
@@ -55,42 +47,10 @@
           "description": "Animación del logotipo y motion graphics que dan vida al sistema de marca."
         }
       ]
-    },
-    {
-      "id": "eddie-bauer",
-      "title": "Eddie Bauer Costa Rica",
-      "tagline": "Campaña de lanzamiento · febrero 2026",
-      "description": "Estrategia de comunicación y contenido para el lanzamiento de la marca outdoor en Costa Rica.",
-      "challenge": "Presentar una marca internacional de outdoor ante el público costarricense y generar tracción medible desde el primer mes.",
-      "objective": "Lanzar la marca en el mercado local con una campaña digital que maximizara alcance, recordación y visitas.",
-      "role": "Estrategia de redes sociales, conceptualización de la campaña y producción de piezas de contenido y animación.",
-      "strategy": "Campaña de lanzamiento coordinada entre contenido orgánico y pauta, con piezas audiovisuales pensadas para el formato y el ritmo de cada red.",
-      "process": [
-        {
-          "title": "Concepto de lanzamiento",
-          "description": "Definición del enfoque de comunicación para presentar la marca al mercado costarricense."
-        },
-        {
-          "title": "Producción de piezas",
-          "description": "Contenido y animaciones adaptadas a los formatos de cada red social."
-        },
-        {
-          "title": "Medición",
-          "description": "Seguimiento del desempeño de la campaña y reporte de resultados."
-        }
-      ],
-      "results": {
-        "summary": "El lanzamiento superó el medio millón de personas alcanzadas en febrero de 2026.",
-        "metrics": [
-          { "value": "564.083", "label": "personas alcanzadas" },
-          { "value": "1.131.832", "label": "impresiones" },
-          { "value": "34.523", "label": "visitas" }
-        ]
-      }
     }
   ],
   "seo": {
     "title": "Lagé Estrategia — Espacio de trabajo · Adrián D. Bonilla",
-    "description": "Estrategia de redes sociales, motion graphics y animación digital en Lagé Estrategia: Eddie Bauer Costa Rica, Quarzo Tecnología y más."
+    "description": "Animación digital, motion graphics y estrategia de redes en Lagé Estrategia: animación de logotipos y estrategia de marca para Quarzo Tecnología, entre otras cuentas."
   }
 }

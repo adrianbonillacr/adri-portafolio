@@ -2,9 +2,11 @@
 /**
  * Video consciente de placeholders, servido directo desde /public.
  * Modos:
- *  - autoplay : silencioso, en bucle constante; se reproduce solo cuando
- *               entra en pantalla y se pausa al salir (IntersectionObserver),
- *               para mantener el loop sin gastar CPU/datos en lo oculto.
+ *  - autoplay : silencioso, en bucle constante. No descarga nada hasta
+ *               acercarse a la pantalla (`preload="none"` + IntersectionObserver):
+ *               ahí empieza a cargar y reproducir, y se pausa al salir.
+ *               Sin esto, un reel con videos pesados descargaría decenas
+ *               de MB al abrir la página.
  *  - hover    : se reproduce al pasar el cursor (heredado; ya no se usa)
  *  - controls : controles nativos (incluye fullscreen)
  * Con `prefers-reduced-motion` el autoplay se desactiva (queda el primer
@@ -49,11 +51,10 @@ const sizeLabel = `${exportWidth}px × ${exportHeight}px`;
       <video
         src={src}
         poster={poster ?? undefined}
-        preload="metadata"
+        preload={mode === 'autoplay' ? 'none' : 'metadata'}
         playsinline
         muted={mode !== 'controls'}
         loop={mode !== 'controls'}
-        autoplay={mode === 'autoplay'}
         controls={mode === 'controls'}
         data-video-auto={mode === 'autoplay' ? '' : undefined}
         data-video-hover={mode === 'hover' ? '' : undefined}
@@ -78,10 +79,9 @@ const sizeLabel = `${exportWidth}px × ${exportHeight}px`;
 
   if (autoVideos.length > 0) {
     if (reduceMotion) {
-      // sin animación: no reproducir, dejar el primer cuadro
+      // sin animación: cargar solo el primer cuadro, sin reproducir
       autoVideos.forEach((v) => {
-        v.autoplay = false;
-        v.removeAttribute('autoplay');
+        v.preload = 'metadata';
       });
     } else if ('IntersectionObserver' in window) {
       const io = new IntersectionObserver(
@@ -89,6 +89,8 @@ const sizeLabel = `${exportWidth}px × ${exportHeight}px`;
           for (const entry of entries) {
             const video = entry.target as HTMLVideoElement;
             if (entry.isIntersecting) {
+              // la descarga empieza aquí, no al abrir la página
+              if (video.preload !== 'auto') video.preload = 'auto';
               const p = video.play();
               if (p) p.catch(() => {});
             } else {
@@ -96,7 +98,8 @@ const sizeLabel = `${exportWidth}px × ${exportHeight}px`;
             }
           }
         },
-        { threshold: 0.25 }
+        // margen para que empiece a cargar justo antes de entrar en pantalla
+        { threshold: 0.2, rootMargin: '300px 0px' }
       );
       autoVideos.forEach((v) => io.observe(v));
     }

@@ -94,8 +94,9 @@ function splitByRatio(list: GalleryItem[]) {
 {
   isEmpty ? (
     <section class="gallery container">
-      <span class="label" data-reveal>
-        {t.portfolio.project.gallery}
+      <span class="gallery-head" data-reveal>
+        <span class="label">{t.portfolio.project.gallery}</span>
+        <ProgressTag label={t.portfolio.project.galleryPending} />
       </span>
       <div class="grid">
         {Array.from({ length: placeholders }, (_, index) => (
@@ -331,6 +332,13 @@ function splitByRatio(list: GalleryItem[]) {
     flex-direction: column;
     gap: var(--space-lg);
     padding-block: var(--space-xl);
+  }
+
+  .gallery-head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
   }
 
   /* — Pieza clicable: zoom sutil, marco fino y signo de ampliar — */

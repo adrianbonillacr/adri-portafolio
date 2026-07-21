@@ -19,6 +19,8 @@ export default {
     firstName: 'Adrián',
     lastName: 'D. Bonilla',
     tagline: 'art – music – love',
+    /** CTA de la portada hacia la pantalla de selección de idioma. */
+    portfolioCta: 'Portfolio',
   },
   statement: {
     text: 'In love we trust.',

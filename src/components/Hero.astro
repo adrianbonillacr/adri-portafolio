@@ -27,6 +27,8 @@ const t = useTranslations('es');
 
   <p class="tagline">{t.hero.tagline}</p>
 
+  <a class="portfolio-cta" href="/inicio">{t.hero.portfolioCta}</a>
+
   <a class="cta" href="#manifiesto" aria-label={t.a11y.scrollHint}>
     <span class="line" aria-hidden="true"></span>
   </a>
@@ -86,6 +88,28 @@ const t = useTranslations('es');
     letter-spacing: 0.38em;
     color: var(--color-ink-muted);
     animation: rise 1.3s var(--ease-out) 0.55s both;
+  }
+
+  /* — Entrada al portafolio (pasa por la selección de idioma) — */
+  .portfolio-cta {
+    margin-top: var(--space-md);
+    padding: 0.85rem 2rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.26em;
+    color: var(--color-ink-muted);
+    border: 1px solid var(--color-line);
+    animation: rise 1.3s var(--ease-out) 0.75s both;
+    transition:
+      background-color var(--dur-fast) var(--ease-out),
+      border-color var(--dur-fast) var(--ease-out),
+      color var(--dur-fast) var(--ease-out);
+  }
+
+  .portfolio-cta:hover {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-bg);
   }
 
   .cta {

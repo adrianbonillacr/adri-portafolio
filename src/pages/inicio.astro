@@ -8,15 +8,6 @@ import Base from '../layouts/Base.astro';
 import Preloader from '../components/portfolio/Preloader.astro';
 import '../styles/portfolio.css';
 
-/**
- * Pantalla deshabilitada en producción mientras se trabaja en
- * localhost: el build genera una redirección a la portada.
- * Para publicarla, eliminar este bloque.
- */
-if (!import.meta.env.DEV) {
-  return Astro.redirect('/');
-}
-
 const title = 'Adrián D. Bonilla — Portafolio · Portfolio';
 const description =
   'Portafolio profesional de Adrián D. Bonilla — diseño, branding, dirección creativa y estrategia. Disponible en español e inglés.';

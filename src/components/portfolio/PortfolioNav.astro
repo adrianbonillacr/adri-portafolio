@@ -11,9 +11,8 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const base = t.portfolio.base;
 
-/* la pantalla /inicio está deshabilitada en producción (se trabaja en
-   localhost): allí el monograma vuelve a la portada del sitio */
-const homeHref = import.meta.env.DEV ? '/inicio' : '/';
+/* el monograma vuelve a la pantalla de entrada (selección de idioma) */
+const homeHref = '/inicio';
 
 const links = [
   { href: `${base}#sobre-mi`, label: t.portfolio.nav.about },

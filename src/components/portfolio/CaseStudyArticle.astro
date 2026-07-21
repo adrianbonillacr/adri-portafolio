@@ -2,10 +2,15 @@
 /**
  * Estructura completa y única de un caso de estudio.
  * La usan tanto las páginas de proyecto (/portafolio/<id>) como los
- * casos anidados de Advanced y LAGE (/portafolio/<id>/<caso>), de modo
- * que todas comparten exactamente la misma arquitectura:
- * hero → desafío/objetivo/rol/estrategia → proceso → resultados →
- * galería → [casos de estudio] → próximo proyecto.
+ * casos anidados (/portafolio/<id>/<caso>), de modo que todas
+ * comparten exactamente la misma arquitectura:
+ * hero → desafío/objetivo/rol/estrategia → [negocios y casos] →
+ * proceso → resultados → galería → próximo proyecto.
+ *
+ * Los negocios/casos van inmediatamente después del bloque estratégico
+ * para que el visitante encuentre el trabajo real antes de recorrer
+ * proceso, resultados y galería. En las páginas de caso individual
+ * (sin `caseStudies`) la estructura queda igual que antes.
  */
 import { getProjectMedia } from '../../lib/media';
 import ProjectHero from './ProjectHero.astro';
@@ -74,6 +79,8 @@ const media = getProjectMedia(mediaId);
 
   <ProjectBrief {challenge} {objective} {role} {strategy} />
 
+  {caseStudies.length > 0 && <CaseStudyList projectId={mediaId} caseStudies={caseStudies} />}
+
   <ProcessSection steps={process} processVideo={media.videos.process ?? null} />
 
   {results && <ResultsSection summary={results.summary} metrics={results.metrics} />}
@@ -84,8 +91,6 @@ const media = getProjectMedia(mediaId);
     placeholders={galleryPlaceholders}
     projectTitle={title}
   />
-
-  {caseStudies.length > 0 && <CaseStudyList projectId={mediaId} caseStudies={caseStudies} />}
 
   <NextProject href={next.href} title={next.title} />
 </article>

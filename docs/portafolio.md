@@ -13,7 +13,7 @@ archivos en `public/portfolio/`.
 | `/portafolio`                        | Hero, sobre mí, espacios de trabajo, experiencia, servicios, herramientas, contacto |
 | `/portafolio/advance`                | Advance + negocios atendidos (4 casos anidados)    |
 | `/portafolio/advance/cuenta-01…04`   | Negocios dentro de Advance                         |
-| `/portafolio/lage`                   | Lagé Estrategia + negocios (Eddie Bauer CR, Quarzo) |
+| `/portafolio/lage`                   | Lagé + negocios (Eddie Bauer CR, Quarzo) |
 | `/portafolio/lage/eddie-bauer`       | Caso Eddie Bauer Costa Rica (contenido real)       |
 | `/portafolio/mulailah`               | Caso de estudio Mulailah Gastropub                 |
 | `/portafolio/distrito11`             | Caso de estudio Distrito 11                        |

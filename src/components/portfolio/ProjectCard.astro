@@ -6,6 +6,7 @@
  */
 import MediaFrame from './MediaFrame.astro';
 import SmartVideo from './SmartVideo.astro';
+import ProgressTag from './ProgressTag.astro';
 import { getLangFromUrl, useTranslations } from '../../i18n';
 
 interface Props {
@@ -17,15 +18,27 @@ interface Props {
   image: string | null;
   /** Animación opcional; cuando no hay imagen, la tarjeta la reproduce en loop. */
   video?: string | null;
+  /** Marca el caso como trabajo en curso, en lugar de dejarlo vacío. */
+  inProgress?: boolean;
 }
 
-const { href, title, tagline, disciplines, index, image, video = null } = Astro.props;
+const {
+  href,
+  title,
+  tagline,
+  disciplines,
+  index,
+  image,
+  video = null,
+  inProgress = false,
+} = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
 <a class="project-card" href={href} data-reveal style={`--reveal-delay: ${(index % 2) * 120}ms`}>
   <div class="media">
+    {inProgress && <ProgressTag label={t.portfolio.project.inProgress} variant="overlay" />}
     {
       !image && video ? (
         <SmartVideo src={video} ratio="4 / 3" mode="autoplay" title={title} />
@@ -61,6 +74,7 @@ const t = useTranslations(lang);
   }
 
   .media {
+    position: relative;
     overflow: hidden;
   }
 

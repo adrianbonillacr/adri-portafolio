@@ -3,7 +3,11 @@
   "tagline": "Agencia de Ian Kupfer · noviembre 2025 – julio 2026",
   "description": "Agencia digital orientada a pymes donde integré diseño publicitario, contenido audiovisual, estrategia orgánica y pauta digital para más de 50 cuentas comerciales.",
   "order": 1,
-  "disciplines": ["Diseño publicitario", "Media buying", "Gestión de cuentas"],
+  "disciplines": [
+    "Diseño publicitario",
+    "Media buying",
+    "Gestión de cuentas"
+  ],
   "challenge": "Atender más de 50 cuentas de pymes con necesidades muy distintas de diseño, contenido y pauta, manteniendo calidad y tiempos de entrega consistentes en un entorno de trabajo remoto.",
   "objective": "Integrar diseño publicitario, contenido audiovisual, estrategia orgánica y pauta digital en un solo flujo de trabajo, alineando cada entregable con los objetivos comerciales de cada cuenta.",
   "role": "Diseñador Publicitario, Media Buyer y Account Manager: coordiné el flujo creativo de un equipo de siete profesionales — del brief a la creación, revisión y aprobación de entregables — y asesoré directamente a los clientes.",
@@ -25,9 +29,18 @@
   "results": {
     "summary": "Un sistema de trabajo capaz de sostener la operación creativa y comercial de decenas de cuentas activas a la vez, con procesos claros de producción, aprobación y pauta.",
     "metrics": [
-      { "value": "50+", "label": "cuentas gestionadas" },
-      { "value": "7", "label": "profesionales coordinados" },
-      { "value": "3", "label": "plataformas de pauta" }
+      {
+        "value": "50+",
+        "label": "cuentas gestionadas"
+      },
+      {
+        "value": "7",
+        "label": "profesionales coordinados"
+      },
+      {
+        "value": "3",
+        "label": "plataformas de pauta"
+      }
     ]
   },
   "galleryPlaceholders": 6,
@@ -57,11 +70,7 @@
       ],
       "results": {
         "summary": "Una cuenta con comunicación constante y reconocible, del feed a la pauta.",
-        "metrics": [
-          { "value": "[00]", "label": "[Placeholder] piezas producidas" },
-          { "value": "[00]", "label": "[Placeholder] campañas de pauta" },
-          { "value": "[00]", "label": "[Placeholder] métrica destacada" }
-        ]
+        "metrics": []
       }
     },
     {

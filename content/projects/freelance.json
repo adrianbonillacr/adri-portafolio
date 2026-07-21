@@ -3,7 +3,11 @@
   "tagline": "Proyectos independientes · 2018 – actualidad",
   "description": "Identidad, diseño publicitario y contenido digital por encargo para pymes, instituciones y marcas de consumo.",
   "order": 5,
-  "disciplines": ["Identidad", "Diseño publicitario", "Contenido digital"],
+  "disciplines": [
+    "Identidad",
+    "Diseño publicitario",
+    "Contenido digital"
+  ],
   "challenge": "Resolver encargos de naturaleza muy distinta — identidad, publicidad, contenido — para clientes con estructuras, tiempos y presupuestos diversos.",
   "objective": "Entregar cada proyecto con criterio y procesos de estudio, sin importar la escala del cliente.",
   "role": "Diseñador Gráfico y Publicitario independiente, en colaboración con equipos de desarrollo y producción en proyectos multidisciplinarios.",
@@ -24,37 +28,109 @@
   ],
   "results": {
     "summary": "Una práctica independiente sostenida por más de siete años y una red de clientes recurrentes.",
-    "metrics": [
-      { "value": "7+", "label": "años de práctica independiente" },
-      { "value": "[00]", "label": "[Placeholder] proyectos entregados" },
-      { "value": "[00]", "label": "[Placeholder] clientes recurrentes" }
-    ]
+    "metrics": []
   },
   "galleryPlaceholders": 6,
   "caseStudies": [
     {
-      "id": "proyecto-01",
-      "title": "[Proyecto 01]",
-      "tagline": "[Placeholder] Tipo de encargo",
-      "description": "[Placeholder] Proyecto independiente — por definir cuál destacar (URBN, Pragmático CR, Coco Estudio…)."
+      "id": "urbn",
+      "title": "URBN",
+      "tagline": "Identidad y diseño publicitario",
+      "description": "Identidad visual y piezas publicitarias para la marca, construidas sobre un sistema que se sostiene en cada aplicación.",
+      "inProgress": true,
+      "challenge": "Dotar a la marca de un sistema visual propio, con reglas claras de jerarquía y aplicación, que funcione igual en redes que en pieza impresa.",
+      "objective": "Entregar una identidad aplicable desde el primer día: no un logotipo suelto, sino un sistema que el negocio pueda usar sin depender del diseñador.",
+      "role": "Diseño de identidad, dirección de arte y producción de las piezas publicitarias.",
+      "strategy": "Definir primero las reglas —tipografía, color, retícula, tono— y recién después producir; así cada pieza nueva se resuelve sola y la marca se acumula en lugar de dispersarse.",
+      "process": [
+        {
+          "title": "Diagnóstico",
+          "description": "Comprensión del negocio, su audiencia y el problema real detrás del encargo."
+        },
+        {
+          "title": "Sistema visual",
+          "description": "Definición de los principios y las reglas de aplicación de la identidad."
+        },
+        {
+          "title": "Producción",
+          "description": "Diseño de las piezas publicitarias bajo el sistema, con archivos finales organizados."
+        }
+      ]
     },
     {
-      "id": "proyecto-02",
-      "title": "[Proyecto 02]",
-      "tagline": "[Placeholder] Tipo de encargo",
-      "description": "[Placeholder] Proyecto independiente — por definir cuál destacar."
+      "id": "pragmatico-cr",
+      "title": "Pragmático CR",
+      "tagline": "Contenido digital y comunicación de marca",
+      "description": "Contenido digital y piezas de comunicación para redes, con un lenguaje visual consistente en el tiempo.",
+      "inProgress": true,
+      "challenge": "Sostener una presencia digital constante sin que cada publicación pareciera de una marca distinta.",
+      "objective": "Producir contenido reconocible y replicable, que el negocio pudiera mantener con ritmo propio.",
+      "role": "Dirección de arte y diseño del contenido digital y las piezas de comunicación.",
+      "strategy": "Plantillas y criterios de composición que permiten producir rápido sin perder identidad, y que dejan espacio para el mensaje de cada campaña.",
+      "process": [
+        {
+          "title": "Diagnóstico",
+          "description": "Revisión de la comunicación existente y de los formatos que realmente usa el negocio."
+        },
+        {
+          "title": "Sistema de contenido",
+          "description": "Plantillas y reglas de composición replicables para el día a día."
+        },
+        {
+          "title": "Producción",
+          "description": "Diseño de las piezas y entrega organizada para publicación."
+        }
+      ]
     },
     {
-      "id": "proyecto-03",
-      "title": "[Proyecto 03]",
-      "tagline": "[Placeholder] Tipo de encargo",
-      "description": "[Placeholder] Proyecto independiente — por definir cuál destacar."
+      "id": "coco-estudio",
+      "title": "Coco Estudio",
+      "tagline": "Identidad visual",
+      "description": "Construcción de la identidad visual del estudio: del concepto a las aplicaciones que le dan cuerpo.",
+      "inProgress": true,
+      "challenge": "Traducir la personalidad del estudio a un sistema visual que se sintiera propio y no genérico.",
+      "objective": "Una identidad con criterio: memorable, aplicable y coherente en todos sus puntos de contacto.",
+      "role": "Diseño de identidad visual y dirección de arte de sus aplicaciones.",
+      "strategy": "Partir del concepto y no de la forma: definir qué debía comunicar la marca antes de decidir cómo se veía.",
+      "process": [
+        {
+          "title": "Concepto",
+          "description": "Definición de la idea que sostiene la identidad y del territorio visual."
+        },
+        {
+          "title": "Identidad",
+          "description": "Diseño del sistema: marca, tipografía, color y reglas de uso."
+        },
+        {
+          "title": "Aplicaciones",
+          "description": "Bajada del sistema a las piezas donde la marca vive."
+        }
+      ]
     },
     {
-      "id": "proyecto-04",
-      "title": "[Proyecto 04]",
-      "tagline": "[Placeholder] Tipo de encargo",
-      "description": "[Placeholder] Proyecto independiente — por definir cuál destacar."
+      "id": "municipalidad-pococi",
+      "title": "Municipalidad de Pococí",
+      "tagline": "Comunicación institucional",
+      "description": "Piezas de comunicación institucional pensadas para informar con claridad a un público amplio y diverso.",
+      "inProgress": true,
+      "challenge": "Comunicar información institucional a una audiencia muy amplia, donde la claridad pesa más que el lucimiento gráfico.",
+      "objective": "Piezas legibles y ordenadas, que transmitan la información sin ruido y sostengan la seriedad de la institución.",
+      "role": "Diseño de las piezas de comunicación institucional y de su sistema de aplicación.",
+      "strategy": "Jerarquía antes que decoración: estructura tipográfica clara, contraste suficiente y un sistema que cualquier pieza nueva pueda seguir.",
+      "process": [
+        {
+          "title": "Ordenamiento",
+          "description": "Jerarquización de la información que debe comunicar cada pieza."
+        },
+        {
+          "title": "Sistema",
+          "description": "Estructura tipográfica y de composición aplicable a toda la comunicación."
+        },
+        {
+          "title": "Producción",
+          "description": "Diseño y entrega de las piezas para sus distintos canales."
+        }
+      ]
     }
   ],
   "seo": {

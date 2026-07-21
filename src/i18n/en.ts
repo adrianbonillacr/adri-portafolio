@@ -199,6 +199,8 @@ export default {
       imagePlaceholder: 'Image',
       videoPlaceholder: 'Video',
       videoPending: 'Video in production',
+      inProgress: 'Case study in preparation',
+      seriesInProgress: 'Series in preparation',
       relatedExperience: 'Related experience',
       /** Enlarged gallery viewer */
       lightbox: {

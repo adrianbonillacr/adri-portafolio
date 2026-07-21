@@ -200,6 +200,8 @@ export default {
       imagePlaceholder: 'Imagen',
       videoPlaceholder: 'Video',
       videoPending: 'Video en producción',
+      inProgress: 'Caso en preparación',
+      seriesInProgress: 'Serie en preparación',
       relatedExperience: 'Experiencia relacionada',
       /** Visor ampliado de la galería */
       lightbox: {

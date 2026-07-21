@@ -3,7 +3,11 @@
   "tagline": "Oscar Molina's agency · 2024 – April 2026",
   "description": "Digital animation and social strategy for commercial and corporate accounts: motion graphics, logo animation and content systems for brands such as Quarzo Tecnología.",
   "order": 2,
-  "disciplines": ["Social strategy", "Motion graphics", "Digital animation"],
+  "disciplines": [
+    "Social strategy",
+    "Motion graphics",
+    "Digital animation"
+  ],
   "challenge": "Connecting visual execution with the actual performance of content and paid media, across commercial and corporate accounts with very different audiences and goals.",
   "objective": "Develop communication and content strategies that position each brand, supported by finely crafted audiovisual and animated pieces for social media.",
   "role": "Social Media Strategist and Digital Animator: I conceptualized digital campaigns, produced motion graphics and audiovisual pieces, and animated client logos for the agency's portfolio.",
@@ -27,5 +31,8 @@
   "seo": {
     "title": "Lagé — Workspace · Adrián D. Bonilla",
     "description": "Digital animation, motion graphics and social strategy at Lagé: logo animation and brand strategy for Quarzo Tecnología, among other accounts."
-  }
+  },
+  "progressSeries": [
+    "Quarzo"
+  ]
 }

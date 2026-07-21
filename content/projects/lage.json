@@ -3,7 +3,11 @@
   "tagline": "Agencia de Oscar Molina · 2024 – abril 2026",
   "description": "Animación digital y estrategia de redes para cuentas comerciales y corporativas: motion graphics, animación de logotipos y sistemas de contenido para marcas como Quarzo Tecnología.",
   "order": 2,
-  "disciplines": ["Estrategia de redes", "Motion graphics", "Animación digital"],
+  "disciplines": [
+    "Estrategia de redes",
+    "Motion graphics",
+    "Animación digital"
+  ],
   "challenge": "Conectar la ejecución visual con el desempeño real del contenido y la pauta, en cuentas comerciales y corporativas con audiencias y objetivos muy distintos.",
   "objective": "Desarrollar estrategias de comunicación y contenido que posicionen a cada marca, sostenidas en piezas audiovisuales y animación de alta factura para redes sociales.",
   "role": "Estratega de Redes Sociales y Animador Digital: conceptualicé campañas digitales, produje motion graphics y piezas audiovisuales, y animé logotipos de clientes para el portafolio de la agencia.",
@@ -27,5 +31,8 @@
   "seo": {
     "title": "Lagé — Espacio de trabajo · Adrián D. Bonilla",
     "description": "Animación digital, motion graphics y estrategia de redes en Lagé: animación de logotipos y estrategia de marca para Quarzo Tecnología, entre otras cuentas."
-  }
+  },
+  "progressSeries": [
+    "Quarzo"
+  ]
 }

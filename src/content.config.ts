@@ -56,10 +56,13 @@ const projectSchema = z.object({
       description: z.string(),
     })
   ),
-  results: z.object({
-    summary: z.string(),
-    metrics: z.array(metricSchema).default([]),
-  }),
+  /** Opcional: sin resultados reales, la sección no se muestra. */
+  results: z
+    .object({
+      summary: z.string(),
+      metrics: z.array(metricSchema).default([]),
+    })
+    .optional(),
   /** Marcos vacíos que muestra la galería mientras no existan archivos reales. */
   galleryPlaceholders: z.number().default(6),
   /** Solo para espacios contenedores: casos de estudio anidados. */

@@ -1,7 +1,7 @@
 {
   "title": "Lagé Estrategia",
   "tagline": "Oscar Molina's agency · 2024 – April 2026",
-  "description": "Social media strategy and digital animation for commercial and corporate accounts, including Eddie Bauer Costa Rica and Quarzo Tecnología.",
+  "description": "Digital animation and social strategy for commercial and corporate accounts: motion graphics, logo animation and content systems for brands such as Quarzo Tecnología.",
   "order": 2,
   "disciplines": ["Social strategy", "Motion graphics", "Digital animation"],
   "challenge": "Connecting visual execution with the actual performance of content and paid media, across commercial and corporate accounts with very different audiences and goals.",
@@ -22,14 +22,6 @@
       "description": "Proposals, reports and recommendations connecting visual execution with content and media performance."
     }
   ],
-  "results": {
-    "summary": "Campaigns that combine concept, animation and analysis: the Eddie Bauer Costa Rica launch reached more than half a million people in one month.",
-    "metrics": [
-      { "value": "564,083", "label": "people reached — Eddie Bauer CR" },
-      { "value": "1,131,832", "label": "impressions" },
-      { "value": "34,523", "label": "visits" }
-    ]
-  },
   "galleryPlaceholders": 6,
   "caseStudies": [
     {
@@ -55,42 +47,10 @@
           "description": "Logo animation and motion graphics that bring the brand system to life."
         }
       ]
-    },
-    {
-      "id": "eddie-bauer",
-      "title": "Eddie Bauer Costa Rica",
-      "tagline": "Launch campaign · February 2026",
-      "description": "Communication and content strategy for the outdoor brand's launch in Costa Rica.",
-      "challenge": "Introducing an international outdoor brand to the Costa Rican audience and generating measurable traction from the very first month.",
-      "objective": "Launch the brand in the local market with a digital campaign that maximized reach, recall and visits.",
-      "role": "Social media strategy, campaign concept and production of content and animation pieces.",
-      "strategy": "A launch campaign coordinated between organic content and paid media, with audiovisual pieces designed for each network's format and rhythm.",
-      "process": [
-        {
-          "title": "Launch concept",
-          "description": "Defining the communication approach to introduce the brand to the Costa Rican market."
-        },
-        {
-          "title": "Piece production",
-          "description": "Content and animations adapted to each social network's formats."
-        },
-        {
-          "title": "Measurement",
-          "description": "Campaign performance tracking and results reporting."
-        }
-      ],
-      "results": {
-        "summary": "The launch surpassed half a million people reached in February 2026.",
-        "metrics": [
-          { "value": "564,083", "label": "people reached" },
-          { "value": "1,131,832", "label": "impressions" },
-          { "value": "34,523", "label": "visits" }
-        ]
-      }
     }
   ],
   "seo": {
     "title": "Lagé Estrategia — Workspace · Adrián D. Bonilla",
-    "description": "Social media strategy, motion graphics and digital animation at Lagé Estrategia: Eddie Bauer Costa Rica, Quarzo Tecnología and more."
+    "description": "Digital animation, motion graphics and social strategy at Lagé Estrategia: logo animation and brand strategy for Quarzo Tecnología, among other accounts."
   }
 }

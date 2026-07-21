@@ -2,10 +2,13 @@
 /**
  * Video consciente de placeholders, servido directo desde /public.
  * Modos:
- *  - autoplay : silencioso, en bucle (heros, ambiente)
- *  - hover    : se reproduce al pasar el cursor
+ *  - autoplay : silencioso, en bucle constante; se reproduce solo cuando
+ *               entra en pantalla y se pausa al salir (IntersectionObserver),
+ *               para mantener el loop sin gastar CPU/datos en lo oculto.
+ *  - hover    : se reproduce al pasar el cursor (heredado; ya no se usa)
  *  - controls : controles nativos (incluye fullscreen)
- * Si `src` es null se muestra un marco vacío listo para recibir el archivo.
+ * Con `prefers-reduced-motion` el autoplay se desactiva (queda el primer
+ * cuadro). Si `src` es null se muestra un marco vacío listo para el archivo.
  */
 interface Props {
   src: string | null;
@@ -52,6 +55,7 @@ const sizeLabel = `${exportWidth}px × ${exportHeight}px`;
         loop={mode !== 'controls'}
         autoplay={mode === 'autoplay'}
         controls={mode === 'controls'}
+        data-video-auto={mode === 'autoplay' ? '' : undefined}
         data-video-hover={mode === 'hover' ? '' : undefined}
         aria-label={title}
       />
@@ -67,7 +71,38 @@ const sizeLabel = `${exportWidth}px × ${exportHeight}px`;
 </figure>
 
 <script>
-  // reproduce/pausa los videos en modo hover; Astro deduplica este script
+  // — Autoplay en loop constante, gobernado por visibilidad —
+  // Astro deduplica este script aunque haya varios SmartVideo en la página.
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const autoVideos = document.querySelectorAll<HTMLVideoElement>('video[data-video-auto]');
+
+  if (autoVideos.length > 0) {
+    if (reduceMotion) {
+      // sin animación: no reproducir, dejar el primer cuadro
+      autoVideos.forEach((v) => {
+        v.autoplay = false;
+        v.removeAttribute('autoplay');
+      });
+    } else if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            const video = entry.target as HTMLVideoElement;
+            if (entry.isIntersecting) {
+              const p = video.play();
+              if (p) p.catch(() => {});
+            } else {
+              video.pause();
+            }
+          }
+        },
+        { threshold: 0.25 }
+      );
+      autoVideos.forEach((v) => io.observe(v));
+    }
+  }
+
+  // — Modo hover heredado (ya no se usa en galerías, se conserva por compatibilidad) —
   document.querySelectorAll<HTMLVideoElement>('video[data-video-hover]').forEach((video) => {
     video.addEventListener('mouseenter', () => video.play());
     video.addEventListener('mouseleave', () => video.pause());

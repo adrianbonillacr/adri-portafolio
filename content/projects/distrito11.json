@@ -1,7 +1,7 @@
 {
   "title": "Distrito 11",
   "tagline": "Diseño publicitario y estrategia de marca · 2020 – 2022",
-  "description": "Campañas promocionales y contenido digital para el posicionamiento, los eventos y la comunicación comercial de la marca.",
+  "description": "Dos años de comunicación promocional para el bar: flyers de eventos, promociones semanales, cocteles y activaciones, más el contenido de feed que sostenía la conversación con su público.",
   "order": 4,
   "disciplines": ["Diseño publicitario", "Estrategia de marca", "Contenido digital"],
   "challenge": "Adaptar el lenguaje visual de la marca a múltiples formatos y contextos — posicionamiento, eventos, comunicación comercial — sin perder jerarquía, reconocimiento ni coherencia.",
@@ -23,12 +23,8 @@
     }
   ],
   "results": {
-    "summary": "Dos años de comunicación comercial con una marca reconocible y coherente en todos sus formatos.",
-    "metrics": [
-      { "value": "2", "label": "años de colaboración" },
-      { "value": "[00]", "label": "[Placeholder] campañas realizadas" },
-      { "value": "[00]", "label": "[Placeholder] eventos comunicados" }
-    ]
+    "summary": "Dos años de comunicación promocional sin pausa, con una marca que se mantuvo reconocible en cada flyer, promoción y evento.",
+    "metrics": []
   },
   "galleryPlaceholders": 6,
   "seo": {

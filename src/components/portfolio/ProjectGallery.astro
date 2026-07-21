@@ -34,16 +34,20 @@ const lb = t.portfolio.project.lightbox;
 const isEmpty = items.length === 0 && categories.length === 0;
 
 /**
- * Convención de tamaños por sufijo de archivo (controla el ANCHO en la
- * retícula) y proporción por tipo:
- *  - `-wide` → ancho completo · 16:9
- *  - `-tall` → un tercio de ancho · 9:16 (historias, piezas verticales)
- *  - sin sufijo → media retícula · 16:9 en video, 4:3 en imagen
+ * El sufijo del archivo controla el ANCHO que ocupa la pieza:
+ *  - `-wide` → ancho completo
+ *  - `-tall` → un tercio (historias, piezas verticales)
+ *  - sin sufijo → media retícula
+ *
+ * La PROPORCIÓN es la real de la imagen (leída de su cabecera), de modo
+ * que una pieza cuadrada o 4:5 se ve completa y sin recortes. Solo cuando
+ * no se puede leer —los videos— se cae al valor derivado del sufijo.
  */
 const isWide = (name: string) => name.endsWith('-wide');
 const isTall = (name: string) => name.endsWith('-tall');
-const ratioFor = (name: string, type: 'image' | 'video') =>
-  isWide(name) ? '16 / 9' : isTall(name) ? '9 / 16' : type === 'video' ? '16 / 9' : '4 / 3';
+const ratioFor = (item: GalleryItem) =>
+  item.ratio ??
+  (isWide(item.name) ? '16 / 9' : isTall(item.name) ? '9 / 16' : item.type === 'video' ? '16 / 9' : '4 / 3');
 ---
 
 {
@@ -92,12 +96,12 @@ const ratioFor = (name: string, type: 'image' | 'video') =>
                   <MediaFrame
                     src={item.src}
                     alt={`${projectTitle} — ${item.name}`}
-                    ratio={ratioFor(item.name, 'image')}
+                    ratio={ratioFor(item)}
                   />
                 ) : (
                   <SmartVideo
                     src={item.src}
-                    ratio={ratioFor(item.name, 'video')}
+                    ratio={ratioFor(item)}
                     mode="autoplay"
                     title={`${projectTitle} — ${item.name}`}
                   />
@@ -134,7 +138,7 @@ const ratioFor = (name: string, type: 'image' | 'video') =>
                     { 'is-wide': isWide(item.name), 'is-tall': isTall(item.name) },
                   ]}
                   type="button"
-                  style={`--slide-ratio: ${ratioFor(item.name, item.type)}`}
+                  style={`--slide-ratio: ${ratioFor(item)}`}
                   data-lightbox
                   data-src={item.src}
                   data-type={item.type}
@@ -145,12 +149,12 @@ const ratioFor = (name: string, type: 'image' | 'video') =>
                     <MediaFrame
                       src={item.src}
                       alt={`${projectTitle} — ${category.name} — ${item.name}`}
-                      ratio={ratioFor(item.name, 'image')}
+                      ratio={ratioFor(item)}
                     />
                   ) : (
                     <SmartVideo
                       src={item.src}
-                      ratio={ratioFor(item.name, 'video')}
+                      ratio={ratioFor(item)}
                       mode="autoplay"
                       title={`${projectTitle} — ${category.name} — ${item.name}`}
                     />
@@ -426,6 +430,9 @@ const ratioFor = (name: string, type: 'image' | 'video') =>
 
   .track {
     display: flex;
+    /* cada pieza conserva su propia altura: sin esto, flex las estira
+       todas a la más alta y se pierde la proporción real */
+    align-items: flex-start;
     gap: var(--space-sm);
     overflow-x: auto;
     scroll-snap-type: x proximity;

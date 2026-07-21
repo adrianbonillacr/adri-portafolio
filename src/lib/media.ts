@@ -25,8 +25,73 @@ const IMAGE_EXTENSIONS = ['.avif', '.webp', '.jpg', '.jpeg', '.png', '.gif'];
 const VIDEO_EXTENSIONS = ['.webm', '.mp4'];
 
 export type GalleryItem =
-  | { type: 'image'; src: string; name: string }
-  | { type: 'video'; src: string; name: string };
+  | { type: 'image'; src: string; name: string; ratio?: string }
+  | { type: 'video'; src: string; name: string; ratio?: string };
+
+/**
+ * Lee el tamaño real de una imagen leyendo solo su cabecera (sin decodificar).
+ * Así cada pieza se muestra con su proporción verdadera —cuadrada, 4:5, 9:16—
+ * en lugar de depender de convenciones en el nombre del archivo.
+ */
+function readImageSize(absolute: string): { w: number; h: number } | null {
+  let buf: Buffer;
+  try {
+    buf = fs.readFileSync(absolute);
+  } catch {
+    return null;
+  }
+
+  const ext = path.extname(absolute).toLowerCase();
+
+  if (ext === '.png') {
+    return { w: buf.readUInt32BE(16), h: buf.readUInt32BE(20) };
+  }
+
+  if (ext === '.gif') {
+    return { w: buf.readUInt16LE(6), h: buf.readUInt16LE(8) };
+  }
+
+  if (ext === '.webp') {
+    const fourcc = buf.toString('ascii', 12, 16);
+    if (fourcc === 'VP8X') return { w: 1 + buf.readUIntLE(24, 3), h: 1 + buf.readUIntLE(27, 3) };
+    if (fourcc === 'VP8 ') return { w: buf.readUInt16LE(26) & 0x3fff, h: buf.readUInt16LE(28) & 0x3fff };
+    if (fourcc === 'VP8L') {
+      const n = buf.readUInt32LE(21);
+      return { w: 1 + (n & 0x3fff), h: 1 + ((n >> 14) & 0x3fff) };
+    }
+    return null;
+  }
+
+  if (ext === '.jpg' || ext === '.jpeg') {
+    // recorre los marcadores hasta el SOF, que lleva alto y ancho
+    let offset = 2;
+    while (offset < buf.length - 9) {
+      if (buf[offset] !== 0xff) {
+        offset++;
+        continue;
+      }
+      const marker = buf[offset + 1];
+      // SOF0–SOF15, excluyendo DHT(c4), JPGA(c8) y DAC(cc)
+      if (marker >= 0xc0 && marker <= 0xcf && marker !== 0xc4 && marker !== 0xc8 && marker !== 0xcc) {
+        return { h: buf.readUInt16BE(offset + 5), w: buf.readUInt16BE(offset + 7) };
+      }
+      offset += 2 + buf.readUInt16BE(offset + 2);
+    }
+  }
+
+  return null;
+}
+
+/** Cache por ruta: el build renderiza cada proyecto varias veces (ES/EN). */
+const sizeCache = new Map<string, string | undefined>();
+
+function ratioOf(absolute: string): string | undefined {
+  if (sizeCache.has(absolute)) return sizeCache.get(absolute);
+  const size = readImageSize(absolute);
+  const ratio = size && size.w > 0 && size.h > 0 ? `${size.w} / ${size.h}` : undefined;
+  sizeCache.set(absolute, ratio);
+  return ratio;
+}
 
 /** Una subcarpeta de `gallery/` renderizada como su propia sección con encabezado. */
 export interface GalleryCategory {
@@ -94,7 +159,10 @@ function readGalleryItems(relativeDir: string, urlSegments: string[]): GalleryIt
     const ext = path.extname(file).toLowerCase();
     const name = path.basename(file, ext);
     const src = toPublicUrl(...urlSegments, file);
-    if (IMAGE_EXTENSIONS.includes(ext)) return [{ type: 'image' as const, src, name }];
+    const absolute = path.join(PUBLIC_ROOT, PORTFOLIO_ROOT, relativeDir, file);
+    if (IMAGE_EXTENSIONS.includes(ext)) {
+      return [{ type: 'image' as const, src, name, ratio: ratioOf(absolute) }];
+    }
     if (VIDEO_EXTENSIONS.includes(ext)) return [{ type: 'video' as const, src, name }];
     return [];
   });

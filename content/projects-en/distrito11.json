@@ -1,7 +1,7 @@
 {
   "title": "Distrito 11",
   "tagline": "Advertising design & brand strategy · 2020 – 2022",
-  "description": "Promotional campaigns and digital content for the brand's positioning, events and commercial communication.",
+  "description": "Two years of promotional communication for the bar: event flyers, weekly promos, cocktails and activations, plus the feed content that kept the conversation going with its audience.",
   "order": 4,
   "disciplines": ["Advertising design", "Brand strategy", "Digital content"],
   "challenge": "Adapting the brand's visual language to multiple formats and contexts — positioning, events, commercial communication — without losing hierarchy, recognition or coherence.",
@@ -23,12 +23,8 @@
     }
   ],
   "results": {
-    "summary": "Two years of commercial communication with a brand that stayed recognizable and coherent across every format.",
-    "metrics": [
-      { "value": "2", "label": "years of collaboration" },
-      { "value": "[00]", "label": "[Placeholder] campaigns delivered" },
-      { "value": "[00]", "label": "[Placeholder] events communicated" }
-    ]
+    "summary": "Two years of non-stop promotional communication, with a brand that stayed recognizable across every flyer, promo and event.",
+    "metrics": []
   },
   "galleryPlaceholders": 6,
   "seo": {

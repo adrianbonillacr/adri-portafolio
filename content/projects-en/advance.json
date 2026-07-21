@@ -113,10 +113,28 @@
       ]
     },
     {
-      "id": "cuenta-04",
-      "title": "[Business 04]",
-      "tagline": "[Placeholder] Business sector",
-      "description": "[Placeholder] Business served within Advance — which accounts to feature is still to be defined."
+      "id": "1989-arquitectura",
+      "title": "19°89° Arquitectura",
+      "tagline": "Architecture studio · social content & design",
+      "description": "Social media content design for the architecture studio: brand pieces and per-project campaigns that bring renders and built work into a single visual language.",
+      "challenge": "Communicating architecture projects on social media so that the render, the built work and the brand voice live within one recognizable visual system.",
+      "objective": "Positioning the studio with content that shows its purpose and its project portfolio, from render to photography of the finished build.",
+      "role": "Advertising Designer and Account Manager: art direction and design of the brand content and per-project campaigns for social media.",
+      "strategy": "A restrained editorial system — natural palette, firm typography and the «19°89°» seal — applied to brand-purpose pieces and per-project series that prioritize design (renders) before the real build.",
+      "process": [
+        {
+          "title": "Brand & purpose",
+          "description": "Communication pieces expressing the studio's philosophy and services."
+        },
+        {
+          "title": "Per-project campaigns",
+          "description": "Content series for Casa Cafetal, Kahwi and Tree Lodge: design renders and build photography."
+        },
+        {
+          "title": "Repeatable system",
+          "description": "A consistent visual template that arranges render, real build and message in every post."
+        }
+      ]
     }
   ],
   "seo": {

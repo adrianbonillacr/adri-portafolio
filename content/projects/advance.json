@@ -113,10 +113,28 @@
       ]
     },
     {
-      "id": "cuenta-04",
-      "title": "[Negocio 04]",
-      "tagline": "[Placeholder] Rubro del negocio",
-      "description": "[Placeholder] Negocio atendido dentro de Advance — por definir cuál de las cuentas destacar."
+      "id": "1989-arquitectura",
+      "title": "19°89° Arquitectura",
+      "tagline": "Estudio de arquitectura · contenido y diseño para redes",
+      "description": "Diseño de contenido para redes sociales del estudio de arquitectura: piezas de marca y campañas por proyecto que llevan renders y obra real a un mismo lenguaje visual.",
+      "challenge": "Comunicar proyectos de arquitectura en redes sociales de forma que el render, la obra construida y la voz de la marca convivan en un sistema visual reconocible.",
+      "objective": "Posicionar al estudio con contenido que muestre su propósito y su portafolio de proyectos, del render a la fotografía de obra terminada.",
+      "role": "Diseñador Publicitario y Account Manager: dirección de arte y diseño del contenido de marca y de las campañas por proyecto para redes.",
+      "strategy": "Un sistema editorial sobrio — paleta natural, tipografía firme y el sello «19°89°» — aplicado a piezas de propósito de marca y a series por proyecto que priorizan el diseño (renders) antes de la obra real.",
+      "process": [
+        {
+          "title": "Marca y propósito",
+          "description": "Piezas de comunicación que expresan la filosofía del estudio y sus servicios."
+        },
+        {
+          "title": "Campañas por proyecto",
+          "description": "Series de contenido para Casa Cafetal, Kahwi y Tree Lodge: renders de diseño y fotografía de obra."
+        },
+        {
+          "title": "Sistema replicable",
+          "description": "Una plantilla visual consistente que ordena render, obra real y mensaje en cada publicación."
+        }
+      ]
     }
   ],
   "seo": {

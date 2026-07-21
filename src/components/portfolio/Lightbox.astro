@@ -1,0 +1,305 @@
+---
+/**
+ * Visor ampliado de la galería ("galería silenciosa" a pantalla completa).
+ * Se renderiza una sola vez por página y recoge automáticamente todos los
+ * elementos marcados con [data-lightbox], en el orden en que aparecen.
+ *
+ * Interacción: clic en una pieza para ampliar, flechas ← → para navegar,
+ * Escape o clic en el fondo para cerrar. Con `prefers-reduced-motion` las
+ * transiciones se reducen (lo hace `base.css`).
+ */
+import { getLangFromUrl, useTranslations } from '../../i18n';
+
+const t = useTranslations(getLangFromUrl(Astro.url));
+const lb = t.portfolio.project.lightbox;
+---
+
+<div class="lightbox" data-lightbox-root hidden>
+  <div class="backdrop" data-lb-close aria-hidden="true"></div>
+
+  <div class="panel" role="dialog" aria-modal="true" aria-label={lb.label}>
+    <header class="bar">
+      <span class="counter" data-lb-counter aria-live="polite"></span>
+      <button class="icon-btn close" type="button" data-lb-close aria-label={lb.close}>
+        <span class="x" aria-hidden="true"></span>
+      </button>
+    </header>
+
+    <div class="stage" data-lb-stage></div>
+
+    <button class="nav prev" type="button" data-lb-prev aria-label={lb.prev}>
+      <span class="arrow" aria-hidden="true"></span>
+    </button>
+    <button class="nav next" type="button" data-lb-next aria-label={lb.next}>
+      <span class="arrow" aria-hidden="true"></span>
+    </button>
+  </div>
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-lightbox-root]');
+
+  if (root) {
+    const stage = root.querySelector<HTMLElement>('[data-lb-stage]')!;
+    const counter = root.querySelector<HTMLElement>('[data-lb-counter]')!;
+    const prevBtn = root.querySelector<HTMLButtonElement>('[data-lb-prev]')!;
+    const nextBtn = root.querySelector<HTMLButtonElement>('[data-lb-next]')!;
+
+    const triggers = Array.from(document.querySelectorAll<HTMLElement>('[data-lightbox]'));
+    let index = 0;
+    let lastFocused: HTMLElement | null = null;
+
+    const pad = (n: number) => String(n).padStart(2, '0');
+
+    function render() {
+      const el = triggers[index];
+      if (!el) return;
+
+      const src = el.dataset.src ?? '';
+      const type = el.dataset.type ?? 'image';
+      const caption = el.dataset.caption ?? '';
+
+      stage.replaceChildren();
+
+      if (type === 'video') {
+        const video = document.createElement('video');
+        video.src = src;
+        video.controls = true;
+        video.autoplay = true;
+        video.loop = true;
+        video.muted = true;
+        video.playsInline = true;
+        video.setAttribute('aria-label', caption);
+        stage.append(video);
+      } else {
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = caption;
+        img.decoding = 'async';
+        stage.append(img);
+      }
+
+      counter.textContent = `${pad(index + 1)} / ${pad(triggers.length)}`;
+      const multiple = triggers.length > 1;
+      prevBtn.hidden = !multiple;
+      nextBtn.hidden = !multiple;
+    }
+
+    function open(i: number) {
+      index = i;
+      lastFocused = document.activeElement as HTMLElement;
+      root.hidden = false;
+      // permite que el navegador aplique `hidden=false` antes de la transición
+      requestAnimationFrame(() => root.classList.add('is-open'));
+      document.documentElement.style.overflow = 'hidden';
+      render();
+    }
+
+    function close() {
+      root.classList.remove('is-open');
+      document.documentElement.style.overflow = '';
+      window.setTimeout(() => {
+        root.hidden = true;
+        stage.replaceChildren(); // detiene cualquier video en reproducción
+      }, 260);
+      lastFocused?.focus();
+    }
+
+    const step = (delta: number) => {
+      index = (index + delta + triggers.length) % triggers.length;
+      render();
+    };
+
+    triggers.forEach((el, i) => {
+      el.addEventListener('click', (event) => {
+        event.preventDefault();
+        open(i);
+      });
+    });
+
+    root.querySelectorAll('[data-lb-close]').forEach((el) => {
+      el.addEventListener('click', close);
+    });
+    prevBtn.addEventListener('click', () => step(-1));
+    nextBtn.addEventListener('click', () => step(1));
+
+    document.addEventListener('keydown', (event) => {
+      if (root.hidden) return;
+      if (event.key === 'Escape') close();
+      else if (event.key === 'ArrowLeft') step(-1);
+      else if (event.key === 'ArrowRight') step(1);
+    });
+  }
+</script>
+
+<style>
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    opacity: 0;
+    transition: opacity 260ms var(--ease-out);
+  }
+
+  .lightbox.is-open {
+    opacity: 1;
+  }
+
+  .backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.94);
+  }
+
+  .panel {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: calc(var(--frame) + 3.5rem) calc(var(--frame) + 3.5rem);
+  }
+
+  /* — barra superior: contador y cierre — */
+  .bar {
+    position: absolute;
+    top: calc(var(--frame) + 1rem);
+    left: calc(var(--frame) + 1.25rem);
+    right: calc(var(--frame) + 1.25rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .counter {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.26em;
+    color: var(--color-ink-faint);
+  }
+
+  /* — pieza ampliada — */
+  .stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    max-height: 100%;
+    transform: scale(0.985);
+    transition: transform 320ms var(--ease-out);
+  }
+
+  .lightbox.is-open .stage {
+    transform: none;
+  }
+
+  .stage :global(img),
+  .stage :global(video) {
+    display: block;
+    max-width: 100%;
+    max-height: calc(100svh - (var(--frame) + 3.5rem) * 2);
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border: 1px solid var(--color-line-soft);
+  }
+
+  /* — controles: trazos finos, sin relleno — */
+  .icon-btn,
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--color-ink-muted);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  .icon-btn:hover,
+  .nav:hover {
+    color: var(--color-ink);
+  }
+
+  .close {
+    width: 34px;
+    height: 34px;
+  }
+
+  .x {
+    position: relative;
+    width: 15px;
+    height: 15px;
+  }
+
+  .x::before,
+  .x::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+  }
+
+  .x::before {
+    transform: rotate(45deg);
+  }
+
+  .x::after {
+    transform: rotate(-45deg);
+  }
+
+  .nav {
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    width: 56px;
+    height: 56px;
+  }
+
+  .prev {
+    left: calc(var(--frame) + 0.25rem);
+  }
+
+  .next {
+    right: calc(var(--frame) + 0.25rem);
+  }
+
+  /* flecha: dos trazos de 1px */
+  .arrow {
+    width: 13px;
+    height: 13px;
+    border-left: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+  }
+
+  .prev .arrow {
+    transform: rotate(45deg);
+    margin-left: 4px;
+  }
+
+  .next .arrow {
+    transform: rotate(-135deg);
+    margin-right: 4px;
+  }
+
+  @media (max-width: 700px) {
+    .panel {
+      padding: calc(var(--frame) + 3.25rem) var(--gutter);
+    }
+
+    .nav {
+      width: 44px;
+      height: 44px;
+    }
+
+    .prev {
+      left: 0;
+    }
+
+    .next {
+      right: 0;
+    }
+  }
+</style>

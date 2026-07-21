@@ -200,6 +200,14 @@ export default {
       imagePlaceholder: 'Imagen',
       videoPlaceholder: 'Video',
       relatedExperience: 'Experiencia relacionada',
+      /** Visor ampliado de la galería */
+      lightbox: {
+        open: 'Ampliar',
+        close: 'Cerrar',
+        prev: 'Anterior',
+        next: 'Siguiente',
+        label: 'Visor de galería',
+      },
     },
     experience: {
       label: 'Experiencia',

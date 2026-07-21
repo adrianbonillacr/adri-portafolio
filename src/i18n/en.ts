@@ -199,6 +199,14 @@ export default {
       imagePlaceholder: 'Image',
       videoPlaceholder: 'Video',
       relatedExperience: 'Related experience',
+      /** Enlarged gallery viewer */
+      lightbox: {
+        open: 'Enlarge',
+        close: 'Close',
+        prev: 'Previous',
+        next: 'Next',
+        label: 'Gallery viewer',
+      },
     },
     experience: {
       label: 'Experience',

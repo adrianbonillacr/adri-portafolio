@@ -5,15 +5,19 @@
  * (imágenes y videos, en orden alfabético) y, mientras no haya
  * archivos, marcos placeholder listos para recibirlos.
  *
- * Las subcarpetas de `gallery/` (ej. `Fotos/`, `Historias/`) se
- * mantienen como categorías propias, cada una con su encabezado —
- * se respeta la división en carpetas del usuario en vez de
- * aplanarlo todo en una sola lista.
+ * Dos tratamientos:
+ *  - Piezas sueltas en `gallery/` → retícula (½ o ⅓ de ancho).
+ *  - Subcarpetas (`Fotos/`, `Historias/`…) → carrusel de una sola
+ *    línea, con flechas y arrastre, para que una serie larga no
+ *    alargue la página.
+ *
+ * Cada pieza abre el visor ampliado (Lightbox) al hacer clic.
  */
 import { getLangFromUrl, useTranslations } from '../../i18n';
 import type { GalleryCategory, GalleryItem } from '../../lib/media';
 import MediaFrame from './MediaFrame.astro';
 import SmartVideo from './SmartVideo.astro';
+import Lightbox from './Lightbox.astro';
 
 interface Props {
   items: GalleryItem[];
@@ -26,6 +30,7 @@ interface Props {
 const { items, categories = [], placeholders = 6, projectTitle } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+const lb = t.portfolio.project.lightbox;
 const isEmpty = items.length === 0 && categories.length === 0;
 
 /**
@@ -74,37 +79,19 @@ const ratioFor = (name: string, type: 'image' | 'video') =>
               data-reveal
               style={`--reveal-delay: ${(index % 3) * 100}ms`}
             >
-              {item.type === 'image' ? (
-                <MediaFrame src={item.src} alt={`${projectTitle} — ${item.name}`} ratio={ratioFor(item.name, 'image')} />
-              ) : (
-                <SmartVideo
-                  src={item.src}
-                  ratio={ratioFor(item.name, 'video')}
-                  mode="autoplay"
-                  title={`${projectTitle} — ${item.name}`}
-                />
-              )}
-            </div>
-          ))}
-        </div>
-      )}
-
-      {categories.map((category) => (
-        <div class="category">
-          <span class="category-label" data-reveal>
-            {category.name}
-          </span>
-          <div class="grid">
-            {category.items.map((item, index) => (
-              <div
-                class:list={[{ 'is-wide': isWide(item.name), 'is-tall': isTall(item.name) }]}
-                data-reveal
-                style={`--reveal-delay: ${(index % 3) * 100}ms`}
+              <button
+                class="piece"
+                type="button"
+                data-lightbox
+                data-src={item.src}
+                data-type={item.type}
+                data-caption={`${projectTitle} — ${item.name}`}
+                aria-label={`${lb.open}: ${projectTitle} — ${item.name}`}
               >
                 {item.type === 'image' ? (
                   <MediaFrame
                     src={item.src}
-                    alt={`${projectTitle} — ${category.name} — ${item.name}`}
+                    alt={`${projectTitle} — ${item.name}`}
                     ratio={ratioFor(item.name, 'image')}
                   />
                 ) : (
@@ -112,17 +99,146 @@ const ratioFor = (name: string, type: 'image' | 'video') =>
                     src={item.src}
                     ratio={ratioFor(item.name, 'video')}
                     mode="autoplay"
-                    title={`${projectTitle} — ${category.name} — ${item.name}`}
+                    title={`${projectTitle} — ${item.name}`}
                   />
                 )}
-              </div>
-            ))}
+                <span class="frame" aria-hidden="true" />
+                <span class="plus" aria-hidden="true" />
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {categories.map((category) => (
+        <div class="category" data-reveal>
+          <div class="cat-head">
+            <span class="category-label">{category.name}</span>
+            <div class="cat-nav">
+              <button class="arrow-btn" type="button" data-car-prev aria-label={lb.prev}>
+                <span class="arrow" aria-hidden="true" />
+              </button>
+              <button class="arrow-btn" type="button" data-car-next aria-label={lb.next}>
+                <span class="arrow" aria-hidden="true" />
+              </button>
+            </div>
+          </div>
+
+          <div class="carousel" data-carousel>
+            <div class="track" data-track>
+              {category.items.map((item) => (
+                <button
+                  class="piece slide"
+                  type="button"
+                  style={`--slide-ratio: ${ratioFor(item.name, item.type)}`}
+                  data-lightbox
+                  data-src={item.src}
+                  data-type={item.type}
+                  data-caption={`${projectTitle} — ${category.name} — ${item.name}`}
+                  aria-label={`${lb.open}: ${projectTitle} — ${category.name} — ${item.name}`}
+                >
+                  {item.type === 'image' ? (
+                    <MediaFrame
+                      src={item.src}
+                      alt={`${projectTitle} — ${category.name} — ${item.name}`}
+                      ratio={ratioFor(item.name, 'image')}
+                    />
+                  ) : (
+                    <SmartVideo
+                      src={item.src}
+                      ratio={ratioFor(item.name, 'video')}
+                      mode="autoplay"
+                      title={`${projectTitle} — ${category.name} — ${item.name}`}
+                    />
+                  )}
+                  <span class="frame" aria-hidden="true" />
+                  <span class="plus" aria-hidden="true" />
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       ))}
+
+      <Lightbox />
     </section>
   )
 }
+
+<script>
+  // — Carrusel de categorías: flechas, arrastre y estado de los extremos —
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((carousel) => {
+    const track = carousel.querySelector<HTMLElement>('[data-track]');
+    if (!track) return;
+
+    const category = carousel.closest('.category');
+    const prev = category?.querySelector<HTMLButtonElement>('[data-car-prev]');
+    const next = category?.querySelector<HTMLButtonElement>('[data-car-next]');
+
+    const amount = () => Math.max(track.clientWidth * 0.8, 240);
+
+    function syncEnds() {
+      const max = track.scrollWidth - track.clientWidth - 1;
+      const atStart = track.scrollLeft <= 0;
+      const atEnd = track.scrollLeft >= max;
+      prev?.toggleAttribute('disabled', atStart);
+      next?.toggleAttribute('disabled', atEnd);
+      // sin desbordamiento no hace falta navegar
+      category?.classList.toggle('no-overflow', track.scrollWidth <= track.clientWidth + 2);
+    }
+
+    prev?.addEventListener('click', () => track.scrollBy({ left: -amount(), behavior: 'smooth' }));
+    next?.addEventListener('click', () => track.scrollBy({ left: amount(), behavior: 'smooth' }));
+    track.addEventListener('scroll', syncEnds, { passive: true });
+    window.addEventListener('resize', syncEnds);
+    syncEnds();
+
+    // — Arrastre con el puntero (además del scroll nativo y táctil) —
+    let dragging = false;
+    let startX = 0;
+    let startScroll = 0;
+    let moved = 0;
+
+    track.addEventListener('pointerdown', (event) => {
+      if (event.pointerType === 'touch') return; // el táctil ya desplaza solo
+      dragging = true;
+      moved = 0;
+      startX = event.clientX;
+      startScroll = track.scrollLeft;
+      track.classList.add('is-dragging');
+    });
+
+    track.addEventListener('pointermove', (event) => {
+      if (!dragging) return;
+      const delta = event.clientX - startX;
+      moved = Math.abs(delta);
+      track.scrollLeft = startScroll - delta;
+    });
+
+    const endDrag = () => {
+      if (!dragging) return;
+      dragging = false;
+      track.classList.remove('is-dragging');
+    };
+
+    track.addEventListener('pointerup', endDrag);
+    track.addEventListener('pointerleave', endDrag);
+    track.addEventListener('pointercancel', endDrag);
+
+    // si se arrastró, no abrir el visor al soltar
+    track.addEventListener(
+      'click',
+      (event) => {
+        if (moved > 6) {
+          event.preventDefault();
+          event.stopPropagation();
+          moved = 0;
+        }
+      },
+      true
+    );
+  });
+</script>
 
 <style>
   .gallery {
@@ -132,22 +248,82 @@ const ratioFor = (name: string, type: 'image' | 'video') =>
     padding-block: var(--space-xl);
   }
 
-  .category {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
+  /* — Pieza clicable: zoom sutil, marco fino y signo de ampliar — */
+  .piece {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    cursor: pointer;
   }
 
-  .category-label {
-    font-family: var(--font-mono);
-    font-size: var(--text-label);
-    letter-spacing: 0.2em;
-    color: var(--color-ink-faint);
-    padding-top: var(--space-sm);
-    border-top: 1px solid var(--color-line-soft);
+  .piece :global(img),
+  .piece :global(video) {
+    transition: transform 900ms var(--ease-out);
   }
 
-  /* retícula de 6 pistas: normal = 3 (½), wide = 6 (todo), tall = 2 (⅓) */
+  .piece:hover :global(img),
+  .piece:hover :global(video),
+  .piece:focus-visible :global(img),
+  .piece:focus-visible :global(video) {
+    transform: scale(1.045);
+  }
+
+  /* marco interior que se cierra al pasar el cursor */
+  .frame {
+    position: absolute;
+    inset: 14px;
+    border: 1px solid rgba(244, 243, 240, 0.32);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity var(--dur-fast) var(--ease-out),
+      inset var(--dur) var(--ease-out);
+  }
+
+  .piece:hover .frame,
+  .piece:focus-visible .frame {
+    opacity: 1;
+    inset: 10px;
+  }
+
+  /* signo "+" de dos trazos, esquina inferior derecha */
+  .plus {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    width: 13px;
+    height: 13px;
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity var(--dur-fast) var(--ease-out),
+      translate var(--dur) var(--ease-out);
+    translate: 0 4px;
+  }
+
+  .plus::before,
+  .plus::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--color-ink);
+  }
+
+  .plus::after {
+    rotate: 90deg;
+  }
+
+  .piece:hover .plus,
+  .piece:focus-visible .plus {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  /* — Retícula de piezas sueltas: 6 pistas (½ · ⅓ · completo) — */
   .grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
@@ -166,6 +342,123 @@ const ratioFor = (name: string, type: 'image' | 'video') =>
     grid-column: span 2;
   }
 
+  /* — Categorías en carrusel de una sola línea — */
+  .category {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .cat-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--color-line-soft);
+  }
+
+  .category-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.2em;
+    color: var(--color-ink-faint);
+  }
+
+  .cat-nav {
+    display: flex;
+    gap: var(--space-2xs);
+  }
+
+  .category.no-overflow .cat-nav {
+    display: none;
+  }
+
+  .arrow-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--color-line-soft);
+    color: var(--color-ink-muted);
+    cursor: pointer;
+    transition:
+      color var(--dur-fast) var(--ease-out),
+      border-color var(--dur-fast) var(--ease-out),
+      opacity var(--dur-fast) var(--ease-out);
+  }
+
+  .arrow-btn:hover:not([disabled]) {
+    color: var(--color-ink);
+    border-color: var(--color-line);
+  }
+
+  .arrow-btn[disabled] {
+    opacity: 0.28;
+    cursor: default;
+  }
+
+  .arrow {
+    width: 9px;
+    height: 9px;
+    border-left: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+  }
+
+  [data-car-prev] .arrow {
+    transform: rotate(45deg);
+    margin-left: 3px;
+  }
+
+  [data-car-next] .arrow {
+    transform: rotate(-135deg);
+    margin-right: 3px;
+  }
+
+  .carousel {
+    position: relative;
+  }
+
+  .track {
+    display: flex;
+    gap: var(--space-sm);
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    /* deja aire para el marco y el "+" del hover */
+    padding-block: 2px;
+  }
+
+  .track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .track.is-dragging {
+    scroll-snap-type: none;
+    cursor: grabbing;
+    scroll-behavior: auto;
+  }
+
+  /* una sola línea: altura fija y ancho derivado de la proporción.
+     La proporción vive en el slide (no en el marco interno) para que el
+     tamaño no dependa de que la imagen ya esté cargada. */
+  .slide {
+    flex: 0 0 auto;
+    /* anula el width:100% de .piece para que mande la proporción */
+    width: auto;
+    height: clamp(240px, 32vh, 400px);
+    aspect-ratio: var(--slide-ratio, 4 / 3);
+    scroll-snap-align: start;
+  }
+
+  .slide :global(.media-frame),
+  .slide :global(.smart-video) {
+    height: 100%;
+    width: 100%;
+    aspect-ratio: auto;
+  }
+
   @media (max-width: 700px) {
     .grid {
       gap: var(--space-sm);
@@ -178,6 +471,10 @@ const ratioFor = (name: string, type: 'image' | 'video') =>
 
     .grid .is-tall {
       grid-column: span 3;
+    }
+
+    .slide {
+      height: clamp(220px, 42vh, 320px);
     }
   }
 </style>

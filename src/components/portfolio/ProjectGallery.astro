@@ -128,7 +128,11 @@ const ratioFor = (name: string, type: 'image' | 'video') =>
             <div class="track" data-track>
               {category.items.map((item) => (
                 <button
-                  class="piece slide"
+                  class:list={[
+                    'piece',
+                    'slide',
+                    { 'is-wide': isWide(item.name), 'is-tall': isTall(item.name) },
+                  ]}
                   type="button"
                   style={`--slide-ratio: ${ratioFor(item.name, item.type)}`}
                   data-lightbox
@@ -440,16 +444,24 @@ const ratioFor = (name: string, type: 'image' | 'video') =>
     scroll-behavior: auto;
   }
 
-  /* una sola línea: altura fija y ancho derivado de la proporción.
-     La proporción vive en el slide (no en el marco interno) para que el
-     tamaño no dependa de que la imagen ya esté cargada. */
+  /* Una sola línea, conservando el tamaño que cada pieza tenía en la
+     retícula: ⅓ del contenedor para las verticales, ½ para las normales
+     y ancho completo para las panorámicas. La altura la da la proporción,
+     puesta en el propio slide para que no dependa de la carga de la imagen. */
   .slide {
     flex: 0 0 auto;
-    /* anula el width:100% de .piece para que mande la proporción */
-    width: auto;
-    height: clamp(240px, 32vh, 400px);
+    width: calc((100% - var(--space-md)) / 2);
+    height: auto;
     aspect-ratio: var(--slide-ratio, 4 / 3);
     scroll-snap-align: start;
+  }
+
+  .slide.is-tall {
+    width: calc((100% - 2 * var(--space-md)) / 3);
+  }
+
+  .slide.is-wide {
+    width: 100%;
   }
 
   .slide :global(.media-frame),
@@ -473,8 +485,14 @@ const ratioFor = (name: string, type: 'image' | 'video') =>
       grid-column: span 3;
     }
 
-    .slide {
-      height: clamp(220px, 42vh, 320px);
+    /* móvil: mismas fracciones que la retícula (½ para verticales) */
+    .slide,
+    .slide.is-tall {
+      width: calc((100% - var(--space-sm)) / 2);
+    }
+
+    .slide.is-wide {
+      width: 100%;
     }
   }
 </style>

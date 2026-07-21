@@ -24,14 +24,16 @@ interface Props {
   categories?: GalleryCategory[];
   /** Cantidad de marcos vacíos cuando la carpeta aún no tiene archivos. */
   placeholders?: number;
+  /** Series de video anunciadas como «en producción». */
+  pendingSeries?: { name: string; count: number }[];
   projectTitle: string;
 }
 
-const { items, categories = [], placeholders = 6, projectTitle } = Astro.props;
+const { items, categories = [], placeholders = 6, pendingSeries = [], projectTitle } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const lb = t.portfolio.project.lightbox;
-const isEmpty = items.length === 0 && categories.length === 0;
+const isEmpty = items.length === 0 && categories.length === 0 && pendingSeries.length === 0;
 
 /**
  * El sufijo del archivo controla el ANCHO que ocupa la pieza:
@@ -162,6 +164,28 @@ const ratioFor = (item: GalleryItem) =>
                   <span class="frame" aria-hidden="true" />
                   <span class="plus" aria-hidden="true" />
                 </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+
+      {pendingSeries.map((serie) => (
+        <div class="category is-pending" data-reveal>
+          <div class="cat-head">
+            <span class="category-label">{serie.name}</span>
+          </div>
+          <div class="carousel">
+            <div class="track">
+              {Array.from({ length: serie.count }, (_, index) => (
+                <div class="slide is-tall" style="--slide-ratio: 9 / 16">
+                  <SmartVideo
+                    src={null}
+                    ratio="9 / 16"
+                    label={t.portfolio.project.videoPending}
+                    title={`${projectTitle} — ${serie.name} — ${index + 1}`}
+                  />
+                </div>
               ))}
             </div>
           </div>

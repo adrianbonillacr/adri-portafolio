@@ -199,6 +199,7 @@ export default {
       viewCase: 'Ver caso',
       imagePlaceholder: 'Imagen',
       videoPlaceholder: 'Video',
+      videoPending: 'Video en producción',
       relatedExperience: 'Experiencia relacionada',
       /** Visor ampliado de la galería */
       lightbox: {

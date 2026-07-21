@@ -34,6 +34,8 @@ interface Props {
   /** Si no hay resultados reales todavía, se omite la sección por completo. */
   results?: { summary: string; metrics: { value: string; label: string }[] };
   galleryPlaceholders?: number;
+  /** Series de video anunciadas como «en producción». */
+  pendingSeries?: { name: string; count: number }[];
   /** Solo proyectos contenedores: casos anidados a listar. */
   caseStudies?: { id: string; title: string; tagline: string; description: string }[];
   next: { title: string; href: string };
@@ -54,6 +56,7 @@ const {
   process,
   results,
   galleryPlaceholders = 6,
+  pendingSeries = [],
   caseStudies = [],
   next,
   backHref,
@@ -81,6 +84,7 @@ const media = getProjectMedia(mediaId);
     items={media.gallery}
     categories={media.galleryCategories}
     placeholders={galleryPlaceholders}
+    pendingSeries={pendingSeries}
     projectTitle={title}
   />
 

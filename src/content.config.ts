@@ -65,6 +65,14 @@ const projectSchema = z.object({
     .optional(),
   /** Marcos vacíos que muestra la galería mientras no existan archivos reales. */
   galleryPlaceholders: z.number().default(6),
+  /**
+   * Series de video todavía en producción: se muestran como un carrusel de
+   * marcos «video en producción». Al colocar los archivos reales en
+   * `gallery/<nombre>/`, basta con borrar la entrada de aquí.
+   */
+  pendingSeries: z
+    .array(z.object({ name: z.string(), count: z.number().default(4) }))
+    .default([]),
   /** Solo para espacios contenedores: casos de estudio anidados. */
   caseStudies: z.array(caseStudySchema).default([]),
   seo: z.object({

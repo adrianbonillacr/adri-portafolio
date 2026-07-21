@@ -27,6 +27,11 @@
     "metrics": []
   },
   "galleryPlaceholders": 6,
+  "pendingSeries": [
+    { "name": "Animaciones", "count": 4 },
+    { "name": "Visuales", "count": 4 },
+    { "name": "Visuales verticales", "count": 4 }
+  ],
   "seo": {
     "title": "Mulailah Gastropub — Caso de estudio · Adrián D. Bonilla",
     "description": "Dirección creativa y diseño gráfico para Mulailah Gastropub: sistema gráfico, campañas, eventos y comunicación de marca (2021–2024)."

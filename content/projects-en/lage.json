@@ -23,32 +23,7 @@
     }
   ],
   "galleryPlaceholders": 6,
-  "caseStudies": [
-    {
-      "id": "quarzo",
-      "title": "Quarzo Tecnología",
-      "tagline": "Brand strategy & communication system",
-      "description": "The case where the work expanded from execution to strategy: defining the brand and the animated content system for the technology company.",
-      "challenge": "The brand needed its own consistent visual voice: moving from loose pieces to a recognizable system that could sustain its tech communication over time.",
-      "objective": "Apply a full brand strategy and translate it into a content system — logo animation included — repeatable across every post.",
-      "role": "Brand strategist and Digital Animator: definition of the visual and communication system, and production of the pieces and identity animation.",
-      "strategy": "From brand diagnosis to execution: visual principles, tone and a system of animated pieces that give Quarzo a coherent, contemporary presence.",
-      "process": [
-        {
-          "title": "Brand strategy",
-          "description": "Diagnosis, visual principles and communication tone for the technology brand."
-        },
-        {
-          "title": "Content system",
-          "description": "Translating the strategy into repeatable templates and pieces for social media."
-        },
-        {
-          "title": "Identity animation",
-          "description": "Logo animation and motion graphics that bring the brand system to life."
-        }
-      ]
-    }
-  ],
+  "caseStudies": [],
   "seo": {
     "title": "Lagé Estrategia — Workspace · Adrián D. Bonilla",
     "description": "Digital animation, motion graphics and social strategy at Lagé Estrategia: logo animation and brand strategy for Quarzo Tecnología, among other accounts."

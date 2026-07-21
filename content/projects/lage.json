@@ -33,6 +33,30 @@
   "galleryPlaceholders": 6,
   "caseStudies": [
     {
+      "id": "quarzo",
+      "title": "Quarzo Tecnología",
+      "tagline": "Estrategia de marca y sistema de comunicación",
+      "description": "El caso donde el trabajo se amplió de la ejecución a la estrategia: definición de la marca y del sistema de contenido animado para la empresa tecnológica.",
+      "challenge": "La marca necesitaba una voz visual propia y consistente: pasar de piezas sueltas a un sistema reconocible que sostuviera su comunicación tecnológica en el tiempo.",
+      "objective": "Aplicar una estrategia de marca completa y traducirla a un sistema de contenido — animación de logotipo incluida — replicable en todas sus publicaciones.",
+      "role": "Estratega de marca y Animador Digital: definición del sistema visual y de comunicación, y producción de las piezas y la animación de identidad.",
+      "strategy": "Del diagnóstico de marca a la ejecución: principios visuales, tono y un sistema de piezas animadas que le dan a Quarzo una presencia coherente y contemporánea.",
+      "process": [
+        {
+          "title": "Estrategia de marca",
+          "description": "Diagnóstico, principios visuales y tono de comunicación de la marca tecnológica."
+        },
+        {
+          "title": "Sistema de contenido",
+          "description": "Traducción de la estrategia a plantillas y piezas replicables para redes."
+        },
+        {
+          "title": "Animación de identidad",
+          "description": "Animación del logotipo y motion graphics que dan vida al sistema de marca."
+        }
+      ]
+    },
+    {
       "id": "eddie-bauer",
       "title": "Eddie Bauer Costa Rica",
       "tagline": "Campaña de lanzamiento · febrero 2026",
@@ -63,12 +87,6 @@
           { "value": "34.523", "label": "visitas" }
         ]
       }
-    },
-    {
-      "id": "quarzo",
-      "title": "Quarzo Tecnología",
-      "tagline": "Comunicación y contenido corporativo",
-      "description": "Estrategia de comunicación y contenido para la marca tecnológica."
     }
   ],
   "seo": {

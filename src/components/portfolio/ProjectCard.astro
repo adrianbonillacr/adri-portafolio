@@ -5,6 +5,7 @@
  * individual del caso de estudio.
  */
 import MediaFrame from './MediaFrame.astro';
+import SmartVideo from './SmartVideo.astro';
 import { getLangFromUrl, useTranslations } from '../../i18n';
 
 interface Props {
@@ -14,16 +15,24 @@ interface Props {
   disciplines: string[];
   index: number;
   image: string | null;
+  /** Animación opcional; cuando no hay imagen, la tarjeta la reproduce en loop. */
+  video?: string | null;
 }
 
-const { href, title, tagline, disciplines, index, image } = Astro.props;
+const { href, title, tagline, disciplines, index, image, video = null } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
 <a class="project-card" href={href} data-reveal style={`--reveal-delay: ${(index % 2) * 120}ms`}>
   <div class="media">
-    <MediaFrame src={image} alt={title} ratio="4 / 3" label={t.portfolio.project.imagePlaceholder} />
+    {
+      !image && video ? (
+        <SmartVideo src={video} ratio="4 / 3" mode="autoplay" title={title} />
+      ) : (
+        <MediaFrame src={image} alt={title} ratio="4 / 3" label={t.portfolio.project.imagePlaceholder} />
+      )
+    }
   </div>
 
   <div class="body">

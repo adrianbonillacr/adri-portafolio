@@ -35,6 +35,7 @@ const projects = (await getCollection(lang === 'en' ? 'projectsEn' : 'projects')
             disciplines={project.data.disciplines}
             index={index}
             image={media.card ?? media.hero}
+            video={media.heroVideo}
           />
         );
       })

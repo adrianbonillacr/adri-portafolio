@@ -29,14 +29,16 @@ const t = useTranslations(lang);
 const isEmpty = items.length === 0 && categories.length === 0;
 
 /**
- * Convención de tamaños por sufijo de archivo:
- *  - `-wide` → ancho completo, 16:9 (reels horizontales, banners)
- *  - `-tall` → un tercio de ancho, 9:16 (historias, piezas verticales)
- *  - sin sufijo → media retícula, 4:3
+ * Convención de tamaños por sufijo de archivo (controla el ANCHO en la
+ * retícula) y proporción por tipo:
+ *  - `-wide` → ancho completo · 16:9
+ *  - `-tall` → un tercio de ancho · 9:16 (historias, piezas verticales)
+ *  - sin sufijo → media retícula · 16:9 en video, 4:3 en imagen
  */
 const isWide = (name: string) => name.endsWith('-wide');
 const isTall = (name: string) => name.endsWith('-tall');
-const ratioFor = (name: string) => (isWide(name) ? '16 / 9' : isTall(name) ? '9 / 16' : '4 / 3');
+const ratioFor = (name: string, type: 'image' | 'video') =>
+  isWide(name) ? '16 / 9' : isTall(name) ? '9 / 16' : type === 'video' ? '16 / 9' : '4 / 3';
 ---
 
 {
@@ -73,12 +75,12 @@ const ratioFor = (name: string) => (isWide(name) ? '16 / 9' : isTall(name) ? '9 
               style={`--reveal-delay: ${(index % 3) * 100}ms`}
             >
               {item.type === 'image' ? (
-                <MediaFrame src={item.src} alt={`${projectTitle} — ${item.name}`} ratio={ratioFor(item.name)} />
+                <MediaFrame src={item.src} alt={`${projectTitle} — ${item.name}`} ratio={ratioFor(item.name, 'image')} />
               ) : (
                 <SmartVideo
                   src={item.src}
-                  ratio={ratioFor(item.name)}
-                  mode="hover"
+                  ratio={ratioFor(item.name, 'video')}
+                  mode="autoplay"
                   title={`${projectTitle} — ${item.name}`}
                 />
               )}
@@ -103,13 +105,13 @@ const ratioFor = (name: string) => (isWide(name) ? '16 / 9' : isTall(name) ? '9 
                   <MediaFrame
                     src={item.src}
                     alt={`${projectTitle} — ${category.name} — ${item.name}`}
-                    ratio={ratioFor(item.name)}
+                    ratio={ratioFor(item.name, 'image')}
                   />
                 ) : (
                   <SmartVideo
                     src={item.src}
-                    ratio={ratioFor(item.name)}
-                    mode="hover"
+                    ratio={ratioFor(item.name, 'video')}
+                    mode="autoplay"
                     title={`${projectTitle} — ${category.name} — ${item.name}`}
                   />
                 )}

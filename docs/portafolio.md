@@ -61,6 +61,24 @@ public/portfolio/<id>/gallery/01.jpg    → galería (orden alfabético)
 También se aceptan GIF animados en la galería, aunque un MP4 equivalente
 pesa ~10× menos.
 
+### Carruseles: una serie = una subcarpeta
+
+**Regla:** todo lo que va dentro de una subcarpeta de `gallery/` se
+muestra como un **carrusel horizontal de una sola línea** (con flechas y
+arrastre), y el nombre de la carpeta es su título. Lo suelto en
+`gallery/` se muestra en retícula.
+
+```text
+public/portfolio/<id>/gallery/01.jpg          → retícula (piezas sueltas)
+public/portfolio/<id>/gallery/Anuncios/       → carrusel titulado "Anuncios"
+public/portfolio/<id>/gallery/1 - Platillos/  → carrusel "Platillos" (el número solo ordena)
+```
+
+Para catálogos largos (menús, líneas de producto, series de anuncios)
+**usar siempre subcarpeta**: evita que la página se alargue y mantiene
+cada serie en una línea. El tamaño de cada pieza es el mismo que tendría
+en la retícula (⅓ de ancho las verticales, ½ las normales).
+
 **Piezas anchas**: un archivo de galería con sufijo `-wide` (por ejemplo
 `01-wide.gif` o `04-wide.mp4`) ocupa las dos columnas en 16:9
 (1920×1080). El orden sigue siendo alfabético: numera los archivos según

@@ -17,7 +17,7 @@ const lb = t.portfolio.project.lightbox;
 <div class="lightbox" data-lightbox-root hidden>
   <div class="backdrop" data-lb-close aria-hidden="true"></div>
 
-  <div class="panel" role="dialog" aria-modal="true" aria-label={lb.label}>
+  <div class="panel" role="dialog" aria-modal="true" aria-label={lb.label} data-lb-panel>
     <header class="bar">
       <span class="counter" data-lb-counter aria-live="polite"></span>
       <button class="icon-btn close" type="button" data-lb-close aria-label={lb.close}>
@@ -89,8 +89,10 @@ const lb = t.portfolio.project.lightbox;
       index = i;
       lastFocused = document.activeElement as HTMLElement;
       root.hidden = false;
-      // permite que el navegador aplique `hidden=false` antes de la transición
-      requestAnimationFrame(() => root.classList.add('is-open'));
+      // reflow forzado: dispara la transición sin depender de rAF, que no
+      // corre en documentos ocultos y dejaría el visor abierto pero invisible
+      void root.offsetWidth;
+      root.classList.add('is-open');
       document.documentElement.style.overflow = 'hidden';
       render();
     }
@@ -119,6 +121,12 @@ const lb = t.portfolio.project.lightbox;
 
     root.querySelectorAll('[data-lb-close]').forEach((el) => {
       el.addEventListener('click', close);
+    });
+
+    // clic en cualquier zona vacía junto a la pieza (el panel cubre el fondo)
+    const panel = root.querySelector<HTMLElement>('[data-lb-panel]');
+    panel?.addEventListener('click', (event) => {
+      if (event.target === panel || event.target === stage) close();
     });
     prevBtn.addEventListener('click', () => step(-1));
     nextBtn.addEventListener('click', () => step(1));

@@ -3,7 +3,11 @@
   "tagline": "Graphic design & creative direction · 2021 – 2024",
   "description": "Three years in charge of the brand's visual direction: campaigns, events and promotional content sustained by a consistent graphic system.",
   "order": 3,
-  "disciplines": ["Creative direction", "Graphic design", "Brand communication"],
+  "disciplines": [
+    "Creative direction",
+    "Graphic design",
+    "Brand communication"
+  ],
   "challenge": "Keeping a gastronomy brand alive and recognizable through three years of constant campaigns, events and promotions, without diluting its identity.",
   "objective": "Build a graphic system applicable to social media, commercial communication and point-of-sale pieces, capable of sustaining the business's continuous promotional operation.",
   "role": "Graphic Designer and Creative Direction: I developed the visual direction of the brand's campaigns, events and promotional content.",
@@ -27,11 +31,6 @@
     "metrics": []
   },
   "galleryPlaceholders": 6,
-  "pendingSeries": [
-    { "name": "Animaciones", "count": 4 },
-    { "name": "Visuales", "count": 4 },
-    { "name": "Visuales verticales", "count": 4 }
-  ],
   "seo": {
     "title": "Mulailah Gastropub — Case study · Adrián D. Bonilla",
     "description": "Creative direction and graphic design for Mulailah Gastropub: graphic system, campaigns, events and brand communication (2021–2024)."

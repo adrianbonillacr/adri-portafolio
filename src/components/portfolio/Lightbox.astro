@@ -93,13 +93,14 @@ const lb = t.portfolio.project.lightbox;
       // corre en documentos ocultos y dejaría el visor abierto pero invisible
       void root.offsetWidth;
       root.classList.add('is-open');
-      document.documentElement.style.overflow = 'hidden';
+      /* el scroll está en el contenedor de Base.astro */
+      document.documentElement.classList.add('nav-open');
       render();
     }
 
     function close() {
       root.classList.remove('is-open');
-      document.documentElement.style.overflow = '';
+      document.documentElement.classList.remove('nav-open');
       window.setTimeout(() => {
         root.hidden = true;
         stage.replaceChildren(); // detiene cualquier video en reproducción

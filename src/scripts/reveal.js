@@ -20,6 +20,8 @@ if (reduced || !('IntersectionObserver' in window)) {
         }
       }
     },
+    // se mide contra la pantalla: el recorte del contenedor de scroll ya
+    // entra en el cálculo, así no dependemos de encontrarlo
     { threshold: 0.15, rootMargin: '0px 0px -8% 0px' }
   );
 

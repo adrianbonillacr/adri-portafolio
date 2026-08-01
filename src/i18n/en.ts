@@ -241,7 +241,7 @@ export default {
       phoneLabel: 'Phone',
       phone: '+506 8618 1214',
       locationLabel: 'Location',
-      location: 'Paraíso, Cartago, Costa Rica',
+      location: 'Costa Rica, Latin America',
       socialLabel: 'Social',
       socials: [
         { name: 'Instagram — @___adrib', url: 'https://www.instagram.com/___adrib/' },

@@ -242,7 +242,7 @@ export default {
       phoneLabel: 'Teléfono',
       phone: '+506 8618 1214',
       locationLabel: 'Ubicación',
-      location: 'Paraíso, Cartago, Costa Rica',
+      location: 'Costa Rica, Latinoamérica',
       socialLabel: 'Redes',
       socials: [
         { name: 'Instagram — @___adrib', url: 'https://www.instagram.com/___adrib/' },

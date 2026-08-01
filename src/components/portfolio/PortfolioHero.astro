@@ -52,7 +52,8 @@ const stats = t.portfolio.about.stats.map((stat) => `${stat.value} ${stat.label}
     min-height: 100svh;
     display: flex;
     align-items: center;
-    padding: calc(var(--frame) + 6rem) 0 calc(var(--frame) + 2.5rem);
+    padding: calc(var(--frame) + 6rem + env(safe-area-inset-top, 0px)) 0
+      calc(var(--frame) + 2.5rem);
   }
 
   .inner {
@@ -172,7 +173,7 @@ const stats = t.portfolio.about.stats.map((stat) => `${stat.value} ${stat.label}
 
   @media (max-width: 820px) {
     .portfolio-hero {
-      padding-top: calc(var(--frame) + 6rem);
+      padding-top: calc(var(--frame) + 6rem + env(safe-area-inset-top, 0px));
     }
 
     .inner {

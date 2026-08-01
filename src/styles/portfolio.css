@@ -11,3 +11,9 @@
   text-transform: none;
   letter-spacing: 0.2em;
 }
+
+/* La barra de navegación es fija: las anclas frenan antes para que el
+   título de la sección no quede debajo de ella */
+#contenido section[id] {
+  scroll-margin-top: clamp(4.5rem, 3.8rem + 2.4vw, 6.5rem);
+}

@@ -38,6 +38,9 @@ export default {
         'Portafolio profesional de Adrián D. Bonilla, diseñador gráfico y publicitario: branding, dirección creativa, motion graphics y paid media orientados a resultados.',
     },
     nav: {
+      label: 'Portafolio',
+      menu: 'Menú',
+      close: 'Cerrar',
       about: 'Sobre mí',
       projects: 'Proyectos',
       experience: 'Experiencia',

@@ -63,13 +63,19 @@ const ogImage = new URL('/assets/og.jpg', Astro.site);
   </head>
   <body>
     <a class="skip-link" href="#contenido">{t.a11y.skip}</a>
-    <div class="gallery-frame" aria-hidden="true"></div>
 
     {/* El scroll vive en este contenedor, no en el documento: así el
         contenido se recorta en el borde superior y la franja de la barra
         de estado del teléfono queda sólida en lugar de dejar ver el
-        contenido desplazándose por detrás (iOS). */}
+        contenido desplazándose por detrás (iOS).
+
+        El marco y el grano viven DENTRO del contenedor: en iOS este crea
+        su propia capa de composición, y desde fuera se dibujarían por
+        encima de la barra de navegación (filetes cruzando el menú y un
+        tono distinto al del margen superior). */}
     <div class="scroller" data-scroller>
+      <div class="gallery-frame" aria-hidden="true"></div>
+      <div class="grain" aria-hidden="true"></div>
       <slot />
     </div>
 

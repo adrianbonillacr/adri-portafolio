@@ -40,7 +40,6 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
   scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
   /* con viewport-fit=cover el lienzo llega al borde: el contenido final
      no debe quedar bajo el indicador de inicio */
   padding-bottom: env(safe-area-inset-bottom, 0px);
@@ -116,9 +115,10 @@ ol {
   z-index: var(--z-frame);
 }
 
-/* — Grano fílmico sutil sobre todo el lienzo — */
-body::after {
-  content: '';
+/* — Grano fílmico sutil sobre el lienzo —
+   por debajo de la barra de navegación: si la tiñera, el menú no
+   tendría el mismo tono que el margen superior del teléfono */
+.grain {
   position: fixed;
   inset: 0;
   z-index: var(--z-grain);

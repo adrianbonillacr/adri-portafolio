@@ -61,10 +61,12 @@
   --cursor-trail-alpha: 0.22;
   --cursor-trail-width: 2.4;
 
-  /* — Capas — */
+  /* — Capas —
+     El grano queda por debajo del marco y de la barra: así el menú
+     conserva el mismo tono que el margen superior del teléfono. */
+  --z-grain: 40;
   --z-header: 50;
   --z-frame: 60;
-  --z-grain: 70;
   --z-cursor: 80;
   --z-skip: 100;
 }

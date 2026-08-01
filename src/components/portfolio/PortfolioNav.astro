@@ -242,22 +242,14 @@ const links = [
     transform: translateY(-115%);
   }
 
-  /* fondo sólido a sangre, sin aire arriba (aparece al bajar) */
+  /* fondo sólido a sangre, sin aire arriba, con una sombra breve que
+     lo despega del contenido (igual en escritorio y en móvil) */
   .portfolio-nav::before {
     content: '';
     position: absolute;
     inset: 0;
     background: var(--color-bg);
-    border-bottom: 1px solid transparent;
-    opacity: 0;
-    transition:
-      opacity var(--dur-fast) var(--ease-out),
-      border-color var(--dur-fast) var(--ease-out);
-  }
-
-  .portfolio-nav.is-scrolled::before {
-    opacity: 1;
-    border-bottom-color: var(--color-line-soft);
+    box-shadow: 0 10px 22px -10px rgba(0, 0, 0, 0.95);
   }
 
   .bar {

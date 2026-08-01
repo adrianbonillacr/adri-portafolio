@@ -15,7 +15,7 @@
 html {
   background: var(--color-bg);
   color-scheme: dark;
-  scroll-behavior: smooth;
+  height: 100%;
 }
 
 body {
@@ -26,11 +26,29 @@ body {
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* el documento no se desplaza: lo hace `.scroller` */
+  height: 100%;
+  overflow: hidden;
+}
+
+/* — Contenedor de scroll —
+   Al recortar su contenido, nada se dibuja fuera de la pantalla: la
+   franja superior del teléfono deja de mostrar el contenido que pasa
+   por detrás y queda del color del lienzo. */
+.scroller {
+  height: 100%;
+  overflow-y: auto;
   overflow-x: hidden;
-  min-height: 100svh;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
   /* con viewport-fit=cover el lienzo llega al borde: el contenido final
      no debe quedar bajo el indicador de inicio */
   padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* con el menú móvil abierto no se desplaza el fondo */
+html.nav-open .scroller {
+  overflow: hidden;
 }
 
 img,
@@ -195,7 +213,7 @@ html.has-custom-cursor * {
 
 /* — Movimiento reducido: sin animaciones, contenido siempre visible — */
 @media (prefers-reduced-motion: reduce) {
-  html {
+  .scroller {
     scroll-behavior: auto;
   }
 

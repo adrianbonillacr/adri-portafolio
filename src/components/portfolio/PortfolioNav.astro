@@ -119,15 +119,23 @@ const links = [
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const wide = window.matchMedia('(min-width: 900px)');
 
+    /* el scroll no lo lleva el documento sino el contenedor de Base.astro */
+    const scroller = document.querySelector<HTMLElement>('[data-scroller]');
+    const posicion = () => (scroller ? scroller.scrollTop : window.scrollY);
+    const recorrido = () =>
+      scroller
+        ? scroller.scrollHeight - scroller.clientHeight
+        : document.documentElement.scrollHeight - window.innerHeight;
+
     /* — barra reactiva: compacta, oculta al bajar, progreso de lectura — */
     const HIDE_FROM = 160; /* px antes de permitir que se esconda */
     const DELTA = 6; /* umbral para ignorar micro-scrolls */
-    let last = window.scrollY;
+    let last = posicion();
     let ticking = false;
 
     const onScroll = () => {
-      const y = Math.max(0, window.scrollY);
-      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const y = Math.max(0, posicion());
+      const max = recorrido();
 
       nav.classList.toggle('is-scrolled', y > 12);
       nav.style.setProperty('--nav-progress', max > 0 ? String(Math.min(1, y / max)) : '0');
@@ -141,7 +149,7 @@ const links = [
       ticking = false;
     };
 
-    window.addEventListener(
+    (scroller ?? window).addEventListener(
       'scroll',
       () => {
         if (ticking) return;
@@ -230,20 +238,15 @@ const links = [
 <style>
   .portfolio-nav {
     position: fixed;
-    /* la caja arranca por encima del borde y el relleno devuelve el
-       contenido a su sitio: así el fondo del elemento cubre la franja
-       de la barra de estado aunque iOS ancle la capa fija más abajo */
-    top: -6rem;
+    top: 0;
     left: 0;
     right: 0;
     /* por encima del marco de galería: con el fondo a sangre, el filete
        del marco cruzaba el menú y se leía como un cuadro superpuesto.
        Ahora la barra tapa ese tramo y hace de borde superior */
     z-index: calc(var(--z-frame) + 2);
-    padding-top: calc(6rem + env(safe-area-inset-top, 0px));
-    /* el fondo va en el propio elemento, NO en un pseudo-elemento: iOS
-       prolonga hacia la franja de la barra de estado el fondo del
-       elemento fijo, pero no el de sus hijos (medido en iPhone) */
+    padding-top: env(safe-area-inset-top, 0px);
+    /* el fondo va en el propio elemento, no en un pseudo-elemento */
     background: var(--color-bg);
     box-shadow: 0 10px 22px -10px rgba(0, 0, 0, 0.95);
     animation: nav-in 1.2s var(--ease-out) 0.5s both;
@@ -471,15 +474,13 @@ const links = [
   /* — panel a pantalla completa — */
   .nav-panel {
     position: fixed;
-    /* mismo criterio que la barra: la caja empieza por encima del borde
-       y el relleno superior lo compensa */
-    inset: -6rem 0 0;
+    inset: 0;
     z-index: calc(var(--z-frame) + 1);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: var(--space-lg);
-    padding: calc(var(--frame) + 11rem + env(safe-area-inset-top, 0px)) var(--gutter)
+    padding: calc(var(--frame) + 5rem + env(safe-area-inset-top, 0px)) var(--gutter)
       calc(var(--frame) + 2rem + env(safe-area-inset-bottom, 0px));
     background: var(--color-bg);
     overflow-y: auto;
@@ -497,10 +498,6 @@ const links = [
     transition:
       clip-path 620ms var(--ease-out),
       visibility 0s;
-  }
-
-  :global(html.nav-open) {
-    overflow: hidden;
   }
 
   /* el listado ocupa el alto disponible: cinco filas iguales
@@ -678,7 +675,7 @@ const links = [
   @media (max-width: 899px) and (max-height: 560px) {
     .nav-panel {
       gap: var(--space-sm);
-      padding-top: calc(var(--frame) + 10rem + env(safe-area-inset-top, 0px));
+      padding-top: calc(var(--frame) + 4rem + env(safe-area-inset-top, 0px));
       padding-bottom: calc(var(--frame) + 1rem + env(safe-area-inset-bottom, 0px));
     }
 

@@ -64,7 +64,29 @@ const ogImage = new URL('/assets/og.jpg', Astro.site);
   <body>
     <a class="skip-link" href="#contenido">{t.a11y.skip}</a>
     <div class="gallery-frame" aria-hidden="true"></div>
-    <slot />
+
+    {/* El scroll vive en este contenedor, no en el documento: así el
+        contenido se recorta en el borde superior y la franja de la barra
+        de estado del teléfono queda sólida en lugar de dejar ver el
+        contenido desplazándose por detrás (iOS). */}
+    <div class="scroller" data-scroller>
+      <slot />
+    </div>
+
+    <script is:inline>
+      /* con el scroll en un contenedor, el salto a #ancla al cargar la
+         página hay que hacerlo a mano en algunos navegadores */
+      (() => {
+        const ir = () => {
+          if (!location.hash) return;
+          const destino = document.querySelector(location.hash);
+          if (destino) destino.scrollIntoView();
+        };
+        if (document.readyState === 'complete') ir();
+        else addEventListener('load', ir);
+      })();
+    </script>
+
     <script src="../scripts/reveal.js"></script>
     <script src="../scripts/cursor.js"></script>
   </body>

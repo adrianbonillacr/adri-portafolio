@@ -54,7 +54,7 @@ export default {
       headline: 'Diseño y estrategia creativa para resolver objetivos de negocio.',
       value:
         'Más de siete años creando estrategias visuales, campañas digitales y contenido multimedia para agencias y marcas orientadas a resultados — del brief a la pauta, con procesos claros y métricas.',
-      location: 'Paraíso, Cartago, Costa Rica',
+      location: 'Costa Rica, Latinoamérica',
       ctaProjects: 'Ver proyectos',
       ctaContact: 'Contacto',
     },

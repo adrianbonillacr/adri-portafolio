@@ -230,14 +230,17 @@ const links = [
 <style>
   .portfolio-nav {
     position: fixed;
-    top: 0;
+    /* la caja arranca por encima del borde y el relleno devuelve el
+       contenido a su sitio: así el fondo del elemento cubre la franja
+       de la barra de estado aunque iOS ancle la capa fija más abajo */
+    top: -6rem;
     left: 0;
     right: 0;
     /* por encima del marco de galería: con el fondo a sangre, el filete
        del marco cruzaba el menú y se leía como un cuadro superpuesto.
        Ahora la barra tapa ese tramo y hace de borde superior */
     z-index: calc(var(--z-frame) + 2);
-    padding-top: env(safe-area-inset-top, 0px);
+    padding-top: calc(6rem + env(safe-area-inset-top, 0px));
     /* el fondo va en el propio elemento, NO en un pseudo-elemento: iOS
        prolonga hacia la franja de la barra de estado el fondo del
        elemento fijo, pero no el de sus hijos (medido en iPhone) */
@@ -468,15 +471,15 @@ const links = [
   /* — panel a pantalla completa — */
   .nav-panel {
     position: fixed;
-    /* su fondo ya está en el propio elemento, que es lo que iOS prolonga
-       hacia la franja de la barra de estado */
-    inset: 0;
+    /* mismo criterio que la barra: la caja empieza por encima del borde
+       y el relleno superior lo compensa */
+    inset: -6rem 0 0;
     z-index: calc(var(--z-frame) + 1);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: var(--space-lg);
-    padding: calc(var(--frame) + 5rem + env(safe-area-inset-top, 0px)) var(--gutter)
+    padding: calc(var(--frame) + 11rem + env(safe-area-inset-top, 0px)) var(--gutter)
       calc(var(--frame) + 2rem + env(safe-area-inset-bottom, 0px));
     background: var(--color-bg);
     overflow-y: auto;
@@ -675,7 +678,7 @@ const links = [
   @media (max-width: 899px) and (max-height: 560px) {
     .nav-panel {
       gap: var(--space-sm);
-      padding-top: calc(var(--frame) + 4rem + env(safe-area-inset-top, 0px));
+      padding-top: calc(var(--frame) + 10rem + env(safe-area-inset-top, 0px));
       padding-bottom: calc(var(--frame) + 1rem + env(safe-area-inset-bottom, 0px));
     }
 

@@ -53,7 +53,7 @@ export default {
       headline: 'Design and creative strategy that solves business goals.',
       value:
         'Seven-plus years creating visual strategies, digital campaigns and multimedia content for results-driven agencies and brands — from brief to paid media, with clear processes and metrics.',
-      location: 'Paraíso, Cartago, Costa Rica',
+      location: 'Costa Rica, Latin America',
       ctaProjects: 'View projects',
       ctaContact: 'Contact',
     },

@@ -1,9 +1,19 @@
 ---
 /**
  * Navegación de la sección de portafolio profesional.
- * Enlaces absolutos con ancla (funcionan igual desde la portada y
- * desde las páginas de proyecto), selector de idioma y monograma
- * hacia la pantalla de inicio (con preloader de marca).
+ *
+ * Barra fija en tres zonas (monograma · enlaces · idioma) que reacciona
+ * al scroll: se compacta con velo difuminado, se esconde al bajar y
+ * reaparece al subir, marca la sección activa y dibuja el progreso de
+ * lectura en una línea de 1px al pie.
+ *
+ * Bajo 900px los enlaces se mudan a un panel a pantalla completa que
+ * abre con cortina y entrada escalonada; la barra queda en una sola
+ * fila (monograma + botón) y el selector de idioma vive en el pie del
+ * panel con su etiqueta completa.
+ *
+ * Los enlaces son absolutos con ancla: funcionan igual desde la portada
+ * del portafolio y desde las páginas de proyecto.
  */
 import { getLangFromUrl, useTranslations } from '../../i18n';
 
@@ -15,76 +25,308 @@ const base = t.portfolio.base;
 const homeHref = '/inicio';
 
 const links = [
-  { href: `${base}#sobre-mi`, label: t.portfolio.nav.about },
-  { href: `${base}#proyectos`, label: t.portfolio.nav.projects },
-  { href: `${base}#experiencia`, label: t.portfolio.nav.experience },
-  { href: `${base}#servicios`, label: t.portfolio.nav.services },
-  { href: `${base}#contacto`, label: t.portfolio.nav.contact },
+  { id: 'sobre-mi', label: t.portfolio.nav.about },
+  { id: 'proyectos', label: t.portfolio.nav.projects },
+  { id: 'experiencia', label: t.portfolio.nav.experience },
+  { id: 'servicios', label: t.portfolio.nav.services },
+  { id: 'contacto', label: t.portfolio.nav.contact },
 ];
 ---
 
-<header class="portfolio-nav">
-  <a class="brand" href={homeHref} data-preloader aria-label={t.a11y.home}>
-    <img src="/assets/monogram.png" alt="" width="297" height="195" loading="eager" />
-  </a>
+<header class="portfolio-nav" data-nav>
+  <div class="bar">
+    <a class="brand" href={homeHref} data-preloader aria-label={t.a11y.home}>
+      <img src="/assets/monogram.png" alt="" width="297" height="195" loading="eager" />
+    </a>
 
-  <nav aria-label="Portafolio">
+    <nav class="links" aria-label={t.portfolio.nav.label}>
+      <ul>
+        {
+          links.map((link) => (
+            <li>
+              <a href={`${base}#${link.id}`} data-nav-link={link.id}>
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="actions">
+      <a
+        class="lang"
+        href={t.portfolio.otherLang.url}
+        data-preloader
+        aria-label={t.portfolio.otherLang.label}
+      >
+        {t.portfolio.otherLang.code}
+      </a>
+
+      <button
+        class="menu"
+        type="button"
+        data-nav-toggle
+        aria-controls="nav-panel"
+        aria-expanded="false"
+        aria-label={t.portfolio.nav.menu}
+      >
+        <span class="menu-labels" aria-hidden="true">
+          <span class="menu-label is-open">{t.portfolio.nav.menu}</span>
+          <span class="menu-label is-close">{t.portfolio.nav.close}</span>
+        </span>
+        <span class="menu-icon" aria-hidden="true"><i></i><i></i></span>
+      </button>
+    </div>
+  </div>
+
+  <span class="progress" data-nav-progress aria-hidden="true"></span>
+</header>
+
+<div class="nav-panel" id="nav-panel" data-nav-panel inert>
+  <nav class="panel-nav" aria-label={t.portfolio.nav.label}>
     <ul>
       {
-        links.map((link) => (
-          <li>
-            <a href={link.href}>{link.label}</a>
+        links.map((link, index) => (
+          <li style={`--i: ${index}`}>
+            <a href={`${base}#${link.id}`} data-nav-link={link.id}>
+              <span class="idx">{String(index + 1).padStart(2, '0')}</span>
+              <span class="name">{link.label}</span>
+            </a>
           </li>
         ))
       }
-      <li class="lang">
-        <a
-          href={t.portfolio.otherLang.url}
-          data-preloader
-          aria-label={t.portfolio.otherLang.label}
-        >
-          {t.portfolio.otherLang.code}
-        </a>
-      </li>
     </ul>
   </nav>
-</header>
+
+  <footer class="panel-foot" style={`--i: ${links.length}`}>
+    <a class="panel-lang" href={t.portfolio.otherLang.url} data-preloader>
+      <span class="code">{t.portfolio.otherLang.code}</span>
+      <span>{t.portfolio.otherLang.label}</span>
+    </a>
+    <a class="panel-mail" href={`mailto:${t.portfolio.contact.email}`}>
+      {t.portfolio.contact.email}
+    </a>
+  </footer>
+</div>
+
+<script>
+  const nav = document.querySelector<HTMLElement>('[data-nav]');
+  const panel = document.querySelector<HTMLElement>('[data-nav-panel]');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-nav-toggle]');
+
+  if (nav) {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const wide = window.matchMedia('(min-width: 900px)');
+
+    /* — barra reactiva: compacta, oculta al bajar, progreso de lectura — */
+    const HIDE_FROM = 160; /* px antes de permitir que se esconda */
+    const DELTA = 6; /* umbral para ignorar micro-scrolls */
+    let last = window.scrollY;
+    let ticking = false;
+
+    const onScroll = () => {
+      const y = Math.max(0, window.scrollY);
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+
+      nav.classList.toggle('is-scrolled', y > 12);
+      nav.style.setProperty('--nav-progress', max > 0 ? String(Math.min(1, y / max)) : '0');
+
+      if (!reduced && !document.documentElement.classList.contains('nav-open')) {
+        if (y > HIDE_FROM && y > last + DELTA) nav.classList.add('is-hidden');
+        else if (y < last - DELTA || y <= HIDE_FROM) nav.classList.remove('is-hidden');
+      }
+
+      last = y;
+      ticking = false;
+    };
+
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(onScroll);
+      },
+      { passive: true },
+    );
+    onScroll();
+
+    /* — panel móvil — */
+    if (panel && toggle) {
+      const setOpen = (open: boolean) => {
+        document.documentElement.classList.toggle('nav-open', open);
+        panel.classList.toggle('is-open', open);
+        toggle.setAttribute('aria-expanded', String(open));
+        panel.toggleAttribute('inert', !open);
+        if (open) nav.classList.remove('is-hidden');
+      };
+
+      toggle.addEventListener('click', () => {
+        setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+      });
+
+      /* al elegir un destino de la misma página, cerrar y dejar ver el scroll */
+      panel.querySelectorAll('a[data-nav-link]').forEach((link) => {
+        link.addEventListener('click', () => setOpen(false));
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && document.documentElement.classList.contains('nav-open')) {
+          setOpen(false);
+          toggle.focus();
+        }
+      });
+
+      /* al pasar a escritorio el panel deja de tener sentido */
+      wide.addEventListener('change', (event) => {
+        if (event.matches) setOpen(false);
+      });
+    }
+
+    /* — sección activa (solo donde existen las anclas) —
+       las secciones sin enlace propio (herramientas) heredan el de la
+       anterior que sí lo tiene, para que la barra nunca quede apagada */
+    const sections = [...document.querySelectorAll<HTMLElement>('main section[id]')];
+    const owner = new Map<string, string>();
+    let inherited = '';
+
+    sections.forEach((section) => {
+      if (document.querySelector(`[data-nav-link="${section.id}"]`)) inherited = section.id;
+      owner.set(section.id, inherited);
+    });
+
+    if (inherited !== '') {
+      const visible = new Set<string>();
+
+      const paint = () => {
+        const seen = sections.find((section) => visible.has(section.id));
+        const current = seen ? (owner.get(seen.id) ?? '') : '';
+        document.querySelectorAll<HTMLElement>('[data-nav-link]').forEach((link) => {
+          const active = link.dataset.navLink === current;
+          link.classList.toggle('is-active', active);
+          if (active) link.setAttribute('aria-current', 'true');
+          else link.removeAttribute('aria-current');
+        });
+      };
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) visible.add(entry.target.id);
+            else visible.delete(entry.target.id);
+          });
+          paint();
+        },
+        /* franja central de la pantalla: manda la sección que se está leyendo */
+        { rootMargin: '-45% 0px -50% 0px', threshold: 0 },
+      );
+
+      sections.forEach((section) => observer.observe(section));
+    }
+  }
+</script>
 
 <style>
   .portfolio-nav {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: var(--z-header);
-    display: flex;
+    animation: nav-in 1.2s var(--ease-out) 0.5s both;
+    transition: transform 550ms var(--ease-out);
+  }
+
+  .portfolio-nav.is-hidden {
+    transform: translateY(-115%);
+  }
+
+  /* velo difuminado alineado al marco de galería (aparece al bajar) */
+  .portfolio-nav::before {
+    content: '';
+    position: absolute;
+    inset: var(--frame) var(--frame) 0;
+    background: color-mix(in srgb, var(--color-bg) 78%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid transparent;
+    opacity: 0;
+    transition:
+      opacity var(--dur-fast) var(--ease-out),
+      border-color var(--dur-fast) var(--ease-out);
+  }
+
+  .portfolio-nav.is-scrolled::before {
+    opacity: 1;
+    border-bottom-color: var(--color-line-soft);
+  }
+
+  .bar {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    justify-content: space-between;
     gap: var(--space-md);
     padding: calc(var(--frame) + 1.1rem) calc(var(--frame) + 1.5rem);
-    animation: nav-in 1.2s var(--ease-out) 0.6s both;
+    transition: padding var(--dur-fast) var(--ease-out);
+  }
+
+  .portfolio-nav.is-scrolled .bar {
+    padding-block: calc(var(--frame) + 0.65rem);
+  }
+
+  /* — progreso de lectura: 1px al pie de la barra — */
+  .progress {
+    position: absolute;
+    left: var(--frame);
+    right: var(--frame);
+    bottom: 0;
+    height: 1px;
+    background: var(--color-ink);
+    opacity: 0;
+    transform: scaleX(var(--nav-progress, 0));
+    transform-origin: left;
+    transition: opacity var(--dur-fast) var(--ease-out);
+  }
+
+  .portfolio-nav.is-scrolled .progress {
+    opacity: 0.45;
+  }
+
+  /* — monograma — */
+  .brand {
+    justify-self: start;
   }
 
   .brand img {
     height: 32px;
     width: auto;
     opacity: 0.95;
-    transition: opacity var(--dur-fast) var(--ease-out);
+    transition:
+      height var(--dur-fast) var(--ease-out),
+      opacity var(--dur-fast) var(--ease-out);
+  }
+
+  .portfolio-nav.is-scrolled .brand img {
+    height: 26px;
   }
 
   .brand:hover img {
     opacity: 1;
   }
 
-  ul {
+  /* — enlaces centrados — */
+  .links ul {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    justify-content: flex-end;
-    gap: clamp(1rem, 2.5vw, 2.2rem);
+    gap: clamp(0.9rem, 1.9vw, 2.1rem);
   }
 
-  nav a {
+  .links a {
+    position: relative;
+    display: block;
+    padding-block: 0.35rem;
     font-family: var(--font-mono);
     font-size: var(--text-label);
     letter-spacing: 0.22em;
@@ -92,21 +334,294 @@ const links = [
     transition: color var(--dur-fast) var(--ease-out);
   }
 
-  nav a:hover {
+  .links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 420ms var(--ease-out);
+  }
+
+  .links a:hover,
+  .links a.is-active {
     color: var(--color-ink);
   }
 
-  .lang a {
+  .links a:hover::after,
+  .links a.is-active::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* — zona derecha — */
+  .actions {
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .lang {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.14em;
+    color: var(--color-ink-muted);
     border: 1px solid var(--color-line-soft);
     padding: 0.35rem 0.7rem;
-    letter-spacing: 0.14em;
     transition:
       color var(--dur-fast) var(--ease-out),
       border-color var(--dur-fast) var(--ease-out);
   }
 
-  .lang a:hover {
+  .lang:hover {
+    color: var(--color-ink);
     border-color: var(--color-line);
+  }
+
+  /* — botón del panel (solo móvil) — */
+  .menu {
+    position: relative;
+    display: none;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.35rem 0;
+    cursor: pointer;
+  }
+
+  /* área táctil cómoda (48px) sin engordar la barra */
+  .menu::after {
+    content: '';
+    position: absolute;
+    inset: -13px -10px;
+  }
+
+  .menu-labels {
+    position: relative;
+    display: grid;
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.22em;
+    color: var(--color-ink-muted);
+  }
+
+  .menu-label {
+    grid-area: 1 / 1;
+    transition:
+      opacity var(--dur-fast) var(--ease-out),
+      transform var(--dur-fast) var(--ease-out);
+  }
+
+  .menu-label.is-close {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  .menu[aria-expanded='true'] .menu-label.is-open {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  .menu[aria-expanded='true'] .menu-label.is-close {
+    opacity: 1;
+    transform: none;
+  }
+
+  .menu-icon {
+    position: relative;
+    display: block;
+    width: 24px;
+    height: 12px;
+  }
+
+  .menu-icon i {
+    position: absolute;
+    left: 0;
+    height: 1px;
+    background: var(--color-ink);
+    transition:
+      transform 450ms var(--ease-out),
+      width 450ms var(--ease-out),
+      top 250ms var(--ease-out);
+  }
+
+  .menu-icon i:first-child {
+    top: 3px;
+    width: 24px;
+  }
+
+  .menu-icon i:last-child {
+    top: 9px;
+    width: 15px;
+  }
+
+  .menu:hover .menu-icon i:last-child {
+    width: 24px;
+  }
+
+  .menu[aria-expanded='true'] .menu-icon i {
+    top: 6px;
+    width: 24px;
+  }
+
+  .menu[aria-expanded='true'] .menu-icon i:first-child {
+    transform: rotate(45deg);
+  }
+
+  .menu[aria-expanded='true'] .menu-icon i:last-child {
+    transform: rotate(-45deg);
+  }
+
+  /* — panel a pantalla completa — */
+  .nav-panel {
+    position: fixed;
+    inset: 0;
+    z-index: calc(var(--z-header) - 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    padding: calc(var(--frame) + 6.5rem) var(--gutter) calc(var(--frame) + 2rem);
+    background: var(--color-bg);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    clip-path: inset(0 0 100% 0);
+    visibility: hidden;
+    transition:
+      clip-path 620ms var(--ease-out),
+      visibility 0s linear 620ms;
+  }
+
+  .nav-panel.is-open {
+    clip-path: inset(0 0 0 0);
+    visibility: visible;
+    transition:
+      clip-path 620ms var(--ease-out),
+      visibility 0s;
+  }
+
+  :global(html.nav-open) {
+    overflow: hidden;
+  }
+
+  /* el listado ocupa el alto disponible: cinco filas iguales
+     separadas por filetes, como un directorio de galería */
+  .panel-nav {
+    flex: 1;
+    display: flex;
+  }
+
+  .panel-nav ul {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .panel-nav li {
+    flex: 1 1 auto;
+    display: flex;
+    min-height: 3.25rem;
+  }
+
+  .panel-nav li,
+  .panel-foot {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 520ms var(--ease-out),
+      transform 520ms var(--ease-out);
+  }
+
+  .nav-panel.is-open .panel-nav li,
+  .nav-panel.is-open .panel-foot {
+    opacity: 1;
+    transform: none;
+    transition-delay: calc(160ms + var(--i) * 70ms);
+  }
+
+  .panel-nav a {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 2.4rem auto;
+    justify-content: start;
+    align-items: baseline;
+    align-content: center;
+    padding-block: clamp(0.55rem, 1.6vw, 0.9rem);
+    border-bottom: 1px solid var(--color-line-soft);
+  }
+
+  .panel-nav li:last-child a {
+    border-bottom: none;
+  }
+
+  .panel-nav .idx {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.14em;
+    color: var(--color-ink-faint);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  .panel-nav .name {
+    font-size: clamp(1.75rem, 8.5vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--color-ink-muted);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  .panel-nav a.is-active .idx,
+  .panel-nav a:hover .idx {
+    color: var(--color-ink-muted);
+  }
+
+  .panel-nav a.is-active .name,
+  .panel-nav a:hover .name {
+    color: var(--color-ink);
+  }
+
+  .panel-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    border-top: 1px solid var(--color-line-soft);
+    padding-top: var(--space-md);
+  }
+
+  .panel-lang {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.18em;
+    color: var(--color-ink-muted);
+  }
+
+  .panel-lang .code {
+    border: 1px solid var(--color-line);
+    padding: 0.3rem 0.6rem;
+    letter-spacing: 0.14em;
+    color: var(--color-ink);
+  }
+
+  .panel-mail {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.1em;
+    color: var(--color-ink-faint);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  .panel-mail:hover {
+    color: var(--color-ink);
   }
 
   @keyframes nav-in {
@@ -120,25 +635,87 @@ const links = [
     }
   }
 
-  @media (max-width: 640px) {
-    .portfolio-nav {
-      flex-direction: column;
-      align-items: center;
-      gap: 0.8rem;
-      padding: calc(var(--frame) + 0.9rem) var(--gutter) 0.5rem;
+  /* — escritorio: el panel no existe — */
+  @media (min-width: 900px) {
+    .nav-panel,
+    .nav-panel.is-open {
+      display: none;
+    }
+  }
+
+  /* — móvil y tableta: los enlaces se mudan al panel — */
+  @media (max-width: 899px) {
+    .bar {
+      grid-template-columns: auto 1fr;
+      padding: calc(var(--frame) + 0.9rem) calc(var(--frame) + 0.9rem);
+    }
+
+    .links,
+    .lang {
+      display: none;
+    }
+
+    .menu {
+      display: inline-flex;
     }
 
     .brand img {
-      height: 24px;
+      height: 26px;
     }
 
-    ul {
-      justify-content: center;
-      gap: 0.65rem 1.05rem;
+    .portfolio-nav.is-scrolled .brand img {
+      height: 22px;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .menu-labels {
+      display: none;
+    }
+  }
+
+  /* pantallas bajas (teléfono acostado): el panel se comprime para
+     entrar de una sola vista */
+  @media (max-width: 899px) and (max-height: 560px) {
+    .nav-panel {
+      gap: var(--space-sm);
+      padding-top: calc(var(--frame) + 4.75rem);
+      padding-bottom: calc(var(--frame) + 1rem);
     }
 
-    .lang a {
-      padding: 0.25rem 0.55rem;
+    .panel-nav li {
+      min-height: 2.25rem;
+    }
+
+    .panel-nav a {
+      padding-block: 0.25rem;
+    }
+
+    .panel-nav .name {
+      font-size: clamp(1.2rem, 4.6vh, 1.7rem);
+    }
+
+    .panel-foot {
+      padding-top: var(--space-sm);
+    }
+  }
+
+  /* — sin movimiento: nada de cortinas ni escalonados — */
+  @media (prefers-reduced-motion: reduce) {
+    .nav-panel {
+      clip-path: none;
+      display: none;
+    }
+
+    .nav-panel.is-open {
+      display: flex;
+      visibility: visible;
+    }
+
+    .panel-nav li,
+    .panel-foot {
+      opacity: 1;
+      transform: none;
     }
   }
 </style>

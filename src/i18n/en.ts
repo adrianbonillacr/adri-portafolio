@@ -37,6 +37,9 @@ export default {
         'Professional portfolio of Adrián D. Bonilla, graphic and advertising designer: branding, creative direction, motion graphics and results-driven paid media.',
     },
     nav: {
+      label: 'Portfolio',
+      menu: 'Menu',
+      close: 'Close',
       about: 'About me',
       projects: 'Projects',
       experience: 'Experience',

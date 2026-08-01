@@ -233,7 +233,10 @@ const links = [
     top: 0;
     left: 0;
     right: 0;
-    z-index: var(--z-header);
+    /* por encima del marco de galería: con el fondo a sangre, el filete
+       del marco cruzaba el menú y se leía como un cuadro superpuesto.
+       Ahora la barra tapa ese tramo y hace de borde superior */
+    z-index: calc(var(--z-frame) + 2);
     animation: nav-in 1.2s var(--ease-out) 0.5s both;
     transition: transform 550ms var(--ease-out);
   }
@@ -470,7 +473,7 @@ const links = [
   .nav-panel {
     position: fixed;
     inset: 0;
-    z-index: calc(var(--z-header) - 1);
+    z-index: calc(var(--z-frame) + 1);
     display: flex;
     flex-direction: column;
     justify-content: space-between;

@@ -242,14 +242,12 @@ const links = [
     transform: translateY(-115%);
   }
 
-  /* velo difuminado alineado al marco de galería (aparece al bajar) */
+  /* fondo sólido a sangre, sin aire arriba (aparece al bajar) */
   .portfolio-nav::before {
     content: '';
     position: absolute;
-    inset: var(--frame) var(--frame) 0;
-    background: color-mix(in srgb, var(--color-bg) 78%, transparent);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    inset: 0;
+    background: var(--color-bg);
     border-bottom: 1px solid transparent;
     opacity: 0;
     transition:
@@ -268,19 +266,19 @@ const links = [
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
     gap: var(--space-md);
-    padding: calc(var(--frame) + 1.1rem) calc(var(--frame) + 1.5rem);
+    padding: 1.15rem calc(var(--frame) + 1.5rem);
     transition: padding var(--dur-fast) var(--ease-out);
   }
 
   .portfolio-nav.is-scrolled .bar {
-    padding-block: calc(var(--frame) + 0.65rem);
+    padding-block: 0.8rem;
   }
 
   /* — progreso de lectura: 1px al pie de la barra — */
   .progress {
     position: absolute;
-    left: var(--frame);
-    right: var(--frame);
+    left: 0;
+    right: 0;
     bottom: 0;
     height: 1px;
     background: var(--color-ink);
@@ -485,7 +483,7 @@ const links = [
     flex-direction: column;
     justify-content: space-between;
     gap: var(--space-lg);
-    padding: calc(var(--frame) + 6.5rem) var(--gutter) calc(var(--frame) + 2rem);
+    padding: calc(var(--frame) + 5rem) var(--gutter) calc(var(--frame) + 2rem);
     background: var(--color-bg);
     overflow-y: auto;
     overscroll-behavior: contain;
@@ -647,7 +645,11 @@ const links = [
   @media (max-width: 899px) {
     .bar {
       grid-template-columns: auto 1fr;
-      padding: calc(var(--frame) + 0.9rem) calc(var(--frame) + 0.9rem);
+      padding: 0.95rem calc(var(--frame) + 0.9rem);
+    }
+
+    .portfolio-nav.is-scrolled .bar {
+      padding-block: 0.7rem;
     }
 
     .links,
@@ -679,7 +681,7 @@ const links = [
   @media (max-width: 899px) and (max-height: 560px) {
     .nav-panel {
       gap: var(--space-sm);
-      padding-top: calc(var(--frame) + 4.75rem);
+      padding-top: calc(var(--frame) + 4rem);
       padding-bottom: calc(var(--frame) + 1rem);
     }
 

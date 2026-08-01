@@ -1,12 +1,16 @@
 ---
 /**
- * Página de diagnóstico temporal (no indexada, no enlazada).
- * Sirve para medir en el teléfono real cómo se comporta la zona segura
- * superior: dónde ancla el navegador un elemento `position: fixed`,
- * cuánto vale env(safe-area-inset-top) y si lo que se pinta por encima
- * del borde llega a verse. Una captura de esta pantalla basta.
+ * Diagnóstico temporal de la franja superior en iOS.
  *
- * Se puede borrar en cuanto el asunto de la barra quede cerrado.
+ * Pinta tres barras del mismo alto, en tres columnas, cada una con una
+ * técnica distinta. La que aparezca en la franja del reloj es la que
+ * sirve para dejar esa zona sólida:
+ *
+ *   A (verde)   fixed + background en el propio elemento
+ *   B (naranja) sticky + background en el propio elemento
+ *   C (azul)    fixed + background en un ::before (lo que fallaba)
+ *
+ * Se retira en cuanto la barra del portafolio quede resuelta.
  */
 const build = new Date().toISOString().replace('T', ' ').slice(0, 16);
 ---
@@ -17,7 +21,7 @@ const build = new Date().toISOString().replace('T', ' ').slice(0, 16);
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="robots" content="noindex, nofollow" />
-    <title>Diagnóstico de zona segura</title>
+    <title>Diagnóstico · franja superior</title>
     <style>
       * {
         box-sizing: border-box;
@@ -27,11 +31,54 @@ const build = new Date().toISOString().replace('T', ' ').slice(0, 16);
       body {
         background: #0e0e0e;
         color: #f4f3f0;
-        font: 15px/1.5 ui-monospace, 'Courier New', monospace;
-        padding: 0 12px 40vh;
+        font: 14px/1.4 ui-monospace, 'Courier New', monospace;
+        padding-bottom: 60vh;
       }
 
-      /* franjas de colores tras el contenido, para ver qué tapa qué */
+      /* — las tres barras: mismo alto, tercios de pantalla — */
+      .barra {
+        height: 92px;
+        padding-top: 6px;
+        text-align: center;
+        font-weight: 700;
+        font-size: 13px;
+        color: #06140c;
+      }
+
+      .a {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 33.33%;
+        z-index: 50;
+        background: #00c46a; /* verde */
+      }
+
+      .c {
+        position: fixed;
+        top: 0;
+        left: 66.66%;
+        width: 33.34%;
+        z-index: 50;
+      }
+
+      .c::before {
+        content: '';
+        position: absolute;
+        inset: -96px 0 0;
+        background: #2f6bff; /* azul */
+        z-index: -1;
+      }
+
+      .b {
+        position: sticky;
+        top: 0;
+        margin-left: 33.33%;
+        width: 33.33%;
+        z-index: 40;
+        background: #ff8a1f; /* naranja */
+      }
+
       .relleno {
         background: repeating-linear-gradient(
           135deg,
@@ -40,40 +87,13 @@ const build = new Date().toISOString().replace('T', ' ').slice(0, 16);
           #b02aa0 14px,
           #b02aa0 28px
         );
-        height: 260px;
-        margin-top: 0;
-      }
-
-      /* barra fija igual que la del sitio: top 0 + relleno de zona segura */
-      .barra {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 50;
-        padding-top: env(safe-area-inset-top, 0px);
-        background: #00c46a;
-      }
-
-      /* prolongación por encima del borde (la que no funcionó) */
-      .barra::before {
-        content: '';
-        position: absolute;
-        inset: -96px 0 0;
-        background: #00e0ff;
-        z-index: -1;
-      }
-
-      .barra p {
-        padding: 10px 12px;
-        font-weight: 700;
-        color: #04140b;
+        height: 240px;
       }
 
       .datos {
         position: relative;
         z-index: 1;
-        margin-top: 200px;
+        margin: 12px;
         border: 2px solid #f4f3f0;
         padding: 12px;
         background: #0e0e0e;
@@ -84,30 +104,39 @@ const build = new Date().toISOString().replace('T', ' ').slice(0, 16);
       }
 
       h1 {
-        font-size: 16px;
-        margin-bottom: 10px;
+        font-size: 15px;
+        margin-bottom: 8px;
       }
 
       li {
-        margin-bottom: 6px;
+        margin-bottom: 5px;
         list-style: none;
+      }
+
+      .leyenda {
+        margin: 12px;
+        padding: 10px;
+        border: 1px dashed #666;
       }
     </style>
   </head>
   <body>
-    <div class="barra">
-      <p>BARRA FIJA (verde) · lo azul es lo que pinto por encima</p>
-    </div>
+    <!-- B va en el flujo del documento (sticky); A y C flotan encima -->
+    <div class="barra b">B · STICKY</div>
+    <div class="barra a">A · FIJO<br />fondo elemento</div>
+    <div class="barra c">C · FIJO<br />fondo ::before</div>
 
-    <div class="relleno"></div>
+    <p class="leyenda">
+      Baja un poco con el dedo y captura la parte de arriba: ¿qué color se ve en la franja del
+      reloj?
+    </p>
 
     <section class="datos">
       <h1>Diagnóstico · build {build}</h1>
-      <ul id="salida">
-        <li>midiendo…</li>
-      </ul>
+      <ul id="salida"><li>midiendo…</li></ul>
     </section>
 
+    <div class="relleno"></div>
     <div class="relleno"></div>
     <div class="relleno"></div>
     <div class="relleno"></div>
@@ -118,30 +147,23 @@ const build = new Date().toISOString().replace('T', ' ').slice(0, 16);
         'position:fixed;top:0;left:0;width:1px;height:env(safe-area-inset-top,0px);visibility:hidden';
       document.body.appendChild(probe);
 
-      const probeBottom = document.createElement('div');
-      probeBottom.style.cssText =
-        'position:fixed;top:0;left:0;width:1px;height:env(safe-area-inset-bottom,0px);visibility:hidden';
-      document.body.appendChild(probeBottom);
-
       const pinta = () => {
-        const barra = document.querySelector('.barra').getBoundingClientRect();
+        const a = document.querySelector('.a').getBoundingClientRect();
+        const b = document.querySelector('.b').getBoundingClientRect();
         const vv = window.visualViewport;
         const filas = [
           ['env top', Math.round(probe.getBoundingClientRect().height) + ' px'],
-          ['env bottom', Math.round(probeBottom.getBoundingClientRect().height) + ' px'],
-          ['barra fija .top', Math.round(barra.top) + ' px'],
-          ['barra fija .bottom', Math.round(barra.bottom) + ' px'],
+          ['A fijo .top', Math.round(a.top) + ' px'],
+          ['B sticky .top', Math.round(b.top) + ' px'],
           ['innerHeight', window.innerHeight + ' px'],
           ['clientHeight', document.documentElement.clientHeight + ' px'],
           ['scrollY', Math.round(window.scrollY) + ' px'],
           [
             'visualViewport',
             vv
-              ? `h=${Math.round(vv.height)} offTop=${Math.round(vv.offsetTop)} pageTop=${Math.round(vv.pageTop)} scale=${vv.scale}`
+              ? `h=${Math.round(vv.height)} offTop=${Math.round(vv.offsetTop)} pageTop=${Math.round(vv.pageTop)}`
               : 'no soportado',
           ],
-          ['dpr', window.devicePixelRatio],
-          ['navegador', navigator.userAgent.slice(0, 78)],
         ];
         document.getElementById('salida').innerHTML = filas
           .map(([k, v]) => `<li>${k}: <b>${v}</b></li>`)

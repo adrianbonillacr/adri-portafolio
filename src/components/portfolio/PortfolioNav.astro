@@ -248,7 +248,11 @@ const links = [
     padding-top: env(safe-area-inset-top, 0px);
     /* el fondo va en el propio elemento, no en un pseudo-elemento */
     background: var(--color-bg);
-    box-shadow: 0 10px 22px -10px rgba(0, 0, 0, 0.95);
+    /* la sombra cae solo hacia abajo y el recorte impide que difumine
+       por encima: así el color del menú y el del margen superior son
+       exactamente el mismo, sin costura visible */
+    box-shadow: 0 12px 22px -12px rgba(0, 0, 0, 0.95);
+    clip-path: inset(0 -100vw -60px -100vw);
     animation: nav-in 1.2s var(--ease-out) 0.5s both;
     transition: transform 550ms var(--ease-out);
   }

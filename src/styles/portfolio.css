@@ -12,6 +12,12 @@
   letter-spacing: 0.2em;
 }
 
+/* La barra hace de borde superior del marco de galería: sin su filete
+   arriba no queda ninguna línea cruzando el menú */
+.gallery-frame {
+  border-top: none;
+}
+
 /* La barra de navegación es fija: las anclas frenan antes para que el
    título de la sección no quede debajo de ella */
 #contenido section[id] {

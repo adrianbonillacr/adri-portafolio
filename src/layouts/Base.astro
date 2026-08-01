@@ -42,7 +42,9 @@ const ogImage = new URL('/assets/og.jpg', Astro.site);
 <html lang={lang}>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- viewport-fit=cover: en iOS el lienzo llega hasta el borde real de
+         la pantalla; las zonas seguras se compensan con env() donde toca -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
